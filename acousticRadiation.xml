@@ -1,0 +1,63 @@
+<extension version="1" name="acousticRadiation">
+    <script src="main.py"/>
+    <interface context="Mechanical">
+        <images>images</images>
+        <callbacks>
+            <oninit>onInit</oninit>
+            <onload>onLoad</onload>
+
+        </callbacks>
+        <toolbar name="acousticRadiation" caption="acousticRadiation">
+            <entry name="acousticRadiation" icon="icon_environment_acoustic_radiation_boundary_16x16">
+                <callbacks>
+                    <onclick>CreateAcousticRadiationObj</onclick>
+                </callbacks>
+            </entry>
+        </toolbar>
+    </interface>
+    <simdata context="Mechanical">
+        <result name="acousticRadiation" version="1" caption="acousticRadiation"
+                icon="icon_environment_acoustic_radiation_boundary_16x16" location="element" type="scalar" unit="Power">
+            <callbacks>
+                <evaluate>EvalResult</evaluate>
+                <onshow>onShow</onshow>
+            </callbacks>
+            <property name="Geometry" caption="Geometry" control="scoping"></property>
+        </result>
+    </simdata>
+</extension>
+
+
+        <!--<extension version="1" name="acousticRadiation">-->
+        <!--    <script src="main.py"/>-->
+
+        <!--    <interface context="Mechanical">-->
+        <!--        <images>images</images>-->
+
+        <!--        <toolbar name="acousticRadiation" caption="acousticRadiation">-->
+        <!--            <entry name="acousticRadiation" icon="icon_environment_acoustic_radiation_boundary_16x16">-->
+        <!--                <callbacks>-->
+        <!--                    <onClick>CreateAcousticRadiationPlot</onClick>-->
+        <!--                </callbacks>-->
+        <!--            </entry>-->
+        <!--        </toolbar>-->
+
+
+        <!--    </interface>-->
+
+        <!--    <simdata context="Mechanical">-->
+
+        <!--        <result name="acousticRadiation" version="1" caption="acousticRadiation"-->
+        <!--                icon="icon_environment_acoustic_radiation_boundary_16x16" location="node" type="vector" unit="Force">-->
+        <!--            <callbacks>-->
+        <!--                <evaluate>EvalResult</evaluate>-->
+        <!--            </callbacks>-->
+        <!--            <property name="Geometry" caption="Geometry" control="scoping"></property>-->
+        <!--&lt;!&ndash;            <attributes selection_filter="body"/>&ndash;&gt;-->
+        <!--        </result>-->
+
+        <!--    </simdata>-->
+
+        <!--</extension>-->
+
+
