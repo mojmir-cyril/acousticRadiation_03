@@ -1,0 +1,762 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ansys.Common.Interop.212</name>
+    </assembly>
+    <members>
+        <member name="M:Ansys.Common.Interop.DSWBApplet.IDSAppCommand.SetContent(Ansys.Common.Interop.AnsCoreObjects.IAnsBSTRColl)">
+            <summary>
+            Adds multiline content using the correct system-dependent line ending.
+            </summary>
+            <param name="pVal"> A collection of single-line content commands. </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSWBApplet.IDSAppCommandNamespace.GetVariable(System.Object)">
+            <summary>
+            Get Variable of namespace.
+            </summary>
+            <param name="id"> A unique entity is defined by a unique id. </param>
+            <returns> The variable of some unique entity </returns>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSWBApplet.IDSAppCommandNamespace.ReserveVariable(System.Object,System.Object)">
+            <summary>
+            Reserve Variable of namespace given a unique key and a hint
+            </summary>
+            <param name="hint"> An object which helps the namespace choose a variable name. Implementation defined. </param>
+            <param name="key"> A unique key which can be used later to promote a reserved variable. Implementation defined. </param>
+            <returns> The variable name which was reserved </returns>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSWBApplet.IDSAppCommandNamespace.PromoteReservedVariable(System.Object,System.Object)">
+            <summary>
+            Promote a previously reserved variable given a unique key and entity id
+            </summary>
+            <param name="id"> A unique id for the variable in the namespace for future calls to GetVariable </param>
+            <param name="key"> The key used by a previous call to ReserveVariable </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSWBApplet.IDSAppCommandNamespace.GetNativeVariable(System.Object)">
+            <summary>
+            Designed to be used when we need the IDataModelObject part of a UserObject
+            </summary>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSWBApplet.IDSConstructionLineAppCommand.SetContent(Ansys.Common.Interop.AnsCoreObjects.IAnsBSTRColl)">
+            <summary>
+            Adds multiline content using the correct system-dependent line ending.
+            </summary>
+            <param name="pVal"> A collection of single-line content commands. </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSWBApplet.IDSConstructionLineAppCommand.Initialize(System.Int32,Ansys.Common.Interop.AnsCoreObjects.IAnsDelegate,Ansys.Common.Interop.DSLines.DsConstructionLinePythonOperation,System.UInt16@)">
+            <summary>
+            Initialize the construction app command object and register the event listener.
+            </summary>
+            <param name="construction_line_delegate"> The construction line delegate to which event listeners can be subscribed. </param>
+            <param name="construction_line_id"> The construction line instance to which this command is associated. </param>
+            <param name="description"> A one-word description of the command action, used for commenting when recording. </param>
+            <param name="operation"> The expected operation from which data will be acquired. </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSWBApplet.IDSConstructionLineAppCommand.Submit(Ansys.Common.Interop.DSWBApplet.IDSAppCommands)">
+            <summary>
+            Submit the command for execution.
+            </summary>
+            <param name="command_center"> The IAppCommands instance through which this command will be submitted. </param>
+        </member>
+        <member name="P:Ansys.Common.Interop.DSWBApplet.IDSConstructionLineAppCommand.OperationData">
+            <summary>
+            Get a reference to the data record from the python execution.
+            </summary>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSWBApplet._DSAppCommandClass.SetContent(Ansys.Common.Interop.AnsCoreObjects.IAnsBSTRColl)">
+            <summary>
+            Adds multiline content using the correct system-dependent line ending.
+            </summary>
+            <param name="pVal"> A collection of single-line content commands. </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSWBApplet._DSConstructionLineAppCommandClass.SetContent(Ansys.Common.Interop.AnsCoreObjects.IAnsBSTRColl)">
+            <summary>
+            Adds multiline content using the correct system-dependent line ending.
+            </summary>
+            <param name="pVal"> A collection of single-line content commands. </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSWBApplet._DSConstructionLineAppCommandClass.Initialize(System.Int32,Ansys.Common.Interop.AnsCoreObjects.IAnsDelegate,Ansys.Common.Interop.DSLines.DsConstructionLinePythonOperation,System.UInt16@)">
+            <summary>
+            Initialize the construction app command object and register the event listener.
+            </summary>
+            <param name="construction_line_delegate"> The construction line delegate to which event listeners can be subscribed. </param>
+            <param name="construction_line_id"> The construction line instance to which this command is associated. </param>
+            <param name="description"> A one-word description of the command action, used for commenting when recording. </param>
+            <param name="operation"> The expected operation from which data will be acquired. </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSWBApplet._DSConstructionLineAppCommandClass.Submit(Ansys.Common.Interop.DSWBApplet.IDSAppCommands)">
+            <summary>
+            Submit the command for execution.
+            </summary>
+            <param name="command_center"> The IAppCommands instance through which this command will be submitted. </param>
+        </member>
+        <member name="P:Ansys.Common.Interop.DSWBApplet._DSConstructionLineAppCommandClass.OperationData">
+            <summary>
+            Get a reference to the data record from the python execution.
+            </summary>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSObjectsAuto.IDSObjectsQueries.NextObjectId">
+            <summary>
+            ID of the next object created.
+            </summary>
+        </member>
+        <member name="M:Ansys.Common.Interop.DSObjectsAuto._DSObjectsQueriesClass.NextObjectId">
+            <summary>
+            ID of the next object created.
+            </summary>
+        </member>
+        <member name="T:Ansys.Common.Interop.AnsysBRep.IAnsNurbsCurveData">
+            <summary>
+            Interface for struct to hold NURBS curve geometric data
+            </summary>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsNurbsCurveData.set_Flags(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Set Flags
+            </summary>
+            <param name="isClosed"> Flag to set if curve is closed </param>
+            <param name="isPeriodic"> Flag to set periodicity </param>
+            <param name="singularity"> FLag to set singularity </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsNurbsCurveData.set_ControlPoints(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d[])">
+            <summary>
+            Set Control points
+            </summary>
+            <param name="controlPoints"> Array of control points </param>
+            <param name="numPoints"> Total number of control points </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsNurbsCurveData.set_Weights(System.UInt32,System.Double[])">
+            <summary>
+            Set weights if NURBS is rational
+            </summary>
+            <param name="numPoints"> Total number of weights for control points </param>
+            <param name="weights"> Array of weights for control points </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsNurbsCurveData.set_Knots(System.UInt32,System.Double[])">
+            <summary>
+            Set Knots
+            </summary>
+            <param name="knotVector"> Knot vector </param>
+            <param name="numKnots"> Size of knot vector </param>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep.IAnsNurbsCurveData.Degree">
+            <summary>
+            Set degree
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep.IAnsNurbsCurveData.Period">
+            <summary>
+            Set period
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep.IAnsNurbsCurveData.KnotTolerance">
+            <summary>
+            Set knot tolerance
+            </summary>
+        </member>
+        <member name="T:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData">
+            <summary>
+            Interface for struct to hold NURBS surface geometric data
+            </summary>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData.set_UFlags(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Set Flags for U direction
+            </summary>
+            <param name="isClosedInU"> Flag to set if surface is closed in U direction </param>
+            <param name="isPeriodicInU"> Flag to set periodicity in U direction </param>
+            <param name="singularityInU"> Flag to set singularity in U direction </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData.set_VFlags(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Set Flags for V direction
+            </summary>
+            <param name="isClosedInV"> Flag to set if surface is closed in V direction </param>
+            <param name="isPeriodicInV"> Flag to set periodicity in V direction </param>
+            <param name="singularityInV"> Flag to set singularity in V direction </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData.set_ControlPoints(System.UInt32,System.UInt32,System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d[])">
+            <summary>
+            Set Control points
+            </summary>
+            <param name="controlPoints"> Array of control points such that control point (u,v) is (u * numPointsInV + v)th entry in the array </param>
+            <param name="numPoints"> Total number of control points </param>
+            <param name="numPointsInU"> Total number of control points in U direction </param>
+            <param name="numPointsInV"> Total number of control points in V direction </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData.set_Weights(System.UInt32,System.Double[])">
+            <summary>
+            Set weights
+            </summary>
+            <param name="numPoints"> Total number of weights for control points </param>
+            <param name="weights"> Array of weights for control points such that weight of control point (u,v) is (u * numPointsInV + v)th entry in the array </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData.set_UKnots(System.UInt32,System.Double[])">
+            <summary>
+            Set knot vector in U direction
+            </summary>
+            <param name="numKnots"> Size of the knot vector </param>
+            <param name="uKnotVector"> Knot vector to be set </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData.set_VKnots(System.UInt32,System.Double[])">
+            <summary>
+            Set knot vector in V direction
+            </summary>
+            <param name="numKnots"> Size of the knot vector </param>
+            <param name="vKnotVector"> Knot vector to be set </param>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData.DegreeInU">
+            <summary>
+            Set degree in U direction
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData.PeriodInU">
+            <summary>
+            Set period in U direction
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData.KnotToleranceInU">
+            <summary>
+            Set knot tolerance in U direction
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData.DegreeInV">
+            <summary>
+            Set degree in V direction
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData.PeriodInV">
+            <summary>
+            Set period in V direction
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData.KnotToleranceInV">
+            <summary>
+            Set knot tolerance in V direction
+            </summary>
+        </member>
+        <member name="T:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM">
+            <summary>
+            Interface for BRep Creator
+            </summary>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateVertex">
+            <summary>
+            Create Vertex TopoCell
+            </summary>
+            <returns> Topo Id of Vertex TopoCell created </returns>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateEdge">
+            <summary>
+            Create Edge TopoCell
+            </summary>
+            <returns> Topo Id of Edge TopoCell created </returns>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateFace">
+            <summary>
+            Create Face TopoCell
+            </summary>
+            <returns> Topo Id of Face TopoCell created </returns>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateVolume(Ansys.Common.Interop.AnsysBRepTypes.eABrTopoType,System.Double)">
+            <summary>
+            Create Volume TopoCell
+            </summary>
+            <param name="massProperty"> Geometric properties of cell (volume/surface area/length) </param>
+            <param name="vType"> Volume type to be created </param>
+            <returns> Topo Id of Volume TopoCell created </returns>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.SetBoundingBoxForEdge(System.UInt32,System.Double[],System.Double[])">
+            <summary>
+            Set bounding box for edge
+            </summary>
+            <param name="boundingBoxMax"> 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> 3-D Location for the lower bound of the bounding box </param>
+            <param name="topoId"> Topo id of the Edge Cell for which bounding box is set </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.SetBoundingBoxForVolume(System.UInt32,System.Double[],System.Double[])">
+            <summary>
+            Set bounding box for volume
+            </summary>
+            <param name="boundingBoxMax"> 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> 3-D Location for the lower bound of the bounding box </param>
+            <param name="topoId"> Topo id of the Volume Cell for which bounding box is set </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreatePoint(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@)">
+            <summary>
+            Create Point
+            </summary>
+            <param name="location"> 3-D Location for the point </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateNoGeometryCurve(System.UInt32)">
+            <summary>
+            Create No Geometry Curve
+            </summary>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateLine(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@)">
+            <summary>
+            Create Line
+            </summary>
+            <param name="end"> End point of the line </param>
+            <param name="start"> Start point of the line </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateCircle(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,System.Double,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,System.Int32)">
+            <summary>
+            Create Circle
+            </summary>
+            <param name="center"> Center of the circle </param>
+            <param name="endPoint"> End Point of circle </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="radius"> Radius of circle </param>
+            <param name="startPoint"> Start point of circle </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+            <param name="zDirection"> Z-Direction for the circle plane </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateNurbsCurve(System.UInt32,Ansys.Common.Interop.AnsysBRep.IAnsNurbsCurveData,System.Int32)">
+            <summary>
+            Create NURBS Curve
+            </summary>
+            <param name="curveData"> Struct containing all geometry data for the NURBS curve </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateNurbsCurveByFitting(System.UInt32,System.Double,System.Double,Ansys.Common.Interop.AnsysBRep.IABrEvaluator,System.Int32)">
+            <summary>
+            Create NURBS Curve by fitting
+            </summary>
+            <param name="cadCurve"> CAD Evaluator for the curve </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="sMax"> Maximum parametric value for the curve </param>
+            <param name="sMin"> Minimum paramteric value for the curve </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateCalculatedCurve(System.UInt32,System.Double,System.Double,Ansys.Common.Interop.AnsysBRep.IABrEvaluator,System.Int32)">
+            <summary>
+            Create Calculated Curve
+            </summary>
+            <param name="cadCurve"> CAD Evaluator for the curve </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="sMax"> Maximum parametric value for the curve </param>
+            <param name="sMin"> Minimum paramteric value for the curve </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateNoGeometrySurface(System.UInt32)">
+            <summary>
+            Create No Geometry Surface
+            </summary>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreatePlane(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Plane
+            </summary>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="normal"> Normal to the plane </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="origin"> Origin for plane </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreatePlaneWithXDirection(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Plane with X Direction
+            </summary>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="normal"> Normal to the plane </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="origin"> Origin for plane </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+            <param name="xDirection"> Global direction corresponding to local x-axis of geometry </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateCylinder(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,System.Double,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Cylinder
+            </summary>
+            <param name="axis"> Axis for the cylinder </param>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="origin"> Origin of the cylinder </param>
+            <param name="radius"> Radius of cylinder </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateCylinderWithXDirection(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,System.Double,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Cylinder with X Direction
+            </summary>
+            <param name="axis"> Axis of the cylinder </param>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="origin"> Origin of the cylinder </param>
+            <param name="radius"> Radius of the cylinder </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+            <param name="xDirection"> Global direction corresponding to local x-axis of geometry </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateCone(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,System.Double,System.Double,System.Double,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Cone
+            </summary>
+            <param name="axis"> Axis of cone </param>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="halfCosine"> Cosine of the half angle subtended by the apex of the cone </param>
+            <param name="halfSine"> Sine of the half angle subtended by the apex of the cone </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="origin"> Origin of cone </param>
+            <param name="radius"> Radius of cone </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateConeWithXDirection(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,System.Double,System.Double,System.Double,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Cone with X Direction
+            </summary>
+            <param name="axis"> Axis of the cone </param>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="halfCosine"> Cosine of the half angle subtended by the apex of the cone </param>
+            <param name="halfSine"> Sine of the half angle subtended by the apex of the cone </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="origin"> Origin of the cone </param>
+            <param name="radius"> Radius of the cone </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+            <param name="xDirection"> Global direction corresponding to local x-axis of geometry </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateSphere(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,System.Double,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Sphere
+            </summary>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="origin"> Origin of sphere </param>
+            <param name="radius"> Radius of sphere </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateSphereWithXDirection(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,System.Double,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Sphere with X Direction
+            </summary>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="origin"> Origin of sphere </param>
+            <param name="radius"> Radius of sphere </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+            <param name="xDirection"> Global direction corresponding to local x-axis of geometry </param>
+            <param name="zDirection"> Global direction corresponding to local z-axis of geometry </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateTorus(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,System.Double,System.Double,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Torus
+            </summary>
+            <param name="axis"> Axis of the torus </param>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="majorRadius"> Major radius of the torus </param>
+            <param name="minorRadius"> Minor radius of the torus </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="origin"> Origin of the torus </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateTorusWithXDirection(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,Ansys.Common.Interop.idldsgelib.idlDSGeVector3d@,System.Double,System.Double,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Torus with X Direction
+            </summary>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="majorRadius"> Major radius of the torus </param>
+            <param name="minorRadius"> Minor radius of the torus </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="origin"> Origin of the torus </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+            <param name="xDirection"> Global direction corresponding to local x-axis of geometry </param>
+            <param name="zDirection"> Axis of the torus </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateUntrimmedNurbsSurface(System.UInt32,System.Double[],System.Double[],Ansys.Common.Interop.AnsysBRep.IABrEvaluator,Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Untrimmed NURBS surface
+            </summary>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="cadSurface"> CAD Evaluator for the surface </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="sMinMax"> Parametric range for the surface in U direction </param>
+            <param name="surfaceData"> Struct containing all geometry data for the NURBS surface </param>
+            <param name="tMinMax"> Parametric range for the surface in V direction </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateTrimmedNurbsSurface(System.UInt32,System.Double[],System.Double[],Ansys.Common.Interop.AnsysBRep.IABrEvaluator,Ansys.Common.Interop.AnsysBRep.IAnsNurbsSurfaceData,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Trimmed NURBS surface
+            </summary>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="cadSurface"> CAD Evaluator for the surface </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="sMinMax"> Parametric range for the surface in U direction </param>
+            <param name="surfaceData"> Struct containing all geometry data for the NURBS surface </param>
+            <param name="tMinMax"> Parametric range for the surface in V direction </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateCalculatedSurface(System.UInt32,System.Double[],System.Double[],Ansys.Common.Interop.AnsysBRep.IABrEvaluator,System.Int32,System.Double[],System.Double[])">
+            <summary>
+            Create Calculated surface
+            </summary>
+            <param name="boundingBoxMax"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the upper bound of the bounding box </param>
+            <param name="boundingBoxMin"> (optional: set tessellation before creating geometry if passing NULL) 3-D Location for the lower bound of the bounding box </param>
+            <param name="cadSurface"> CAD Evaluator for the surface </param>
+            <param name="orientation"> Orientation for geometry </param>
+            <param name="sMinMax"> Parametric range for the surface in U direction </param>
+            <param name="tMinMax"> Parametric range for the surface in V direction </param>
+            <param name="topoId"> Topo id of the topo cell for geometry creation </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.SetTesselationForEdge(System.UInt32,System.UInt32,System.UInt32[],System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d[])">
+            <summary>
+            Set Tesselation for edge
+            </summary>
+            <param name="indexList"> List of indices for tessellation </param>
+            <param name="numIndices"> Number of indices in index list </param>
+            <param name="numPoints"> Number of points in vertex list </param>
+            <param name="topoId"> The topoId of the edge </param>
+            <param name="vertexList"> List of vertex positions </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.SetTesselationForFace(System.UInt32,System.UInt32,Ansys.Common.Interop.AnsysBRepTypes.AnsFacetIndex[],System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d[],Ansys.Common.Interop.idldsgelib.idlDSGeVector3d[])">
+            <summary>
+            Set Tesselation for face
+            </summary>
+            <param name="indexList"> List of triangular facet indices </param>
+            <param name="normalList"> List of facet normals </param>
+            <param name="numFacets"> Number of facets in index list </param>
+            <param name="numPoints"> Number of points in vertex list </param>
+            <param name="topoId"> The topoId of the face </param>
+            <param name="vertexList"> List of vertex positions </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.MakeSureEdgeAlignsWithCircle(System.UInt32,System.Double,System.Double,Ansys.Common.Interop.AnsysBRep.IABrEvaluator)">
+            <summary>
+            Make sure that the orientation of the edge aligns with the circle
+            </summary>
+            <param name="cadCurve"> CAD Evaluator for the curve </param>
+            <param name="sMax"> Maximum parametric value for the curve </param>
+            <param name="sMin"> Minimum paramteric value for the curve </param>
+            <param name="topoId"> Topo id of the topo cell for alignment check </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.MakeSureEdgeAlignsWithNurbsCurve(System.UInt32,System.Double,System.Double,Ansys.Common.Interop.AnsysBRep.IABrEvaluator)">
+            <summary>
+            Make sure that the orientation of the edge aligns with the NURBS curve
+            </summary>
+            <param name="cadCurve"> CAD Evaluator for the curve </param>
+            <param name="sMax"> Maximum parametric value for the curve </param>
+            <param name="sMin"> Minimum paramteric value for the curve </param>
+            <param name="topoId"> Topo id of the topo cell for alignment check </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.MakeSureFaceAlignsWithPlane(System.UInt32,System.Double[],System.Double[],Ansys.Common.Interop.AnsysBRep.IABrEvaluator)">
+            <summary>
+            Make sure that the orientation of the face aligns with the plane
+            </summary>
+            <param name="cadSurface"> CAD Evaluator for the surface </param>
+            <param name="sMinMax"> Parametric range for the surface in U direction </param>
+            <param name="tMinMax"> Parametric range for the surface in V direction </param>
+            <param name="topoId"> Topo id of the topo cell for alignment check </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.MakeSureFaceAlignsWithCylinder(System.UInt32,System.Double[],System.Double[],Ansys.Common.Interop.AnsysBRep.IABrEvaluator)">
+            <summary>
+            Make sure that the orientation of the face aligns with the cylinder
+            </summary>
+            <param name="cadSurface"> CAD Evaluator for the surface </param>
+            <param name="sMinMax"> Parametric range for the surface in U direction </param>
+            <param name="tMinMax"> Parametric range for the surface in V direction </param>
+            <param name="topoId"> Topo id of the topo cell for alignment check </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.MakeSureFaceAlignsWithCone(System.UInt32,System.Double[],System.Double[],Ansys.Common.Interop.AnsysBRep.IABrEvaluator)">
+            <summary>
+            Make sure that the orientation of the face aligns with the cone
+            </summary>
+            <param name="cadSurface"> CAD Evaluator for the surface </param>
+            <param name="sMinMax"> Parametric range for the surface in U direction </param>
+            <param name="tMinMax"> Parametric range for the surface in V direction </param>
+            <param name="topoId"> Topo id of the topo cell for alignment check </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.MakeSureFaceAlignsWithSphere(System.UInt32,System.Double[],System.Double[],Ansys.Common.Interop.AnsysBRep.IABrEvaluator)">
+            <summary>
+            Make sure that the orientation of the face aligns with the sphere
+            </summary>
+            <param name="cadSurface"> CAD Evaluator for the surface </param>
+            <param name="sMinMax"> Parametric range for the surface in U direction </param>
+            <param name="tMinMax"> Parametric range for the surface in V direction </param>
+            <param name="topoId"> Topo id of the topo cell for alignment check </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.MakeSureFaceAlignsWithTorus(System.UInt32,System.Double[],System.Double[],Ansys.Common.Interop.AnsysBRep.IABrEvaluator)">
+            <summary>
+            Make sure that the orientation of the face aligns with the torus
+            </summary>
+            <param name="cadSurface"> CAD Evaluator for the surface </param>
+            <param name="sMinMax"> Parametric range for the surface in U direction </param>
+            <param name="tMinMax"> Parametric range for the surface in V direction </param>
+            <param name="topoId"> Topo id of the topo cell for alignment check </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateTopoUse(System.UInt32,System.UInt32,System.UInt32,System.Int32,Ansys.Common.Interop.AnsysBRepTypes.eABrUseClass)">
+            <summary>
+            Create Topo Use
+            </summary>
+            <param name="childId"> Topo id for child Topo Cell </param>
+            <param name="eClass"> Use Class for Topo Use </param>
+            <param name="frameId"> Id for Topo Frame for Topo Use. If no frame present, set this as 0 </param>
+            <param name="orientation">  </param>
+            <param name="parentId"> Topo id for parent Topo Cell </param>
+            <returns> Id for the created Topo Use </returns>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep.IAnsBRepCreatorCOM.CreateTopoFrame(System.UInt32,Ansys.Common.Interop.AnsysBRepTypes.eABrFrameClass)">
+            <summary>
+            Create Topo Frame
+            </summary>
+            <param name="eClass"> Frame Class for Topo Frame </param>
+            <param name="parentId"> Topo id for parent Topo Cell </param>
+            <returns> Id for the created Topo Frame </returns>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep._AnsysNurbsCurveDataClass.set_Flags(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Set Flags
+            </summary>
+            <param name="isClosed"> Flag to set if curve is closed </param>
+            <param name="isPeriodic"> Flag to set periodicity </param>
+            <param name="singularity"> FLag to set singularity </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep._AnsysNurbsCurveDataClass.set_ControlPoints(System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d[])">
+            <summary>
+            Set Control points
+            </summary>
+            <param name="controlPoints"> Array of control points </param>
+            <param name="numPoints"> Total number of control points </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep._AnsysNurbsCurveDataClass.set_Weights(System.UInt32,System.Double[])">
+            <summary>
+            Set weights if NURBS is rational
+            </summary>
+            <param name="numPoints"> Total number of weights for control points </param>
+            <param name="weights"> Array of weights for control points </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep._AnsysNurbsCurveDataClass.set_Knots(System.UInt32,System.Double[])">
+            <summary>
+            Set Knots
+            </summary>
+            <param name="knotVector"> Knot vector </param>
+            <param name="numKnots"> Size of knot vector </param>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep._AnsysNurbsCurveDataClass.Degree">
+            <summary>
+            Set degree
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep._AnsysNurbsCurveDataClass.Period">
+            <summary>
+            Set period
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep._AnsysNurbsCurveDataClass.KnotTolerance">
+            <summary>
+            Set knot tolerance
+            </summary>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep._AnsysNurbsSurfaceDataClass.set_UFlags(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Set Flags for U direction
+            </summary>
+            <param name="isClosedInU"> Flag to set if surface is closed in U direction </param>
+            <param name="isPeriodicInU"> Flag to set periodicity in U direction </param>
+            <param name="singularityInU"> Flag to set singularity in U direction </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep._AnsysNurbsSurfaceDataClass.set_VFlags(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Set Flags for V direction
+            </summary>
+            <param name="isClosedInV"> Flag to set if surface is closed in V direction </param>
+            <param name="isPeriodicInV"> Flag to set periodicity in V direction </param>
+            <param name="singularityInV"> Flag to set singularity in V direction </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep._AnsysNurbsSurfaceDataClass.set_ControlPoints(System.UInt32,System.UInt32,System.UInt32,Ansys.Common.Interop.idldsgelib.idlDSGePoint3d[])">
+            <summary>
+            Set Control points
+            </summary>
+            <param name="controlPoints"> Array of control points such that control point (u,v) is (u * numPointsInV + v)th entry in the array </param>
+            <param name="numPoints"> Total number of control points </param>
+            <param name="numPointsInU"> Total number of control points in U direction </param>
+            <param name="numPointsInV"> Total number of control points in V direction </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep._AnsysNurbsSurfaceDataClass.set_Weights(System.UInt32,System.Double[])">
+            <summary>
+            Set weights
+            </summary>
+            <param name="numPoints"> Total number of weights for control points </param>
+            <param name="weights"> Array of weights for control points such that weight of control point (u,v) is (u * numPointsInV + v)th entry in the array </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep._AnsysNurbsSurfaceDataClass.set_UKnots(System.UInt32,System.Double[])">
+            <summary>
+            Set knot vector in U direction
+            </summary>
+            <param name="numKnots"> Size of the knot vector </param>
+            <param name="uKnotVector"> Knot vector to be set </param>
+        </member>
+        <member name="M:Ansys.Common.Interop.AnsysBRep._AnsysNurbsSurfaceDataClass.set_VKnots(System.UInt32,System.Double[])">
+            <summary>
+            Set knot vector in V direction
+            </summary>
+            <param name="numKnots"> Size of the knot vector </param>
+            <param name="vKnotVector"> Knot vector to be set </param>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep._AnsysNurbsSurfaceDataClass.DegreeInU">
+            <summary>
+            Set degree in U direction
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep._AnsysNurbsSurfaceDataClass.PeriodInU">
+            <summary>
+            Set period in U direction
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep._AnsysNurbsSurfaceDataClass.KnotToleranceInU">
+            <summary>
+            Set knot tolerance in U direction
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep._AnsysNurbsSurfaceDataClass.DegreeInV">
+            <summary>
+            Set degree in V direction
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep._AnsysNurbsSurfaceDataClass.PeriodInV">
+            <summary>
+            Set period in V direction
+            </summary>
+        </member>
+        <member name="P:Ansys.Common.Interop.AnsysBRep._AnsysNurbsSurfaceDataClass.KnotToleranceInV">
+            <summary>
+            Set knot tolerance in V direction
+            </summary>
+        </member>
+        <member name="T:Ansys.Common.Interop.AnsysBRepTypes.AnsFacetIndex">
+            <summary>
+            Struct to hold triangular facet indices
+            </summary>
+        </member>
+        <member name="F:Ansys.Common.Interop.AnsysBRepTypes.AnsFacetIndex.index0">
+            <summary>
+            Index of first vertex
+            </summary>
+        </member>
+        <member name="F:Ansys.Common.Interop.AnsysBRepTypes.AnsFacetIndex.index1">
+            <summary>
+            Index of second vertex
+            </summary>
+        </member>
+        <member name="F:Ansys.Common.Interop.AnsysBRepTypes.AnsFacetIndex.index2">
+            <summary>
+            Index of third vertex
+            </summary>
+        </member>
+    </members>
+</doc>

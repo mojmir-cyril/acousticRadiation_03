@@ -1,0 +1,2164 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ans.ComponentSystem.Interop</name>
+    </assembly>
+    <members>
+        <member name="T:Ans.ComponentSystem.Interop.AnsVariant">
+            <summary>
+            Variant structure for Albion
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.AnsVariant.SetValue(System.Object)">
+            <summary>
+            Set the value from managed code by specifying
+            object.
+            </summary>
+            <param name="obj">value to set.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.AnsVariant.GetValue">
+            <summary>
+            return value of VARIANT as an object.
+            </summary>
+            <returns>object representation of VARIANT.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.AnsVariant.Clear">
+            <summary>
+            Clear the VARIANT by releasing interface or freeing
+            string.  Do not handle SAFEARRAY.
+            </summary>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.AnsVariantMarshaler">
+            <summary>
+            Custom marshaler for BSTR for Albion.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.AnsVariantMarshaler.CleanUpManagedData(System.Object)">
+            <summary>
+            Clean up function on garbage collection for managed side.  There
+            is nothing to do.
+            </summary>
+            <param name="ManagedObj">CLR allocatino of string.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.AnsVariantMarshaler.CleanUpNativeData(System.IntPtr)">
+            <summary>
+            Clean up function on garbage collection for unmanaged side.
+            </summary>
+            <param name="pNativeData">BSTR allocated in server.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.AnsVariantMarshaler.GetNativeDataSize">
+            <summary>
+            Return the size of unmanaged data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.AnsVariantMarshaler.MarshalManagedToNative(System.Object)">
+            <summary>
+            Marshal a managed String to unmanged BSTR.
+            </summary>
+            <param name="ManagedObj">managed string.</param>
+            <returns>unmanaged memory pointer to BSTR.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.AnsVariantMarshaler.MarshalNativeToManaged(System.IntPtr)">
+            <summary>
+            Marshal unmanaged BSTR pointer to managed String.
+            </summary>
+            <param name="pNativeData">unmanaged BSTR.</param>
+            <returns>managed string object.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.AnsVariantMarshaler.GetInstance(System.String)">
+            <summary>
+            Returns instance of the custom marshaler.  Only needed once
+            per application.  Singleton object is created if it does not
+            exist.
+            </summary>
+            <param name="cookie"></param>
+            <returns>instance of custom marshaler.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.AnsVariantMarshaler.AnsCreateVARIANT">
+            <summary>
+            Allocate memory for a VARIANT structure.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.Interop.AnsVariantMarshaler.AnsFreeVARIANT(System.IntPtr)"/>
+            <returns>memory allocated as a 'void *'.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.AnsVariantMarshaler.AnsFreeVARIANT(System.IntPtr)">
+            <summary>
+            Free memory allocated by AnsCreateVARIANT.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.Interop.AnsVariantMarshaler.AnsCreateVARIANT"/>
+            <param name="iMemory">Memory to release.</param>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.BSTRMarshaler">
+            <summary>
+            Custom marshaler for BSTR for Albion.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.CleanUpManagedData(System.Object)">
+            <summary>
+            Clean up function on garbage collection for managed side.  There
+            is nothing to do.
+            </summary>
+            <param name="ManagedObj">CLR allocatino of string.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.CleanUpNativeData(System.IntPtr)">
+            <summary>
+            Clean up function on garbage collection for unmanaged side.
+            </summary>
+            <param name="pNativeData">BSTR allocated in server.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.GetNativeDataSize">
+            <summary>
+            Return the size of unmanaged data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.MarshalManagedToNative(System.Object)">
+            <summary>
+            Marshal a managed String to unmanged BSTR.
+            </summary>
+            <param name="ManagedObj">managed string.</param>
+            <returns>unmanaged memory pointer to BSTR.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.MarshalNativeToManaged(System.IntPtr)">
+            <summary>
+            Marshal unmanaged BSTR pointer to managed String.
+            </summary>
+            <param name="pNativeData">unmanaged BSTR.</param>
+            <returns>managed string object.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.SysAllocStringLen(System.String,System.UInt32)">
+            <summary>
+            Windows API allocation of string.
+            </summary>
+            <param name="str">string to copy and trim if necessary.</param>
+            <param name="len">size of allocation.</param>
+            <returns>unmanaged copy of string.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.AnsSysAllocStringLen(System.String,System.UInt32)">
+            <summary>
+            ANSYS proxy entry point.
+            </summary>
+            <param name="str">string to copy and trim if necessary.</param>
+            <param name="len">size of allocation.</param>
+            <returns>unmanaged copy of string.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.AnsSysAllocStringLenFrom2ByteWChar(System.String,System.UInt32)">
+            <summary>
+            UNIX entry point that handles UTF mapping.  Not required on
+            Windows.
+            </summary>
+            <param name="str">string to copy and trim if necessary.</param>
+            <param name="len">size of allocation.</param>
+            <returns>unmanaged copy of string.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.SysFreeString(System.IntPtr)">
+            <summary>
+            Windows entry point to free allocated string.
+            </summary>
+            <param name="bstr">BSTR to release.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.AnsSysFreeString(System.IntPtr)">
+            <summary>
+            ANSYS proxy entry point to free allocated string.
+            </summary>
+            <param name="bstr">BSTR to release.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.SysStringLen(System.IntPtr)">
+            <summary>
+            Windows entry point to return length of string.
+            </summary>
+            <param name="bstr">BSTR to take length of.</param>
+            <returns>length of string.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.AnsSysStringLen(System.IntPtr)">
+            <summary>
+            ANSYS proxy entry point to return length of string.
+            </summary>
+            <param name="bstr">BSTR to take length of.</param>
+            <returns>length of string.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.BSTRMarshaler.GetInstance(System.String)">
+            <summary>
+            Returns instance of the custom marshaler.  Only needed once
+            per application.  Singleton object is created if it does not
+            exist.
+            </summary>
+            <param name="cookie"></param>
+            <returns>instance of custom marshaler.</returns>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.EnumeratorCpp`1">
+            <summary>
+            Wrapper class around Ans.ComponentSystem.IEnumeratorCpp to give us 
+            type safe access.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.EnumeratorCpp`1.#ctor(Ans.ComponentSystem.IEnumeratorCpp)">
+            <summary>
+            Constructor takes an IEnumeratorCpp to use for the implementation.
+            </summary>
+            <param name="p_iter"></param>
+        </member>
+        <member name="P:Ans.ComponentSystem.Interop.EnumeratorCpp`1.Current">
+            <summary>
+            Get the current item as T rather then object.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.EnumeratorCpp`1.MoveNext">
+            <summary>
+            Increment the enumerator.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.EnumeratorCpp`1.Reset">
+            <summary>
+            Reset to the same state as the enumerator was at construction.
+            </summary>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.ListCpp`1">
+            <summary>
+            Wrapper type around Ans.ComponentSystem.IListCpp to provide us with a
+            type safe access to a collection.
+            IDisposable is for calling Dispose() to release the associated unmanaged resource 
+            as soon as possible when ListCpp is no longer used(for mono 5.20).
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.ListCpp`1.disposed">
+            <summary>
+            Constructor takes an IListCpp to use as the implementation.
+            </summary>
+            <param name="p_list"></param>
+        </member>
+        <member name="P:Ans.ComponentSystem.Interop.ListCpp`1.Component">
+            <summary>
+            Readonly property to get at the underlying component interface.
+            </summary>
+        </member>
+        <member name="P:Ans.ComponentSystem.Interop.ListCpp`1.Count">
+            <summary>
+            Return the number of elements in the collection.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.ListCpp`1.GetEnumerator">
+            <summary>
+            Return an enumerator to allow immutable iteration over the whole 
+            collection.
+            </summary>
+            <returns>A strongly types enumerator.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.ListCpp`1.Add(`0)">
+            <summary>
+            Add the given item to the collection.
+            </summary>
+            <param name="p_item">Item to add.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.ListCpp`1.Clear">
+            <summary>
+            Empty the collection.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.ListCpp`1.Contains(`0)">
+            <summary>
+            Return whether the given element exists in the collection.
+            </summary>
+            <param name="p_item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.ListCpp`1.IndexOf(`0)">
+            <summary>
+            Return the index to an occurance of the given element in the 
+            collection.
+            </summary>
+            <param name="p_item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.ListCpp`1.Insert(System.Int32,`0)">
+            <summary>
+            Insert the given element at the given position.
+            </summary>
+            <param name="p_idx"></param>
+            <param name="p_item"></param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.ListCpp`1.Remove(`0)">
+            <summary>
+            Remove all occurances of the given element.
+            </summary>
+            <param name="p_item"></param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.ListCpp`1.RemoveAt(System.Int32)">
+            <summary>
+            Remove the element at the given position.
+            </summary>
+            <param name="p_idx"></param>
+        </member>
+        <member name="P:Ans.ComponentSystem.Interop.ListCpp`1.Item(System.Int32)">
+            <summary>
+            Indexer to allow access to the elements of the collection.
+            </summary>
+            <param name="p_idx"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.ListDoubleCpp">
+            <summary>
+            Unlike ListCpp which is a wrapper around a c++ implementation, this 
+            is a C# implementation of a double list. 
+            
+            The reason for providing this is so that we can effieciently pass
+            data to C++ where it already exists in C# form.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.ListDoubleCpp.Remove(System.Double)">
+            <summary>
+            The list cpp instances will deleta all matching entries, so 
+            we should make sure the same occurs here.
+            </summary>
+            <param name="p_item"></param>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.ReadOnlyUint64List">
+            <summary>
+            Designed to be safe for access from multiple threads.
+            (Unlike VariantColl which holds it's underlying
+            container in a non-threadsafe RefCntPtr.)
+            </summary>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.Definitions">
+            <summary>
+            Utilities class for use by the Interop infrastructure.
+            </summary>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.Definitions.CLSCTX">
+            <summary>
+            Interop for CoCreateInstance server flag.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.CLSCTX.INPROC_SERVER">
+            <summary>
+            In process server.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.CLSCTX.INPROC_HANDLER">
+            <summary>
+            In process handler.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.CLSCTX.LOCAL_SERVER">
+            <summary>
+            Across process boundary.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.CLSCTX.REMOTE_SERVER">
+            <summary>
+            Across process boundary.
+            </summary>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.Definitions.HRESULT">
+            <summary>
+            List of standard result values.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.HRESULT.S_OK">
+            <summary>
+            AOK.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.HRESULT.S_FALSE">
+            <summary>
+            Operation did not have error but did not succeed either.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.HRESULT.E_NOTIMPL">
+            <summary>
+            Interface method not implemented.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.HRESULT.E_OUTOFMEMORY">
+            <summary>
+            Failure on allocation of memory.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.HRESULT.E_INVALIDARG">
+            <summary>
+            Invalid argument used.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.HRESULT.E_NOINTERFACE">
+            <summary>
+            Component does not support interface.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.HRESULT.E_POINTER">
+            <summary>
+            Returned pointer null.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.HRESULT.E_HANDLE">
+            <summary>
+            Invalid handle.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.HRESULT.E_ABORT">
+            <summary>
+            Operation aborted.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.HRESULT.E_FAIL">
+            <summary>
+            Generic failure.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.HRESULT.E_ACCESSDENIED">
+            <summary>
+            Not enough privilege to access file or other O/S resource.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.HRESULT.CLASS_E_NOAGGREGATION">
+            <summary>
+            Component cannot be aggregated.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.IID_IAnsUnknown">
+            <summary>
+            Standard GUID for IAnsUnknown.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.Definitions.IID_IAnsClassFactory">
+            <summary>
+            Standard GUID for IAnsClassFactory.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.Definitions.CoRegisterClassObject(System.Guid,System.IntPtr,Ans.ComponentSystem.Interop.Definitions.CLSCTX,Ans.ComponentSystem.Interop.Definitions.REGCLS,System.UInt32@)">
+            <summary>
+            Entry point in CLR to register the class object for specified GUID.
+            Specify the implementation of IAnsClassFactory for the specified GUID.
+            </summary>
+            <param name="rclsid">Component id.</param>
+            <param name="pUnk">IAnsClassFactory for specified component.</param>
+            <param name="dwClsContext">server mode.</param>
+            <param name="flags"></param>
+            <param name="lpdwRegister"></param>
+            <returns>HRESULT.S_OK for success; failure code otherwise.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.Definitions.GetRegisteredCoClasses(System.String,System.String[]@,System.Guid[]@)">
+            <summary>
+            Retrieve the registered CoClasses from given shared object.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.Interop.MiniCom.GetRegisteredCoClasses(System.String,System.UInt32@,System.IntPtr*@,System.IntPtr**@)"/>
+            <param name="iPath">complete path to the shared object.</param>
+            <param name="oProgIDs">array of progids.</param>
+            <param name="oGuids">array of guids.</param>
+            <returns>HRESULT.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.Definitions.GetRuntimeRegisteredCoClasses(System.String,System.Guid[]@,System.Guid[]@)">
+            <summary>
+            Retrieve the registered CoClasses to be registered at runtime from given shared object.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.Interop.MiniCom.GetRegisteredCoClasses(System.String,System.UInt32@,System.IntPtr*@,System.IntPtr**@)"/>
+            <param name="iPath">complete path to the shared object.</param>
+            <param name="oGuids">array of guids.</param>
+            <param name="oRuntimeTokens">array of tokens.</param>
+            <returns>HRESULT.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.Definitions.PerformCustomRegistrationForAnsRegistry(System.String,Ans.ComponentSystem.Interop.Definitions.AnsRegAction)">
+            <summary>
+            Retrieve the custom registration method to be processed at runtime from given shared object.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.Interop.MiniCom.GetRegisteredCoClasses(System.String,System.UInt32@,System.IntPtr*@,System.IntPtr**@)"/>
+            <param name="iPath">complete path to the shared object.</param>
+            <param name="regMode">indicates registration or unregistration (TRUE for former, FALSE for latter)</param>
+            <returns>HRESULT.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.Definitions.ParseRegistryInfo(System.String,System.Collections.Generic.List{System.String}@,System.Collections.Generic.List{System.Guid}@,System.Collections.Generic.List{System.String}@)">
+            <summary>
+            Parse the Registration info dumped to a file and return list of
+            prog id / guid / dll tuples.
+            </summary>
+            <param name="iInfo">dump text of registry information.</param>
+            <param name="oProgIDs">list of progids.</param>
+            <param name="oGuids">list of GUID values.</param>
+            <param name="oDlls">list of shared objects.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.Definitions.CoRegisterClassObject(System.Type,System.Guid,Ans.ComponentSystem.Interop.Definitions.CLSCTX,Ans.ComponentSystem.Interop.Definitions.REGCLS,System.UInt32@)">
+            <summary>
+            Mini-COM registry of class object.  This gets the class object from MINI-Com and
+            then registers the class factory with the CLR.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.Interop.Definitions.CoRegisterClassObject(System.Guid,System.IntPtr,Ans.ComponentSystem.Interop.Definitions.CLSCTX,Ans.ComponentSystem.Interop.Definitions.REGCLS,System.UInt32@)"/>
+            <see cref="M:Ans.ComponentSystem.Interop.Definitions.DllGetClassObject(System.Type,System.Guid,System.Guid,System.IntPtr@)"/>
+            <param name="type">component type.  Reserved for future use.</param>
+            <param name="clsid">GUID of component to register.</param>
+            <param name="dwClsContext">server mode.</param>
+            <param name="flags"></param>
+            <param name="cookie"></param>
+            <returns>HRESULT.S_OK for success; failure code otherwise.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.Definitions.RegisterClassObject(System.Type)">
+            <summary>
+            Register the specified type with the AnsInterop system.
+            
+            This will call CoRegisterClassFactory for the Type using it's Guid as the CLSID.
+            When running under the MS CLR, the COM registry is not consulted to locate
+            the class factory, instead we consult our own registry and return it for them to use.
+            
+            Generally, this is intended to be called from within TypeInitializers in Interop Assemblies.
+            </summary>
+            <param name="type">Type to be registered</param>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.Definitions.ClrCoCreateInstanceDelegate">
+            <summary>
+            Delegate declaration to create managed instance.
+            </summary>
+            <param name="rclsid">CLSID of managed object to create.</param>
+            <param name="pUnkOuter">outer containing object.</param>
+            <param name="dwClsContext">server flag.</param>
+            <param name="riid">return implementation of this interface.</param>
+            <param name="ppv">returned interface.</param>
+            <returns>S_OK for success; failure code otherwise.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.Definitions.ClrCoCreateInstance(System.Guid,System.Object,System.UInt32,System.Guid,System.IntPtr@)">
+            <summary>
+            Delegate for creating managed instance of a GUID.
+            </summary>
+            <param name="rclsid">CLSID of managed object to create.</param>
+            <param name="pUnkOuter">outer containing object.</param>
+            <param name="dwClsContext">server flag.</param>
+            <param name="riid">return implementation of this interface.</param>
+            <param name="ppv">returned interface.</param>
+            <returns>S_OK for success; failure code otherwise.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.Definitions.AnsCoTaskMemAlloc(System.UIntPtr)">
+            <summary>
+            Allocate memory using component system.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.Interop.Definitions.AnsCoTaskMemFree(System.IntPtr)"/>
+            <param name="iNBytes">Number of bytes to allocate.</param>
+            <returns>memory allocated as a 'void *'.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.Definitions.AnsCoTaskMemFree(System.IntPtr)">
+            <summary>
+            Free memory allocated by AnsCoTaskMemAlloc.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.Interop.Definitions.AnsCoTaskMemAlloc(System.UIntPtr)"/>
+            <param name="iMemory">Memory to release.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.Definitions.CoInitialize(System.IntPtr)">
+            <summary>
+            CoInitialize call for MiniCom.
+            </summary>
+            <param name="pvoid">Reserved for future use.</param>
+            <returns>HRESULT for initialization of MiniCom.</returns>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.EventHandlerCpp">
+            <summary>
+            C++ event handler.
+            </summary>
+            <param name="iInfo">event information implementation.</param>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.EventSubscribeCpp">
+            <summary>
+            Manage all components that implemnt IEventObserverCpp.
+            All components that implement this interface are
+            subscribed to the CppEventOp
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.EventSubscribeCpp.#ctor">
+            <summary>
+            Create a C++ event object with multiple possible
+            subscribers.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.EventSubscribeCpp.Subscribe(System.Object)">
+            <summary>
+            Subscribe a component that implements
+            IEventObserverCpp
+            </summary>
+            <see cref="M:Ans.ComponentSystem.Interop.EventSubscribeCpp.Unsubscribe(System.Object)"/>
+            <param name="iComp">a component.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.EventSubscribeCpp.Unsubscribe(System.Object)">
+            <summary>
+            Remove a previously subscribed C++ component
+            from the event subscription.  Component must
+            implement IEventObserverCpp
+            </summary>
+            <see cref="M:Ans.ComponentSystem.Interop.EventSubscribeCpp.Subscribe(System.Object)"/>
+            <param name="iComp">a component.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.EventSubscribeCpp.Receive(Ans.ComponentSystem.IEventInfoCpp)">
+            <summary>
+            Send event to all subscribers.
+            </summary>
+            <param name="iInfo">event information.</param>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.MiniCom">
+            <summary>
+            MiniCom interop class.  Defines standard COM entry points to
+            initialize and create new components in Mini-COM.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.MiniCom.coinitialized">
+            <summary>
+            Standard COM has been coinitialized.
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.MiniCom.coinitializedMiniCom">
+            <summary>
+            Component system has been coinitialized.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.#cctor">
+            <summary>
+            Try and self discovery and see if the dll path can be set.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.SetLoadPath(System.String)">
+            <summary>
+            Set both the registry and the load paths
+            </summary>
+            <param name="iPath">path to set.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.InitializeComponentSystem">
+            <summary>
+            Call CoInitialize for both ComponentSystem and .NET
+            (if seperate).
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.AnsCoCreateInstance(System.Type,System.IntPtr)">
+            <summary>
+            CoCreateInstance for Mini-Com used for the ExtensibleClassFactory.
+            </summary>
+            <param name="classType">Type of object to create.</param>
+            <param name="aggr">Aggregating object pointer.</param>
+            <returns>An IntPtr object that represents the IUnknown interface of the COM object.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.SetRegistryPath(System.String)">
+            <summary>
+            Set the path that MiniCom should use to find Registry text files.  Needs to be
+            invoked BEFORE the call to CoInitialize
+            </summary>
+            <param name="iPath">directory path to search.  All directories seperated by ';'
+            on both UNIX and Windows.</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.SetExternalSOPath(System.String)">
+            <summary>
+            Prepend to the load library path the specified ';' seperated path.  Internally
+            the registry path is added to environment.  Users can use this method
+            to add additional directories as allowed by the platform.  WARNING: It may prove
+            that code cannot externally modify the search path in which case this
+            entry point will be dropped altogether.
+            </summary>
+            <param name="iPath">directory path to search.  All directories seperated by ';'
+            on both UNIX and Windows.</param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.GetRegisteredCoClasses(System.String,System.UInt32@,System.IntPtr*@,System.IntPtr**@)">
+            <summary>
+            Retreive the list of registered CoClasses from the specified shared object.
+            </summary>
+            <param name="iPath">complete path to the shared object.</param>
+            <param name="oNEntries">number of coclasses in shared object.</param>
+            <param name="oProgIDs">array of progids.</param>
+            <param name="oGuids">array of guids.</param>
+            <returns>HRESULT.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.GetRuntimeRegisteredCoClasses(System.String,System.UInt32@,System.IntPtr**@,System.IntPtr**@)">
+            <summary>
+            Retreive the list of registered CoClasses to be registered at rumtime from the specified shared object.
+            </summary>
+            <param name="iPath">complete path to the shared object.</param>
+            <param name="oNEntries">number of coclasses in shared object.</param>
+            <param name="oGuids">array of guids.</param>
+            <param name="oRuntimeTokens">array of runtime registration tokens.</param>
+            <returns>HRESULT.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.PerformCustomRegistrationForAnsRegistry(System.String,Ans.ComponentSystem.Interop.Definitions.AnsRegAction)">
+            <summary>
+            Retreive the custom registration method to be processed at rumtime from the specified shared object.
+            </summary>
+            <param name="iPath">complete path to the shared object.</param>
+            <param name="regMode">indicates registration or unregistration (TRUE for formar, FALSE for latter).</param>
+            <returns>HRESULT.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.RegisterCoClassesByRuntimeToken(System.Guid)">
+            <summary>
+            Registers a group of CoClasses at runtime given a specified token.
+            </summary>
+            <param name="runtimeToken">a token corresponding to a group of CoClasses to register at runtime. </param>
+            <returns>HRESULT</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.RegisterCoClasses(System.String)">
+            <summary>
+            Register CoClasses for given DLL name to AnsRegistry.
+            </summary>
+            <param name="iPath">complete path to the shared object.</param>
+            <returns>HRESULT.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.AnsCoCreateInstance(System.Guid,System.Object,System.UInt32,System.Guid,System.IntPtr@)">
+            <summary>
+            CoCreateInstance for Mini-Com.
+            </summary>
+            <param name="rclsid">reference to GUID for the component to
+            to create.</param>
+            <param name="pUnkOuter">aggregating object.</param>
+            <param name="dwClsContext">server (in-proc etc)</param>
+            <param name="riid">GUID for requested interface.</param>
+            <param name="ppv">pointer to interface.</param>
+            <returns>HRESULT of call.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.CoCreateInstance(System.Guid,System.Object,System.UInt32,System.Guid,System.IntPtr@)">
+            <summary>
+            CoCreateInstance for standard COM at least on .NET.
+            </summary>
+            <param name="rclsid">reference to GUID for the component to
+            to create.</param>
+            <param name="pUnkOuter">aggregating object.</param>
+            <param name="dwClsContext">server (in-proc etc)</param>
+            <param name="riid">GUID for requested interface.</param>
+            <param name="ppv">pointer to interface.</param>
+            <returns>HRESULT of call.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.AnsCoInitialize(System.IntPtr)">
+            <summary>
+            Initialize Mini-Com.
+            </summary>
+            <param name="pvoid">reserved for future use.</param>
+            <returns>S_OK for success; failure code otherwise.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.AnsCoUninitialize">
+            <summary>
+            Un Initialize Mini-Com.
+            </summary>
+            <returns>S_OK for success; failure code otherwise.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.CoInitialize(System.IntPtr)">
+            <summary>
+            CoInitialize call for MiniCom.
+            </summary>
+            <param name="pvoid">Reserved for future use.</param>
+            <returns>HRESULT for initialization of MiniCom.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.AnsCoInitializeManaged(Ans.ComponentSystem.Interop.Definitions.ClrCoCreateInstanceDelegate)">
+            <summary>
+            Initialize managed CoCreateInstance callback.
+            </summary>
+            <param name="pvoid">managed creation function delegate.</param>
+            <returns>S_OK for success; failure code otherwise.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.AnsCoGetClassObject(System.Guid@,System.UInt32,System.IntPtr,System.Guid@,System.IntPtr@)">
+            <summary>
+            Mini-com is strictly in-server so no server info structure
+            can now be specified.
+            </summary>
+            <param name="rclsid">reference to GUID for the component to
+            to create.</param>
+            <param name="dwClsContext">server (in-proc etc).</param>
+            <param name="si">server info.  Ignored for mini-com.</param>
+            <param name="riid">GUID for requested interface.</param>
+            <param name="ppv">pointer to interface.</param>
+            <returns>HRESULT of call.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.CoGetClassObject(System.Guid@,System.UInt32,System.IntPtr,System.Guid@,System.IntPtr@)">
+            <summary>
+            Standard COM get class object.
+            </summary>
+            <param name="rclsid">reference to GUID for the component to
+            to create.</param>
+            <param name="dwClsContext">server (in-proc etc).</param>
+            <param name="si">server info.</param>
+            <param name="riid">GUID for requested interface.</param>
+            <param name="ppv">pointer to interface.</param>
+            <returns>HRESULT of call.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.SetEventHandler(System.Object)">
+            <summary>
+            Set the C++ --> C# event handler.
+            </summary>
+            <param name="pCppEvent">Implementation of ICppEvent interface.</param>
+            <returns>HRESULT of call.</returns>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.MiniCom.ANSRegistryLoadConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.MiniCom.ANSRegistryLoadConfig.ANSYS_RegistryLoadConfig_None">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.MiniCom.ANSRegistryLoadConfig.ANSYS_RegistryLoadConfig_Txt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.MiniCom.ANSRegistryLoadConfig.ANSYS_RegistryLoadConfig_AnsRegistry">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Ans.ComponentSystem.Interop.MiniCom.ANSRegistryLoadConfig.ANSYS_RegistryLoadConfig_All">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.AnsSetRegistryLoadConfiguration(Ans.ComponentSystem.Interop.MiniCom.ANSRegistryLoadConfig)">
+            <summary>
+            
+            </summary>
+            <param name="registryLoadConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.GetEnvironmentVariableFromCRuntime(System.String)">
+            <summary>
+            Managed wrapper for getenv.  obtains the current value 
+            of the environment variable, name.
+            </summary>
+            <param name="name">Name of the variable</param>
+            <returns>Value of the variable</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.MiniCom.SetEnvironmentVariableForCRuntime(System.String,System.String)">
+            <summary>
+            Managed wrapper for setenv.  Inserts or resets the environment variable name in
+            the current environment list.  Throws COMException when erros occur.
+            </summary>
+            <param name="name">Name of the variable</param>
+            <param name="value">Value of the variable</param>
+        </member>
+        <member name="T:Ans.ComponentSystem.Interop.RemotingConfig">
+            <summary>
+            Remote object helper class.  Configures ip/port/Application name for tcp
+            socket communication and connects to service given
+            a type.
+            </summary>
+        </member>
+        <member name="P:Ans.ComponentSystem.Interop.RemotingConfig.IP">
+            <summary>
+            Access the IP address we are connecting to.  Default is localhost
+            </summary>
+        </member>
+        <member name="P:Ans.ComponentSystem.Interop.RemotingConfig.Port">
+            <summary>
+            Access the TcpChannel to connect to.
+            </summary>
+        </member>
+        <member name="P:Ans.ComponentSystem.Interop.RemotingConfig.ApplicationName">
+            <summary>
+            Configuration application name.
+            </summary>
+        </member>
+        <member name="P:Ans.ComponentSystem.Interop.RemotingConfig.URLPrefix">
+            <summary>
+            For current connection information, compose URL prefix
+            of connection URL for a type.
+            </summary>
+        </member>
+        <member name="P:Ans.ComponentSystem.Interop.RemotingConfig.Chan">
+            <summary>
+            Access the tcpchannel we are using.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.RemotingConfig.ComposeConnectString(System.String)">
+            <summary>
+            Compose the connection string name given the class to create.
+            </summary>
+            <see cref="P:Ans.ComponentSystem.Interop.RemotingConfig.URLPrefix"/>
+            <param name="iCompName">remote component to create.</param>
+            <returns>connection string.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.RemotingConfig.ServerActivation``1">
+            <summary>
+            Create remote proxy for a generic type.  This will activate
+            object at published uri for object.  Server activation is used
+            in this case so that only one-of the object will be created.
+            </summary>
+            <typeparam name="T">interface or class to use.</typeparam>
+            <returns>remote proxy of specified type.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.RemotingConfig.ServerActivation``2">
+            <summary>
+            Create remote proxy for a generic type but return as
+            different type.
+            </summary>
+            <typeparam name="T">interface or class to use.</typeparam>
+            <typeparam name="T1">Remote object type.</typeparam>
+            <returns>remote proxy of specified type.</returns>
+        </member>
+        <member name="M:Ans.ComponentSystem.Interop.RemotingConfig.RegisterPort(System.Boolean)">
+            <summary>
+            Register the specified port as a socket.
+            </summary>
+            <param name="iAsClient">whether or not this a a server
+            process or a client process.</param>
+        </member>
+        <member name="T:Ans.ComponentSystem.IGenericIteratorCppRemotable">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IGenericIteratorCppRemotable.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.IGenericIteratorCppRemotable.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IGenericIteratorCppRemotable.IsInvalid">
+            <summary>
+            Implements a method from an interface.  See IGenericIteratorCpp.IsInvalid.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IGenericIteratorCpp.IsInvalid" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.IGenericIteratorCppRemotable.Invalidate">
+            <summary>
+            Implements a method from an interface.  See IGenericIteratorCpp.Invalidate.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IGenericIteratorCpp.Invalidate" />
+        </member>
+        <member name="M:Ans.ComponentSystem.IGenericIteratorCppRemotable.Count(System.UIntPtr@)">
+            <summary>
+            Implements a method from an interface.  See IGenericIteratorCpp.Count.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IGenericIteratorCpp.Count(System.UIntPtr@)" />
+            <param name="oCount">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.IGenericIteratorCppRemotable.Next">
+            <summary>
+            Implements a method from an interface.  See IGenericIteratorCpp.Next.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IGenericIteratorCpp.Next" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.IGenericIteratorCppRemotable.Next_1">
+            <summary>
+            Implements a method from an interface.  See IGenericIteratorCpp.Next_1.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IGenericIteratorCpp.Next_1" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="T:Ans.ComponentSystem.ICppEventRemotable">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.ICppEventRemotable.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishMessage(Ans.ComponentSystem.CppEventMessageType,System.String,System.String,System.String)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishMessage.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishMessage(Ans.ComponentSystem.CppEventMessageType,System.String,System.String,System.String)" />
+            <param name="msgType">Generated - no documentation.</param>
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishMessage_1(Ans.ComponentSystem.CppEventMessageType,System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType,Ans.ComponentSystem.CppEventForceDpPrefix)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishMessage_1.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishMessage_1(Ans.ComponentSystem.CppEventMessageType,System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType,Ans.ComponentSystem.CppEventForceDpPrefix)" />
+            <param name="msgType">Generated - no documentation.</param>
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+            <param name="details">Generated - no documentation.</param>
+            <param name="debugDetails">Generated - no documentation.</param>
+            <param name="helpId">Generated - no documentation.</param>
+            <param name="messageVisibility">Generated - no documentation.</param>
+            <param name="forceDpPrefix">Determines whether the message should be prefixed with the current design point e.g. '(DP 1) '.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishError(System.String,System.String,System.String)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishError.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishError(System.String,System.String,System.String)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishError_1(System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishError_1.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishError_1(System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+            <param name="details">Generated - no documentation.</param>
+            <param name="debugDetails">Generated - no documentation.</param>
+            <param name="helpId">Generated - no documentation.</param>
+            <param name="messageVisibility">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishWarning(System.String,System.String,System.String)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishWarning.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishWarning(System.String,System.String,System.String)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishWarning_1(System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishWarning_1.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishWarning_1(System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+            <param name="details">Generated - no documentation.</param>
+            <param name="debugDetails">Generated - no documentation.</param>
+            <param name="helpId">Generated - no documentation.</param>
+            <param name="messageVisibility">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishFatal(System.String,System.String,System.String)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishFatal.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishFatal(System.String,System.String,System.String)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishFatal_1(System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishFatal_1.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishFatal_1(System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+            <param name="details">Generated - no documentation.</param>
+            <param name="debugDetails">Generated - no documentation.</param>
+            <param name="helpId">Generated - no documentation.</param>
+            <param name="messageVisibility">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishDebug(System.String,System.String,System.String)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishDebug.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishDebug(System.String,System.String,System.String)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishDebug_1(System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishDebug_1.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishDebug_1(System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+            <param name="details">Generated - no documentation.</param>
+            <param name="debugDetails">Generated - no documentation.</param>
+            <param name="helpId">Generated - no documentation.</param>
+            <param name="messageVisibility">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishInfo(System.String,System.String,System.String)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishInfo.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishInfo(System.String,System.String,System.String)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishInfo_1(System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishInfo_1.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishInfo_1(System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+            <param name="details">Generated - no documentation.</param>
+            <param name="debugDetails">Generated - no documentation.</param>
+            <param name="helpId">Generated - no documentation.</param>
+            <param name="messageVisibility">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishProgress(System.String,System.String,System.String)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishProgress.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishProgress(System.String,System.String,System.String)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishProgress_1(System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishProgress_1.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishProgress_1(System.String,System.String,System.String,System.String,System.String,System.String,Ans.ComponentSystem.CppEventMessageType)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="message">Generated - no documentation.</param>
+            <param name="details">Generated - no documentation.</param>
+            <param name="debugDetails">Generated - no documentation.</param>
+            <param name="helpId">Generated - no documentation.</param>
+            <param name="messageVisibility">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICppEventRemotable.PublishFramework(System.String,System.String,System.String)">
+            <summary>
+            Implements a method from an interface.  See ICppEvent.PublishFramework.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICppEvent.PublishFramework(System.String,System.String,System.String)" />
+            <param name="eventName">Generated - no documentation.</param>
+            <param name="eventSource">Generated - no documentation.</param>
+            <param name="subsystem">Generated - no documentation.</param>
+        </member>
+        <member name="T:Ans.ComponentSystem.IGenericIteratorRemotable">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IGenericIteratorRemotable.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.IGenericIteratorRemotable.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IGenericIteratorRemotable.IsInvalid(System.Boolean@)">
+            <summary>
+            Implements a method from an interface.  See IGenericIterator.IsInvalid.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IGenericIterator.IsInvalid(System.Boolean@)" />
+            <param name="oIsInvalid">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.IGenericIteratorRemotable.Invalidate">
+            <summary>
+            Implements a method from an interface.  See IGenericIterator.Invalidate.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IGenericIterator.Invalidate" />
+        </member>
+        <member name="M:Ans.ComponentSystem.IGenericIteratorRemotable.Count(System.UIntPtr@)">
+            <summary>
+            Implements a method from an interface.  See IGenericIterator.Count.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IGenericIterator.Count(System.UIntPtr@)" />
+            <param name="oCount">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.IGenericIteratorRemotable.Next">
+            <summary>
+            Implements a method from an interface.  See IGenericIterator.Next.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IGenericIterator.Next" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="T:Ans.ComponentSystem.IEnumerableCppRemotable">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IEnumerableCppRemotable.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.IEnumerableCppRemotable.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IEnumerableCppRemotable.GetEnumerator">
+            <summary>
+            Implements a method from an interface.  See IEnumerableCpp.GetEnumerator.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IEnumerableCpp.GetEnumerator" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="T:Ans.ComponentSystem.IMarshalRemotable">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IMarshalRemotable.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.IMarshalRemotable.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IMarshalRemotable.GetUnmarshalClass(System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            Implements a method from an interface.  See IAnsMarshal.GetUnmarshalClass.  DO NOT USE FROM C#!
+            </summary>
+            <see cref="M:ComDefinedInterfacesLib.IAnsMarshal.GetUnmarshalClass(System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)" />
+            <param name="riid">Generated - no documentation.</param>
+            <param name="pv">Generated - no documentation.</param>
+            <param name="dwDestContext">Generated - no documentation.</param>
+            <param name="pvDestContext">Generated - no documentation.</param>
+            <param name="mshlflags">Generated - no documentation.</param>
+            <param name="pCid">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.IMarshalRemotable.GetMarshalSizeMax(System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            Implements a method from an interface.  See IAnsMarshal.GetMarshalSizeMax.  DO NOT USE FROM C#!
+            </summary>
+            <see cref="M:ComDefinedInterfacesLib.IAnsMarshal.GetMarshalSizeMax(System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)" />
+            <param name="riid">Generated - no documentation.</param>
+            <param name="pv">Generated - no documentation.</param>
+            <param name="dwDestContext">Generated - no documentation.</param>
+            <param name="pvDestContext">Generated - no documentation.</param>
+            <param name="mshlflags">Generated - no documentation.</param>
+            <param name="pSize">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.IMarshalRemotable.MarshalInterface(ComDefinedInterfacesLib.IAnsStream,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            Implements a method from an interface.  See IAnsMarshal.MarshalInterface.  DO NOT USE FROM C#!
+            </summary>
+            <see cref="M:ComDefinedInterfacesLib.IAnsMarshal.MarshalInterface(ComDefinedInterfacesLib.IAnsStream,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)" />
+            <param name="pStm">Generated - no documentation.</param>
+            <param name="riid">Generated - no documentation.</param>
+            <param name="pv">Generated - no documentation.</param>
+            <param name="dwDestContext">Generated - no documentation.</param>
+            <param name="pvDestContext">Generated - no documentation.</param>
+            <param name="mshlflags">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.IMarshalRemotable.UnmarshalInterface(ComDefinedInterfacesLib.IAnsStream,System.IntPtr,System.IntPtr)">
+            <summary>
+            Implements a method from an interface.  See IAnsMarshal.UnmarshalInterface.  DO NOT USE FROM C#!
+            </summary>
+            <see cref="M:ComDefinedInterfacesLib.IAnsMarshal.UnmarshalInterface(ComDefinedInterfacesLib.IAnsStream,System.IntPtr,System.IntPtr)" />
+            <param name="pStm">Generated - no documentation.</param>
+            <param name="riid">Generated - no documentation.</param>
+            <param name="ppv">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.IMarshalRemotable.ReleaseMarshalData(ComDefinedInterfacesLib.IAnsStream)">
+            <summary>
+            Implements a method from an interface.  See IAnsMarshal.ReleaseMarshalData.
+            </summary>
+            <see cref="M:ComDefinedInterfacesLib.IAnsMarshal.ReleaseMarshalData(ComDefinedInterfacesLib.IAnsStream)" />
+            <param name="pStm">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.IMarshalRemotable.DisconnectObject(System.IntPtr)">
+            <summary>
+            Implements a method from an interface.  See IAnsMarshal.DisconnectObject.  DO NOT USE FROM C#!
+            </summary>
+            <see cref="M:ComDefinedInterfacesLib.IAnsMarshal.DisconnectObject(System.IntPtr)" />
+            <param name="dwReserved">Generated - no documentation.</param>
+        </member>
+        <member name="T:Ans.ComponentSystem.IEnumeratorCppRemotable">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IEnumeratorCppRemotable.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.IEnumeratorCppRemotable.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="P:Ans.ComponentSystem.IEnumeratorCppRemotable.Current">
+            <summary>
+            Implements a method from an interface.  See IEnumeratorCpp.Current.
+            </summary>
+            <see cref="P:Ans.ComponentSystem.IEnumeratorCpp.Current" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.IEnumeratorCppRemotable.MoveNext">
+            <summary>
+            Implements a method from an interface.  See IEnumeratorCpp.MoveNext.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IEnumeratorCpp.MoveNext" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.IEnumeratorCppRemotable.Reset">
+            <summary>
+            Implements a method from an interface.  See IEnumeratorCpp.Reset.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IEnumeratorCpp.Reset" />
+        </member>
+        <member name="T:Ans.ComponentSystem.ICollectionCppRemotable">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.ICollectionCppRemotable.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.ICollectionCppRemotable.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="P:Ans.ComponentSystem.ICollectionCppRemotable.Count">
+            <summary>
+            Implements a method from an interface.  See ICollectionCpp.Count.
+            </summary>
+            <see cref="P:Ans.ComponentSystem.ICollectionCpp.Count" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.ICollectionCppRemotable.GetEnumerator">
+            <summary>
+            Implements a method from an interface.  See ICollectionCpp.GetEnumerator.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICollectionCpp.GetEnumerator" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="T:Ans.ComponentSystem.IListCppRemotable">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IListCppRemotable.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.IListCppRemotable.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="P:Ans.ComponentSystem.IListCppRemotable.Count">
+            <summary>
+            Implements a method from an interface.  See ICollectionCpp.Count.
+            </summary>
+            <see cref="P:Ans.ComponentSystem.ICollectionCpp.Count" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.IListCppRemotable.GetEnumerator">
+            <summary>
+            Implements a method from an interface.  See ICollectionCpp.GetEnumerator.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICollectionCpp.GetEnumerator" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.IListCppRemotable.Add(System.Object)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.Add.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.Add(System.Object)" />
+            <param name="p_item">Generated - no documentation.</param>
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.IListCppRemotable.Clear">
+            <summary>
+            Implements a method from an interface.  See IListCpp.Clear.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.Clear" />
+        </member>
+        <member name="M:Ans.ComponentSystem.IListCppRemotable.Contains(System.Object)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.Contains.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.Contains(System.Object)" />
+            <param name="p_item">Generated - no documentation.</param>
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.IListCppRemotable.IndexOf(System.Object)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.IndexOf.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.IndexOf(System.Object)" />
+            <param name="p_item">Generated - no documentation.</param>
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.IListCppRemotable.Insert(System.Int32,System.Object)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.Insert.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.Insert(System.Int32,System.Object)" />
+            <param name="p_idx">Generated - no documentation.</param>
+            <param name="p_item">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.IListCppRemotable.Remove(System.Object)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.Remove.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.Remove(System.Object)" />
+            <param name="p_item">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.IListCppRemotable.RemoveAt(System.Int32)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.RemoveAt.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.RemoveAt(System.Int32)" />
+            <param name="p_idx">Generated - no documentation.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.IListCppRemotable.Item(System.Int32)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.get_Item.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.get_Item(System.Int32)" />
+            <param name="p_idx">Generated - no documentation.</param>
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="T:Ans.ComponentSystem.IObjectSafetyExtRemotable">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IObjectSafetyExtRemotable.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.IObjectSafetyExtRemotable.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IObjectSafetyExtRemotable.GetInterfaceSafetyOptions(System.IntPtr,System.Int64@,System.Int64@)">
+            <summary>
+            Implements a method from an interface.  See IAnsObjectSafety.GetInterfaceSafetyOptions.  DO NOT USE FROM C#!
+            </summary>
+            <see cref="M:ComDefinedInterfacesLib.IAnsObjectSafety.GetInterfaceSafetyOptions(System.IntPtr,System.Int64@,System.Int64@)" />
+            <param name="riid">Generated - no documentation.</param>
+            <param name="pdwSupportedOptions">Generated - no documentation.</param>
+            <param name="pdwEnabledOptions">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.IObjectSafetyExtRemotable.SetInterfaceSafetyOptions(System.IntPtr,System.Int64,System.Int64)">
+            <summary>
+            Implements a method from an interface.  See IAnsObjectSafety.SetInterfaceSafetyOptions.  DO NOT USE FROM C#!
+            </summary>
+            <see cref="M:ComDefinedInterfacesLib.IAnsObjectSafety.SetInterfaceSafetyOptions(System.IntPtr,System.Int64,System.Int64)" />
+            <param name="riid">Generated - no documentation.</param>
+            <param name="dwOptionSetMask">Generated - no documentation.</param>
+            <param name="dwEnabledOptions">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.IObjectSafetyExtRemotable.GetSupportedOptions">
+            <summary>
+            Implements a method from an interface.  See IObjectSafetyExt.GetSupportedOptions.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IObjectSafetyExt.GetSupportedOptions" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.IObjectSafetyExtRemotable.SetSupportedOptions(System.IntPtr)">
+            <summary>
+            Implements a method from an interface.  See IObjectSafetyExt.SetSupportedOptions.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IObjectSafetyExt.SetSupportedOptions(System.IntPtr)" />
+            <param name="iSupport">Generated - no documentation.</param>
+        </member>
+        <member name="T:Ans.ComponentSystem.IEventObserverCppRemotable">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IEventObserverCppRemotable.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.IEventObserverCppRemotable.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IEventObserverCppRemotable.Receive(Ans.ComponentSystem.IEventInfoCpp)">
+            <summary>
+            Implements a method from an interface.  See IEventObserverCpp.Receive.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IEventObserverCpp.Receive(Ans.ComponentSystem.IEventInfoCpp)" />
+            <param name="iInfo">Generated - no documentation.</param>
+        </member>
+        <member name="T:Ans.ComponentSystem.IEventInfoCppRemotable">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.IEventInfoCppRemotable.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.IEventInfoCppRemotable.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="P:Ans.ComponentSystem.IEventInfoCppRemotable.Name">
+            <summary>
+            Implements a method from an interface.  See IEventInfoCpp.Name.
+            </summary>
+            <see cref="P:Ans.ComponentSystem.IEventInfoCpp.Name" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="P:Ans.ComponentSystem.IEventInfoCppRemotable.Source">
+            <summary>
+            Implements a method from an interface.  See IEventInfoCpp.Source.
+            </summary>
+            <see cref="P:Ans.ComponentSystem.IEventInfoCpp.Source" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="P:Ans.ComponentSystem.IEventInfoCppRemotable.Topic">
+            <summary>
+            Implements a method from an interface.  See IEventInfoCpp.Topic.
+            </summary>
+            <see cref="P:Ans.ComponentSystem.IEventInfoCpp.Topic" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="T:Ans.ComponentSystem.RegisterRemotableClasses">
+            <summary>
+            Register remotable classes for this namespace.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.RegisterRemotableClasses.ServerSideClientAct">
+            <summary>
+            Register remotable classes for this namespace
+             using client activation on server side.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.RegisterRemotableClasses.ServerSideServerAct">
+            <summary>
+            Register remotable classes for this namespace
+             using server activation on server side.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.RegisterRemotableClasses.ClientSideClientAct(Ans.ComponentSystem.Interop.RemotingConfig)">
+            <summary>
+            Register remotable classes for this namespace
+             using client activation on client side.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.RegisterRemotableClasses.ClientSideServerAct(Ans.ComponentSystem.Interop.RemotingConfig)">
+            <summary>
+            Register remotable classes for this namespace
+             using server activation on client side.
+            </summary>
+        </member>
+        <member name="T:Ans.ComponentSystem.VariantEnumRemotableClass">
+            <summary>
+            Remotable CoClass object declaration.
+            </summary>
+            <see cref="T:Ans.ComponentSystem.VariantEnum" />
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantEnumRemotableClass.#ctor">
+            <summary>
+            Construct COM object as remotable.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantEnumRemotableClass.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.VariantEnumRemotableClass.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="P:Ans.ComponentSystem.VariantEnumRemotableClass.Current">
+            <summary>
+            Implements a method from an interface.  See IEnumeratorCpp.Current.
+            </summary>
+            <see cref="P:Ans.ComponentSystem.IEnumeratorCpp.Current" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantEnumRemotableClass.MoveNext">
+            <summary>
+            Implements a method from an interface.  See IEnumeratorCpp.MoveNext.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IEnumeratorCpp.MoveNext" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantEnumRemotableClass.Reset">
+            <summary>
+            Implements a method from an interface.  See IEnumeratorCpp.Reset.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IEnumeratorCpp.Reset" />
+        </member>
+        <member name="T:Ans.ComponentSystem.VariantCollRemotableClass">
+            <summary>
+            Remotable CoClass object declaration.
+            </summary>
+            <see cref="T:Ans.ComponentSystem.VariantColl" />
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantCollRemotableClass.#ctor">
+            <summary>
+            Construct COM object as remotable.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantCollRemotableClass.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.VariantCollRemotableClass.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantCollRemotableClass.Add(System.Object)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.Add.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.Add(System.Object)" />
+            <param name="p_item">Generated - no documentation.</param>
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantCollRemotableClass.Clear">
+            <summary>
+            Implements a method from an interface.  See IListCpp.Clear.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.Clear" />
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantCollRemotableClass.Contains(System.Object)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.Contains.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.Contains(System.Object)" />
+            <param name="p_item">Generated - no documentation.</param>
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantCollRemotableClass.IndexOf(System.Object)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.IndexOf.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.IndexOf(System.Object)" />
+            <param name="p_item">Generated - no documentation.</param>
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantCollRemotableClass.Insert(System.Int32,System.Object)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.Insert.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.Insert(System.Int32,System.Object)" />
+            <param name="p_idx">Generated - no documentation.</param>
+            <param name="p_item">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantCollRemotableClass.Remove(System.Object)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.Remove.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.Remove(System.Object)" />
+            <param name="p_item">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantCollRemotableClass.RemoveAt(System.Int32)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.RemoveAt.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.RemoveAt(System.Int32)" />
+            <param name="p_idx">Generated - no documentation.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.VariantCollRemotableClass.Item(System.Int32)">
+            <summary>
+            Implements a method from an interface.  See IListCpp.get_Item.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.IListCpp.get_Item(System.Int32)" />
+            <param name="p_idx">Generated - no documentation.</param>
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="P:Ans.ComponentSystem.VariantCollRemotableClass.Count">
+            <summary>
+            Implements a method from an interface.  See ICollectionCpp.Count.
+            </summary>
+            <see cref="P:Ans.ComponentSystem.ICollectionCpp.Count" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="M:Ans.ComponentSystem.VariantCollRemotableClass.GetEnumerator">
+            <summary>
+            Implements a method from an interface.  See ICollectionCpp.GetEnumerator.
+            </summary>
+            <see cref="M:Ans.ComponentSystem.ICollectionCpp.GetEnumerator" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="T:Ans.ComponentSystem.ObjectSafetyImplRemotableClass">
+            <summary>
+            Remotable CoClass object declaration.
+            </summary>
+            <see cref="T:Ans.ComponentSystem.ObjectSafetyImpl" />
+        </member>
+        <member name="M:Ans.ComponentSystem.ObjectSafetyImplRemotableClass.#ctor">
+            <summary>
+            Construct COM object as remotable.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.ObjectSafetyImplRemotableClass.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.ObjectSafetyImplRemotableClass.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.ObjectSafetyImplRemotableClass.GetInterfaceSafetyOptions(System.IntPtr,System.Int64@,System.Int64@)">
+            <summary>
+            Implements a method from an interface.  See IAnsObjectSafety.GetInterfaceSafetyOptions.  DO NOT USE FROM C#!
+            </summary>
+            <see cref="M:ComDefinedInterfacesLib.IAnsObjectSafety.GetInterfaceSafetyOptions(System.IntPtr,System.Int64@,System.Int64@)" />
+            <param name="riid">Generated - no documentation.</param>
+            <param name="pdwSupportedOptions">Generated - no documentation.</param>
+            <param name="pdwEnabledOptions">Generated - no documentation.</param>
+        </member>
+        <member name="M:Ans.ComponentSystem.ObjectSafetyImplRemotableClass.SetInterfaceSafetyOptions(System.IntPtr,System.Int64,System.Int64)">
+            <summary>
+            Implements a method from an interface.  See IAnsObjectSafety.SetInterfaceSafetyOptions.  DO NOT USE FROM C#!
+            </summary>
+            <see cref="M:ComDefinedInterfacesLib.IAnsObjectSafety.SetInterfaceSafetyOptions(System.IntPtr,System.Int64,System.Int64)" />
+            <param name="riid">Generated - no documentation.</param>
+            <param name="dwOptionSetMask">Generated - no documentation.</param>
+            <param name="dwEnabledOptions">Generated - no documentation.</param>
+        </member>
+        <member name="T:Ans.ComponentSystem.EventInfoCppImplRemotableClass">
+            <summary>
+            Remotable CoClass object declaration.
+            </summary>
+            <see cref="T:Ans.ComponentSystem.EventInfoCppImpl" />
+        </member>
+        <member name="M:Ans.ComponentSystem.EventInfoCppImplRemotableClass.#ctor">
+            <summary>
+            Construct COM object as remotable.
+            </summary>
+        </member>
+        <member name="M:Ans.ComponentSystem.EventInfoCppImplRemotableClass.#ctor(System.Object)">
+            <summary>
+            Use given COM object as remotable.
+            </summary>
+            <param name="iRemoteObject">COM object to remote.</param>
+        </member>
+        <member name="P:Ans.ComponentSystem.EventInfoCppImplRemotableClass.Impl">
+            <summary>
+            Read only access to implementation.
+            </summary>
+        </member>
+        <member name="P:Ans.ComponentSystem.EventInfoCppImplRemotableClass.Name">
+            <summary>
+            Implements a method from an interface.  See IEventInfoCpp.Name.
+            </summary>
+            <see cref="P:Ans.ComponentSystem.IEventInfoCpp.Name" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="P:Ans.ComponentSystem.EventInfoCppImplRemotableClass.Source">
+            <summary>
+            Implements a method from an interface.  See IEventInfoCpp.Source.
+            </summary>
+            <see cref="P:Ans.ComponentSystem.IEventInfoCpp.Source" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="P:Ans.ComponentSystem.EventInfoCppImplRemotableClass.Topic">
+            <summary>
+            Implements a method from an interface.  See IEventInfoCpp.Topic.
+            </summary>
+            <see cref="P:Ans.ComponentSystem.IEventInfoCpp.Topic" />
+            <returns>Generated - no documentation.</returns>)
+        </member>
+        <member name="T:ComDefinedInterfacesLib.IAnsPersist">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsPersist.GetClassID(System.Guid@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pClassID">Generated - no documentation.</param>
+        </member>
+        <member name="T:ComDefinedInterfacesLib.IAnsPersistStream">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsPersistStream.GetClassID(System.Guid@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pClassID">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsPersistStream.IsDirty">
+            <summary>
+            Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsPersistStream.Load(ComDefinedInterfacesLib.IAnsStream)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pStm">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsPersistStream.Save(ComDefinedInterfacesLib.IAnsStream)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="fClearDirty">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsPersistStream.GetSizeMax(System.Int32@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pcbSize">Generated - no documentation.</param>
+        </member>
+        <member name="T:ComDefinedInterfacesLib.IAnsSequentialStream">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsSequentialStream.Read(System.Byte@,System.UInt32,System.UInt32@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pv">Generated - no documentation.</param>
+            <param name="cb">Generated - no documentation.</param>
+            <param name="pcbRead">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsSequentialStream.Write(System.Byte@,System.UInt32,System.UInt32@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pv">Generated - no documentation.</param>
+            <param name="cb">Generated - no documentation.</param>
+            <param name="pcbWritten">Generated - no documentation.</param>
+        </member>
+        <member name="T:ComDefinedInterfacesLib.IAnsStream">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsStream.Read(System.Byte@,System.UInt32,System.UInt32@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pv">Generated - no documentation.</param>
+            <param name="cb">Generated - no documentation.</param>
+            <param name="pcbRead">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsStream.Write(System.Byte@,System.UInt32,System.UInt32@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pv">Generated - no documentation.</param>
+            <param name="cb">Generated - no documentation.</param>
+            <param name="pcbWritten">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsStream.Seek(System.Int64,System.Int64,System.UInt64@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="dlibMove">Generated - no documentation.</param>
+            <param name="dwOrigin">Generated - no documentation.</param>
+            <param name="plibNewPosition">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsStream.SetSize(System.UInt64)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="libNewSize">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsStream.CopyTo(ComDefinedInterfacesLib.IAnsStream,System.UInt64,System.UInt64@,System.UInt64@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pstm">Generated - no documentation.</param>
+            <param name="cb">Generated - no documentation.</param>
+            <param name="pcbRead">Generated - no documentation.</param>
+            <param name="pcbWritten">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsStream.Commit(System.Int64)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="grfCommitFlags">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsStream.Revert">
+            <summary>
+            Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsStream.LockRegion(System.UInt64,System.UInt64,System.Int64)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="libOffset">Generated - no documentation.</param>
+            <param name="cb">Generated - no documentation.</param>
+            <param name="dwLockType">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsStream.UnlockRegion(System.UInt64,System.UInt64,System.Int64)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="libOffset">Generated - no documentation.</param>
+            <param name="cb">Generated - no documentation.</param>
+            <param name="dwLockType">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsStream.Stat(Ans.ComponentSystem.Interop.ANSSTATSTG@,System.UInt32)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="statstg">Generated - no documentation.</param>
+            <param name="grfStatFlag">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsStream.Clone(ComDefinedInterfacesLib.IAnsStream@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="ppstm">Generated - no documentation.</param>
+        </member>
+        <member name="T:ComDefinedInterfacesLib.IAnsPersistStreamInit">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsPersistStreamInit.GetClassID(System.Guid@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pClassID">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsPersistStreamInit.IsDirty">
+            <summary>
+            Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsPersistStreamInit.Load(ComDefinedInterfacesLib.IAnsStream)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pStm">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsPersistStreamInit.Save(ComDefinedInterfacesLib.IAnsStream,System.Int32)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pStm">Generated - no documentation.</param>
+            <param name="fClearDirty">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsPersistStreamInit.GetSizeMax(System.UInt64@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pCbSize">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsPersistStreamInit.InitNew">
+            <summary>
+            Generated - no documentation.
+            </summary>
+        </member>
+        <member name="T:ComDefinedInterfacesLib.IAnsErrorInfo">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsErrorInfo.GetGUID(System.IntPtr)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="riid">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsErrorInfo.GetSource(System.String@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pBstrSource">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsErrorInfo.GetDescription(System.String@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pBstrDescription">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsErrorInfo.GetHelpFile(System.String@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pBstrHelpFile">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsErrorInfo.GetHelpContext(System.UInt32@)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pdwHelpContext">Generated - no documentation.</param>
+        </member>
+        <member name="T:ComDefinedInterfacesLib.IAnsCreateErrorInfo">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsCreateErrorInfo.SetGUID(System.IntPtr)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="riid">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsCreateErrorInfo.SetSource(System.IntPtr)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="szSource">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsCreateErrorInfo.SetDescription(System.IntPtr)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="szDescription">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsCreateErrorInfo.SetHelpFile(System.IntPtr)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="szHelpFile">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsCreateErrorInfo.SetHelpContext(System.UInt32)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="dwHelpContext">Generated - no documentation.</param>
+        </member>
+        <member name="T:ComDefinedInterfacesLib.IAnsSupportErrorInfo">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsSupportErrorInfo.InterfaceSupportsErrorInfo(System.IntPtr)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="riid">Generated - no documentation.</param>
+        </member>
+        <member name="T:ComDefinedInterfacesLib.IAnsObjectSafety">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsObjectSafety.GetInterfaceSafetyOptions(System.IntPtr,System.Int64@,System.Int64@)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="riid">Generated - no documentation.</param>
+            <param name="pdwSupportedOptions">Generated - no documentation.</param>
+            <param name="pdwEnabledOptions">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsObjectSafety.SetInterfaceSafetyOptions(System.IntPtr,System.Int64,System.Int64)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="riid">Generated - no documentation.</param>
+            <param name="dwOptionSetMask">Generated - no documentation.</param>
+            <param name="dwEnabledOptions">Generated - no documentation.</param>
+        </member>
+        <member name="T:ComDefinedInterfacesLib.IAnsEnumVARIANT">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsEnumVARIANT.Next(System.UInt32,System.Object@,System.UInt32)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="celt">Generated - no documentation.</param>
+            <param name="rgVar">Generated - no documentation.</param>
+            <param name="pCeltFetched">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsEnumVARIANT.Skip(System.UInt32)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="celt">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsEnumVARIANT.Reset">
+            <summary>
+            Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsEnumVARIANT.Clone(System.Collections.IEnumerator)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="ppEnum">Generated - no documentation.</param>
+        </member>
+        <member name="T:ComDefinedInterfacesLib.IAnsMarshal">
+            <summary>
+            Interface declaration.  Generated - no documentation.
+            </summary>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsMarshal.GetUnmarshalClass(System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="riid">Generated - no documentation.</param>
+            <param name="pv">Generated - no documentation.</param>
+            <param name="dwDestContext">Generated - no documentation.</param>
+            <param name="pvDestContext">Generated - no documentation.</param>
+            <param name="mshlflags">Generated - no documentation.</param>
+            <param name="pCid">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsMarshal.GetMarshalSizeMax(System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="riid">Generated - no documentation.</param>
+            <param name="pv">Generated - no documentation.</param>
+            <param name="dwDestContext">Generated - no documentation.</param>
+            <param name="pvDestContext">Generated - no documentation.</param>
+            <param name="mshlflags">Generated - no documentation.</param>
+            <param name="pSize">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsMarshal.MarshalInterface(ComDefinedInterfacesLib.IAnsStream,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="pStm">Generated - no documentation.</param>
+            <param name="riid">Generated - no documentation.</param>
+            <param name="pv">Generated - no documentation.</param>
+            <param name="dwDestContext">Generated - no documentation.</param>
+            <param name="pvDestContext">Generated - no documentation.</param>
+            <param name="mshlflags">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsMarshal.UnmarshalInterface(ComDefinedInterfacesLib.IAnsStream,System.IntPtr,System.IntPtr)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="pStm">Generated - no documentation.</param>
+            <param name="riid">Generated - no documentation.</param>
+            <param name="ppv">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsMarshal.ReleaseMarshalData(ComDefinedInterfacesLib.IAnsStream)">
+            <summary>
+            Generated - no documentation.
+            </summary>
+            <param name="pStm">Generated - no documentation.</param>
+        </member>
+        <member name="M:ComDefinedInterfacesLib.IAnsMarshal.DisconnectObject(System.IntPtr)">
+            <summary>
+            Generated - no documentation.  DO NOT USE FROM C#!
+            </summary>
+            <param name="dwReserved">Generated - no documentation.</param>
+        </member>
+    </members>
+</doc>

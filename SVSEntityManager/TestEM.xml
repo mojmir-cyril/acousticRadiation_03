@@ -1,0 +1,13 @@
+<extension version="0"  minorversion="1" name="TestEM" icon="images/clear40.bmp">
+    <guid shortid="TestEM"></guid>
+    <author>SVS FEM s.r.o. (Zdenek Cada)</author>
+    <description>
+       TestEM - testovaci ACT pro Entity Manager
+    </description>
+    <script src="act.py"    compiled="True"/>   
+    <script src="dll.py"    compiled="True"/>  
+    
+    <interface context="Mechanical">
+    </interface>
+  
+</extension>

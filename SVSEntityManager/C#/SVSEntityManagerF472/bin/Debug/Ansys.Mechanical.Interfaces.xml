@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ansys.Mechanical.Interfaces</name>
+    </assembly>
+    <members>
+        <member name="M:Ansys.Mechanical.Interfaces.IEngine.ExecuteCode(System.String,System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Execute the code and return some type of result.
+            </summary>
+            <param name="code">The code to be executed.</param>
+            <param name="scopeName">
+                The script scope it needs to be executed in.  Assumed to already exist</param>
+            <param name="light">
+                Lightweight execution.  If this is true, this skips setting up the stdout,
+                gathering warnings, etc.
+            </param>
+            <param name="args">optional input arguments.  Don't use it, these are permanent.</param>
+            <param name="rets">optional input arguments</param>
+            <returns>An object that represents the output of the code execution, whether its
+            an error, or std out.</returns>
+        </member>
+        <member name="M:Ansys.Mechanical.Interfaces.IEngine.ExecuteCodeAsFile(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Execute the code as a file, by first writing it to a temp file and then executing that file.
+            </summary>
+            <param name="code">The code to be executed.</param>
+            <param name="scopeName">
+                The script scope it needs to be executed in. Assumed it already exists.
+            </param>
+            <param name="args">optional input arguments.  Don't use it, these are permanent.</param>
+            <param name="rets">optional input arguments</param>
+            <returns>An object that represents the output of the code execution, whether its
+            an error, or std out.</returns>
+        </member>
+        <member name="M:Ansys.Mechanical.Interfaces.IEngine.AddScopeVariable(System.String,System.String,System.Object)">
+            <summary>
+            Adds a variable permanently to a scope.  If the scope does not yet exist,
+            this is a no-op
+            </summary>
+            <param name="scopeName"></param>
+            <param name="key"></param>
+            <param name="obj"></param>
+        </member>
+        <member name="M:Ansys.Mechanical.Interfaces.IEngine.GetScopeVariable(System.String,System.String)">
+            <summary>
+            Adds a variable permanently to a scope
+            </summary>
+            <param name="scopeName"></param>
+            <param name="key">The variable name to get from the scope.</param>
+            <returns>The names variable as an object, null otherwise.</returns>
+        </member>
+        <member name="M:Ansys.Mechanical.Interfaces.IEngine.RemoveScopeVariable(System.String,System.String)">
+            <summary>
+            Removes a variable from a scope
+            </summary>
+            <param name="scopeName"></param>
+            <param name="key">The variable name to remove from the scope.</param>
+            <returns>True if the variable existed and was removed, false otherwise.</returns>
+        </member>
+        <member name="M:Ansys.Mechanical.Interfaces.IEngine.ExecuteFile(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Executes a file in a given scope name.  Assumes the scope already exists.
+            </summary>
+            <param name="file">file to execute</param>
+            <param name="scopeName">The script scope it neds to be executed in</param>
+            <param name="args">optional - arguments to pass in.   Don't use it, these are permanent.</param>
+            <param name="rets">optional - return values by name</param>
+        </member>
+        <member name="M:Ansys.Mechanical.Interfaces.IEngine.CreateScope(System.String,System.Boolean,System.Nullable{System.Boolean})">
+            <summary>
+            Sets up search paths and variables for the scope.
+            </summary>
+            <param name="scopeName"></param>
+            <param name="isEmpty">optional - setting this to true creates an empty scope</param>
+            <param name="debugMode">optional - setting this makes sure a debug engine is used</param>
+        </member>
+        <member name="M:Ansys.Mechanical.Interfaces.IEngine.TryRemoveScope(System.String)">
+            <summary>
+            Tries to remove a scope
+            </summary>
+            <param name="scopeName">The name of the scope to remove</param>
+            <returns>true if the scope is removed, false if it is not</returns>
+        </member>
+        <member name="T:Ansys.Mechanical.Interfaces.ITable">
+            <summary>
+            Exposes a table, which is a two-dimensional tabular data structure with labeled columns.
+            The columns are usually instances of IVariable but can be any sort of array
+            </summary>
+        </member>
+        <member name="P:Ansys.Mechanical.Interfaces.ITable.Independents">
+            <summary>The portion of the table corresponding to independent variables.</summary>
+        </member>
+        <member name="P:Ansys.Mechanical.Interfaces.ITable.Dependents">
+            <summary>The portion of the table corresponding to dependent variables.</summary>
+        </member>
+        <member name="T:Ansys.Mechanical.Interfaces.IVariable">
+            <summary>Exposes a variable, which is a one dimensional array of real numbers with a unit.</summary>
+        </member>
+        <member name="P:Ansys.Mechanical.Interfaces.IVariable.Unit">
+            <summary>The unit of the variable.  For example, this could be "mm".</summary>
+        </member>
+        <member name="P:Ansys.Mechanical.Interfaces.IVariable.QuantityName">
+            <summary>The quantity name of the variable.  For example, this could be "Length".</summary>
+        </member>
+    </members>
+</doc>

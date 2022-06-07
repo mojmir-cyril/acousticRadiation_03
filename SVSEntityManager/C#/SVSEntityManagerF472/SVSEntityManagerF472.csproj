@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{756A871A-2221-4034-B9DA-9852B9E463CF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SVSEntityManagerF472</RootNamespace>
+    <AssemblyName>SVSEntityManagerF472</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\SVSEntityManagerF472.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\SVSEntityManagerF472.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ans.Core">
+      <HintPath>..\..\..\Ansys_DLL\Ans.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Ans.Utilities">
+      <HintPath>..\..\..\Ansys_DLL\Ans.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Ansys.ACT.Core">
+      <HintPath>..\..\..\Ansys_DLL\Ansys.ACT.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Ansys.ACT.Interfaces">
+      <HintPath>..\..\..\Ansys_DLL\Ansys.ACT.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Ansys.ACT.Interop">
+      <HintPath>..\..\..\Ansys_DLL\Ansys.ACT.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="Ansys.ACT.WB1">
+      <HintPath>..\..\..\Ansys_DLL\Ansys.ACT.WB1.dll</HintPath>
+    </Reference>
+    <Reference Include="Ansys.Mechanical.DataModel">
+      <HintPath>..\..\..\Ansys_DLL\Ansys.Mechanical.DataModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Ansys.Mechanical.Interfaces">
+      <HintPath>..\..\..\Ansys_DLL\Ansys.Mechanical.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=4.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="SVSConvertF472">
+      <HintPath>..\..\SVSConvertF472.dll</HintPath>
+    </Reference>
+    <Reference Include="SVSExceptionBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SVSExceptionBase.dll</HintPath>
+    </Reference>
+    <Reference Include="SVSLoggerF472, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SVSLoggerF472.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Help\SFormHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Help\SFormHelp.Designer.cs">
+      <DependentUpon>SFormHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Entities\Draw\ContourShells\SAnnoPoint.cs" />
+    <Compile Include="Main\Entities\Draw\ContourShells\SColors.cs" />
+    <Compile Include="Main\Entities\Draw\ContourShells\SAnnoContourShells.cs" />
+    <Compile Include="Main\Entities\Draw\ContourShells\SAnnoUtils.cs" />
+    <Compile Include="Main\Entities\Draw\SAnnoObjects.cs" />
+    <Compile Include="Main\Entities\Draw\SAnnoObject.cs" />
+    <Compile Include="Main\Entities\Draw\ContourShells\SAnnoLegend.cs" />
+    <Compile Include="Main\Entities\Entities\SElems.cs" />
+    <Compile Include="Main\Entities\Entities\SElemFaces.cs" />
+    <Compile Include="Main\Entities\Entities\SNodes.cs" />
+    <Compile Include="Main\Entities\Entities\SParts.cs" />
+    <Compile Include="Main\Entities\Entity\SElemFace.cs" />
+    <Compile Include="Main\Entities\Entity\SElem.cs" />
+    <Compile Include="Main\SLoggerBase.cs" />
+    <Compile Include="Main\Entities\SExtensions.cs" />
+    <Compile Include="Main\Entities\Morph\ISMorphNode.cs" />
+    <Compile Include="Main\Entities\Morph\SMorphField.cs" />
+    <Compile Include="Main\Entities\Morph\SMorphUtils.cs" />
+    <Compile Include="Main\Entities\Morph\SSimplePoint.cs" />
+    <Compile Include="Main\Entities\Shapes\SElemFaceShellDatas.cs" />
+    <Compile Include="Main\Entities\Shapes\SNorm.cs" />
+    <Compile Include="Main\Entities\Shapes\SFaceShapeData.cs" />
+    <Compile Include="Main\Entities\Shapes\SFaceIndexes.cs" />
+    <Compile Include="Main\Entities\Shapes\SShapes.cs" />
+    <Compile Include="Main\Entities\SConvertUtils.cs" />
+    <Compile Include="Main\Entities\SInfo.cs" />
+    <Compile Include="Main\Entities\SConvertEntity.cs" />
+    <Compile Include="Main\Entities\Solution\SResult.cs" />
+    <Compile Include="Main\SUnitsBase.cs" />
+    <Compile Include="Main\Entities\Entity\SPart.cs" />
+    <Compile Include="Main\Entities\Entity\SNode.cs" />
+    <Compile Include="Main\Entities\ISEntities.cs" />
+    <Compile Include="Main\Entities\SNew.cs" />
+    <Compile Include="Main\Entities\SStats.cs" />
+    <Compile Include="Main\Entities\SShape\SShape1D2D3D.cs" />
+    <Compile Include="Main\Entities\SEntitiesBase.cs" />
+    <Compile Include="Main\Entities\SMultiCriteria.cs" />
+    <Compile Include="Main\SEnums.cs" />
+    <Compile Include="Main\Entities\Draw\SDrawUtils.cs" />
+    <Compile Include="Main\Entities\Morph\SMorphDXYZ.cs" />
+    <Compile Include="Main\Utils\Math\SNormal.cs" />
+    <Compile Include="Main\Entities\Draw\SDraw.cs" />
+    <Compile Include="Main\Utils\Math\SVectorUtils.cs" />
+    <Compile Include="Main\Utils\Math\SNormalUtils.cs" />
+    <Compile Include="Main\Utils\MeshImprove\SMeshImproveElem.cs" />
+    <Compile Include="Main\Utils\MeshImprove\SMeshImproveInbalance.cs" />
+    <Compile Include="Main\Utils\MeshImprove\SMeshImproveLink.cs" />
+    <Compile Include="Main\Utils\MeshImprove\SMeshImproveNode.cs" />
+    <Compile Include="Main\Utils\SColorUtils.cs" />
+    <Compile Include="Main\Utils\SDisps.cs" />
+    <Compile Include="Main\Entities\Morph\SMorph.cs" />
+    <Compile Include="Main\Entities\Morph\SMorphData.cs" />
+    <Compile Include="Main\Entities\Morph\SMorphNode.cs" />
+    <Compile Include="Main\Utils\MeshImprove\SMeshImprove.cs" />
+    <Compile Include="Main\Utils\SRadiusMgr.cs" />
+    <Compile Include="Main\Entities\Solution\SSolution.cs" />
+    <Compile Include="Main\Examples and attempts\SMeshMove.cs" />
+    <Compile Include="Main\Utils\STimes.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Main\Entities\Entities\SBodies.cs" />
+    <Compile Include="Main\Entities\Entities\SEdges.cs" />
+    <Compile Include="Main\Entities\Entities\SEntities.cs" />
+    <Compile Include="Main\Entities\Entities\SFaces.cs" />
+    <Compile Include="Main\Entities\Entities\SVerts.cs" />
+    <Compile Include="Main\Entities\Entity\SBody.cs" />
+    <Compile Include="Main\Entities\Entity\SEdge.cs" />
+    <Compile Include="Main\Entities\Entity\SEntity.cs" />
+    <Compile Include="Main\Entities\Entity\SFace.cs" />
+    <Compile Include="Main\Entities\Entity\SVert.cs" />
+    <Compile Include="Main\SEntityManager.cs" />
+    <Compile Include="Main\Examples and attempts\SPokus.cs" />
+    <Compile Include="Main\Utils\SAct.cs" />
+    <Compile Include="Main\Utils\SEqualityComparer.cs" />
+    <Compile Include="Main\Utils\Math\SMath.cs" />
+    <Compile Include="Main\Utils\SMesh.cs" />
+    <Compile Include="Main\Utils\Math\SPoint.cs" />
+    <Compile Include="Main\Utils\SSendPY.cs" />
+    <Compile Include="Main\Utils\STree.cs" />
+    <Compile Include="Main\Utils\Units\SQuantity.cs" />
+    <Compile Include="Main\Utils\Units\SUnitsUtils.cs" />
+    <EmbeddedResource Include="Help\SFormHelp.resx">
+      <DependentUpon>SFormHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Main\Examples and attempts\Examples.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

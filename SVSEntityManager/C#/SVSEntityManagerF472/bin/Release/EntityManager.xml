@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EntityManager</name>
+    </assembly>
+    <members>
+        <member name="F:EntityManager.Help.SFormHelp.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:EntityManager.Help.SFormHelp.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:EntityManager.Help.SFormHelp.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:EntityManager.Extensions.Enumerate``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            list.Enumerate()
+            </summary>
+            <example>
+                <code>
+                foreach ((int i, SEntity ent) in ents.Enumerate())
+                {
+                   i   ---> 0,        1,        2,        3, ...
+                   ent ---> ents[0],  ents[1],  ents[2],  ents[3], ...
+                }
+                </code>
+            </example>
+            <typeparam name="TGeneralized"></typeparam>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EntityManager.SVerts.Extend(System.Func{EntityManager.SVert,EntityManager.SVert,System.Boolean})">
+            <summary>
+            Extend verts by a function.  
+            <example>
+                    <code>
+                        em.current.Extend(lambda cur, ver: cur.x == ver.x).Sel()
+                        em.current.Extend(lambda cur, ver: cur.x == ver.x).showns.Sel()
+                    </code>
+                </example>
+            </summary>
+            <param name="func">SVert, SVert, bool</param>
+            <returns>new SVerts</returns>
+        </member>
+        <member name="T:EntityManager.SEntityManager">
+            <summary>
+            The SEntityManager object created by SVS FEM s.o.r. for fast/easy work with geometrical entitites.
+            </summary>
+        </member>
+        <member name="M:EntityManager.SEntityManager.Help">
+            <summary>
+                <example>
+                    em = EntityManager.SEntityManager(ExtAPI)
+                    em.Help()
+                </example> 
+            </summary>
+        </member>
+        <member name="M:EntityManager.SEntityManager.Redraw(System.Boolean)">
+            <summary>
+            Redraws the Mechanical graphics.
+                <example>
+                <code>
+                    em.Redraw()
+                </code>
+                </example> 
+            </summary>
+            <param name="byDS">true ... more powerfull</param>
+            <returns>SEntityManager ---> self</returns>
+        </member>
+        <member name="T:EntityManager.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:EntityManager.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:EntityManager.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

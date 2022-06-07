@@ -1,0 +1,306 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SVSLoggerF472</name>
+    </assembly>
+    <members>
+        <member name="F:SVSLoggerF472.FormShowLog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.FormShowLog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SVSLoggerF472.FormShowLog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:SVSLoggerF472.SLogger">
+            <summary>
+            singleton logging object for App 
+            </summary>
+            <example><code>
+            // Example 1:
+            Logger.SLogger logger = Logger.SLogger.GetInstance(this, api);
+            logger.Msg("my SLogger ...");
+            logger.H1("Caption H1");
+            logger.H2("Caption H2");
+            logger.H3("Caption H3");
+            logger.Italic("Italic text");
+            logger.Bold("Bold text");
+            logger.Blue("Blue text");
+            
+            // Example 2:
+            using (em.logger.StartStopLog($"ToElemFaces(SFaces s)"))
+            {
+                ...
+            } 
+            </code></example>
+        </member>
+        <member name="P:SVSLoggerF472.SLogger.api">
+            <summary>
+            ExtAPI api - base ACT object in Ansys Project, Mechanical, ...
+            if api is null, logging to Ansys is not performing
+            </summary>
+        </member>
+        <member name="P:SVSLoggerF472.SLogger.parents">
+            <summary>
+            list of parents object for which logging has been setup
+            </summary>
+        </member>
+        <member name="P:SVSLoggerF472.SLogger.textFile">
+            <summary>
+            file where simple ASCII log is writting
+            </summary>
+        </member>
+        <member name="P:SVSLoggerF472.SLogger.htmlFile">
+            <summary>
+            file where HTML log is writting
+            </summary>
+        </member>
+        <member name="P:SVSLoggerF472.SLogger.backColor">
+            <summary>
+            background color
+            </summary>
+        </member>
+        <member name="P:SVSLoggerF472.SLogger.timeConsumer">
+            <summary>
+            time consumer measured with start-stop object
+            </summary>
+            <example><code>
+            using (logger.StartStop($"ToElemFaces(SFaces s)"))
+            {
+                ...
+            }  
+            TimeSpan totalTimeSpan = logger.timeConsumer["ToElemFaces(SFaces s)"]  // returns total time span for the code
+            </code></example>
+        </member>
+        <member name="P:SVSLoggerF472.SLogger.callCounter">
+            <summary>
+            call counter measured with start-stop object
+            </summary>
+            <example><code>
+            using (logger.StartStop($"ToElemFaces(SFaces s)"))
+            {
+                ...
+            }  
+            int totalCallCount = logger.callCounter["ToElemFaces(SFaces s)"]  // returns total count of calls the code
+            </code></example>
+        </member>
+        <member name="P:SVSLoggerF472.SLogger.htmlFileSizeLimitMB">
+            <summary>
+            gets/sets size limit of HTML file [MB]
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.GetInstance(System.Object,System.String,System.String,System.Double)">
+            <summary>
+            gets instance of SLogger (singleton object ... single instance for whole application)
+            </summary> 
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.GetInstance(System.Object,Ansys.ACT.Interfaces.Mechanical.IMechanicalExtAPI,System.String,System.String,System.Double)">
+            <summary>
+            gets instance of SLogger (singleton object ... single instance for whole application)
+            </summary> 
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.GetInstance(System.Object,Ansys.ACT.Interfaces.Mechanical.IMechanicalExtAPI,System.String,System.Double)">
+            <summary>
+            gets instance of SLogger (singleton object ... single instance for whole application)
+            </summary> 
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.GetInstance(System.Object,System.String,System.Double)">
+            <summary>
+            gets instance of SLogger (singleton object ... single instance for whole application)
+            uses ACT extension folder for logging if exists 
+            textFile = "../[extension]/logs/log.txt"
+            textFile = "../[extension]/logs/log.html"
+            </summary> 
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.GetInstance(System.Object,SVSDir.SFile,SVSDir.SFile,System.String)">
+            <summary>
+            gets instance of SLogger (singleton object ... single instance for whole application)
+            </summary> 
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.GetInstance(System.Object,Ansys.ACT.Interfaces.Mechanical.IMechanicalExtAPI,SVSDir.SFile,SVSDir.SFile,System.Boolean,System.String,System.Double)">
+            <summary>
+            gets instance of SLogger (singleton object ... single instance for whole application)
+            </summary>
+            <example><code>
+            // Example 1:
+            Logger.SLogger logger = Logger.SLogger.GetInstance(this, api);
+            logger.Msg("my SLogger ...");
+            logger.H1("Caption H1");
+            logger.H2("Caption H2");
+            logger.H3("Caption H3");
+            logger.Italic("Italic text");
+            logger.Bold("Bold text");
+            logger.Blue("Blue text");
+            
+            // Example 2:
+            using (em.logger.StartStopLog($"ToElemFaces(SFaces s)"))
+            {
+                ...
+            } 
+            </code></example>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.CheckSizeLimit">
+            <summary>
+            checks size limit of HTML file and delete both HTML file and text file if size is over
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.Msg(System.Object,System.String)">
+            <summary>
+            writes a line into log 
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.Msg(System.Object)">
+            <summary>
+            writes a line into log 
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.Italic(System.Object)">
+            <summary>
+            writes a line into log (gray italic font is using)
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.Bold(System.Object)">
+            <summary>
+            writes a line into log (gray bold font is using)
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.H1(System.Object)">
+            <summary>
+            writes a line into log (H1 block is using)
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.H2(System.Object)">
+            <summary>
+            writes a line into log (H2 block is using)
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.H3(System.Object)">
+            <summary>
+            writes a line into log (H3 block is using)
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.Blue(System.Object)">
+            <summary>
+            writes a line into log (blue font is using)
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.Green(System.Object)">
+            <summary>
+            writes a line into log (green font is using)
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.Wrn(System.Object)">
+            <summary>
+            writes a line into log (orange font is using)
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.Err(System.Object)">
+            <summary>
+            writes a line into log (red font is using)
+            </summary>
+        </member>
+        <member name="P:SVSLoggerF472.SLogger.InvokeUI">
+            <summary>
+            calls a method in UI thread for Mechanical
+            calls a method in others contexts (e.g. Project, SpaceClaim, ...)
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.GetExtensionLogDir(System.String)">
+            <summary>
+            get extensions log path
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.ParentsToLog">
+            <summary>
+            writes all parent object strings into log
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.OpenFolder">
+            <summary>
+            opens folder with logs
+            </summary>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.StartStop(System.String)">
+            <summary>
+            gets start-stop IDisposable object
+            </summary>
+            <example><code>
+            using (logger.StartStop($"ToElemFaces(SFaces s)"))
+            {
+                ...
+            }  
+            </code></example>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.StartStopLog(System.String)">
+            <summary>
+            gets start-stop IDisposable object and writes it into log
+            </summary>
+            <example><code>
+            using (logger.StartStopLog($"ToElemFaces(SFaces s)"))
+            {
+                ...
+            }  
+            </code></example>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.StartStopLogLog(System.String,System.Action{System.String})">
+            <summary>
+            gets start-stop IDisposable object and writes it into log and also into custom log
+            </summary>
+            <example><code>
+            using (logger.StartStopLogLog($"ToElemFaces(SFaces s)"), MyLogFunction)
+            {
+                ...
+            }  
+            </code></example>
+        </member>
+        <member name="M:SVSLoggerF472.SLogger.Show">
+            <summary>
+            shows dialog with logs
+            </summary>
+            <example><code>
+            import datetime
+            n = datetime.datetime.now()
+            em = EM()
+            print em.elemFaces.count
+            print em.logger.Show()
+            print datetime.datetime.now() - n 
+            </code></example>
+        </member>
+        <member name="T:SVSLoggerF472.SStartStop">
+            <summary>
+            start-stop IDisposable object
+            </summary>
+            <example><code>
+            using (logger.StartStop($"ToElemFaces(SFaces s)"))
+            {
+                ...
+            }  
+            </code></example>
+        </member>
+        <member name="M:SVSLoggerF472.SStartStop.#ctor(SVSLoggerF472.SLogger,System.String,System.Boolean,System.Boolean,System.Action{System.String})">
+            <summary>
+            gets start-stop IDisposable object
+            </summary>
+            <example><code>
+            using (logger.StartStop($"ToElemFaces(SFaces s)"))
+            {
+                ...
+            }  
+            </code></example>
+        </member>
+        <member name="M:SVSLoggerF472.SStartStop.Dispose">
+            <summary>
+            disposes
+            </summary>
+        </member>
+    </members>
+</doc>

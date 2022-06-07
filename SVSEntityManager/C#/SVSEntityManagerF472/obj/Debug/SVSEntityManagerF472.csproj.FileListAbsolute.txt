@@ -1,0 +1,100 @@
+e:\C#Tools\SVSEntityManager\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.dll.config
+e:\C#Tools\SVSEntityManager\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.dll
+e:\C#Tools\SVSEntityManager\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.pdb
+e:\C#Tools\SVSEntityManager\SVSEntityManagerF472\bin\Debug\Newtonsoft.Json.dll
+e:\C#Tools\SVSEntityManager\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.Help.SFormHelp.resources
+e:\C#Tools\SVSEntityManager\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.Properties.Resources.resources
+e:\C#Tools\SVSEntityManager\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.GenerateResource.cache
+e:\C#Tools\SVSEntityManager\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.CoreCompileInputs.cache
+e:\C#Tools\SVSEntityManager\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.CopyComplete
+e:\C#Tools\SVSEntityManager\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.dll
+e:\C#Tools\SVSEntityManager\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.pdb
+E:\C#Tools\SVSEntityManager\SVSEntityManagerF472\bin\Debug\SVSLoggerF472.dll
+E:\C#Tools\SVSEntityManager\SVSEntityManagerF472\bin\Debug\SVSConvertF472.dll
+E:\C#Tools\SVSEntityManager\SVSEntityManagerF472\bin\Debug\SVSExceptionBase.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.Help.SFormHelp.resources
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.Properties.Resources.resources
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.GenerateResource.cache
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.CoreCompileInputs.cache
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.pdb
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.dll.config
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.pdb
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSExceptionBase.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Newtonsoft.Json.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.CopyComplete
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.xml
+E:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSLoggerF472.dll
+E:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSDir.dll
+E:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSLoggerF472.xml
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ans.Core.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ans.Utilities.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.Core.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.Interfaces.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.Interop.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.WB1.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Mechanical.DataModel.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Mechanical.Interfaces.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ans.ComponentSystem.Interop.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Common.Interop.212.dll
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.Core.xml
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.Interfaces.xml
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.WB1.xml
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Mechanical.DataModel.xml
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Mechanical.Interfaces.xml
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ans.ComponentSystem.Interop.xml
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Common.Interop.212.xml
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\MathNet.Numerics.dll
+E:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\MathNet.Numerics.xml
+e:\C#Tools\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.AssemblyReference.cache
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.AssemblyReference.cache
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.Help.SFormHelp.resources
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.Properties.Resources.resources
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.GenerateResource.cache
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.CoreCompileInputs.cache
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.dll
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.pdb
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.dll.config
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.xml
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.dll
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.pdb
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Newtonsoft.Json.dll
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ans.ComponentSystem.Interop.dll
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Common.Interop.212.dll
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSDir.dll
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.Core.xml
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.Interfaces.xml
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.WB1.xml
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Mechanical.DataModel.xml
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Mechanical.Interfaces.xml
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\MathNet.Numerics.xml
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSLoggerF472.xml
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ans.ComponentSystem.Interop.xml
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Common.Interop.212.xml
+E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.CopyComplete
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.dll.config
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.xml
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.dll
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Newtonsoft.Json.dll
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ans.ComponentSystem.Interop.dll
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Common.Interop.212.dll
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSDir.dll
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.Core.xml
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.Interfaces.xml
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.ACT.WB1.xml
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Mechanical.DataModel.xml
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Mechanical.Interfaces.xml
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\MathNet.Numerics.xml
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSLoggerF472.xml
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ans.ComponentSystem.Interop.xml
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\Ansys.Common.Interop.212.xml
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.AssemblyReference.cache
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.Help.SFormHelp.resources
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.Properties.Resources.resources
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.GenerateResource.cache
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.CoreCompileInputs.cache
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.csproj.CopyComplete
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.dll
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\obj\Debug\SVSEntityManagerF472.pdb
+\\SERAK\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug\SVSEntityManagerF472.pdb
