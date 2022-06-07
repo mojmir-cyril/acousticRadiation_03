@@ -1,3 +1,5 @@
+wrn("ObjectController")
+
 class ObjectController():
 
     @callback
@@ -24,8 +26,6 @@ class ObjectController():
     @callback
     def onready(self, *object):
         msg("onready")
-
-
 
     @callback
     def updateProperties(self):
@@ -102,7 +102,7 @@ class ObjectController():
         self.isDefPropertiesSet      = True
         self.updateProperties()
 
-    @callback
+    @forwardError
     def onshow(self, object):
         """
         
@@ -122,27 +122,28 @@ class ObjectController():
         prevDeformationScaleMultiplier = Graphics.ViewOptions.ResultPreference.DeformationScaleMultiplier
 
         length = Tree.ActiveObjects.Count
+        try:
+            if self.dictResults != None and object.ObjectId == Tree.ActiveObjects[length-1].ObjectId:
+                # plotResults(object)
+                try:
+                    plotData(object)
+                except Exception as e:
+                    msg(str(e))
 
-        if self.dictResults != None and object.ObjectId == Tree.ActiveObjects[length-1].ObjectId:
-            # plotResults(object)
-            try:
-                plotData(object)
-            except Exception as e:
-                msg(str(e))
+                scopeGeomEnts = em.Entities(object.Properties["Settings/Geometry"].Value)
+                freq = float(object.Properties["Settings/Frequency"].Value)
+                msg("freq: " + str(freq))
+                bodies = scopeGeomEnts.bodies
 
-            scopeGeomEnts = em.Entities(object.Properties["Settings/Geometry"].Value)
-            freq = float(object.Properties["Settings/Frequency"].Value)
-            msg("freq: " + str(freq))
-            bodies = scopeGeomEnts.bodies
+                # em.bodies.visible = False
+                bodies.visible = True
+                (em.bodies - bodies).visible = False
 
-            # em.bodies.visible = False
-            bodies.visible = True
-            (em.bodies - bodies).visible = False
-
-            ExtAPI.Graphics.ViewOptions.ResultPreference.DeformationScaleMultiplier = 0.
-            ExtAPI.Graphics.ViewOptions.ShowLegend = False
-            ExtAPI.Graphics.ViewOptions.ModelDisplay = ModelDisplay.Wireframe
-            ExtAPI.Graphics.ViewOptions.ShowMesh = True
+                ExtAPI.Graphics.ViewOptions.ResultPreference.DeformationScaleMultiplier = 0.
+                ExtAPI.Graphics.ViewOptions.ShowLegend = False
+                ExtAPI.Graphics.ViewOptions.ModelDisplay = ModelDisplay.Wireframe
+                ExtAPI.Graphics.ViewOptions.ShowMesh = True
+        except: pass
 
     @callback
     def ongenerate(self, object, func):

@@ -16,6 +16,8 @@ msg = ExtAPI.Log.WriteMessage
 wrn = ExtAPI.Log.WriteWarning
 err = ExtAPI.Log.WriteError
 
+wrn("main.py")
+
 ro = 1.2041 # air density [kg/m**3]
 c = 343.25 # speed of sound [m/s]
 WRef = 1e-12
@@ -210,23 +212,52 @@ def plotData(object):#elemFaces, dataDict, specDataDict, analysis, freq):
 @callback
 def CreateERPObj(analysis):
     msg("CreateERPObj")
-    with ExtAPI.DataModel.Tree.Suspend(): #Transaction():
-        analysis.CreatePostObject("ERPPostObj", "acousticRadiation")
+    try:
+        with Transaction():
+            analysis.CreatePostObject("ERPPostObj", "acousticRadiation")
+    except: analysis.CreatePostObject("ERPPostObj", "acousticRadiation")
 
 @callback
 def CreateERPLevelObj(analysis):
     msg("CreateERPLevelObj")
-    with ExtAPI.DataModel.Tree.Suspend():
-        analysis.CreatePostObject("ERPLevelPostObj", "acousticRadiation")
+    try:
+        with Transaction():
+            analysis.CreatePostObject("ERPLevelPostObj", "acousticRadiation")
+    except: analysis.CreatePostObject("ERPLevelPostObj", "acousticRadiation")
 
 @callback
 def CreateNormalVelObj(analysis):
-    msg("CreateERPObj")
-    with ExtAPI.DataModel.Tree.Suspend():
-        analysis.CreatePostObject("NormalVelPostObj", "acousticRadiation")
+    msg("CreateNormalVelObj")
+    try:
+        with Transaction():
+            analysis.CreatePostObject("NormalVelPostObj", "acousticRadiation")
+    except: analysis.CreatePostObject("NormalVelPostObj", "acousticRadiation")
 
+@callback
+def CreateERPRangeObj(analysis):
+    msg("CreateERPRangeObj")
+    try:
+        with Transaction():
+            analysis.CreatePostObject("ERPRangePostObj", "acousticRadiation")
+    except: analysis.CreatePostObject("ERPRangePostObj", "acousticRadiation")
 
-# def plotResults(object):
+@callback
+def CreateERPLevelRangeObj(analysis):
+    msg("CreateERPLevelRangeObj")
+    try:
+        with Transaction():
+            analysis.CreatePostObject("ERPLevelRangePostObj", "acousticRadiation")
+    except: analysis.CreatePostObject("ERPLevelRangePostObj", "acousticRadiation")
+
+@callback
+def CreateNormalVelRangeObj(analysis):
+    msg("CreateNormalVelRangeObj")
+    try:
+        with Transaction():
+            analysis.CreatePostObject("NormalVelRangePostObj", "acousticRadiation")
+    except: analysis.CreatePostObject("NormalVelRangePostObj", "acousticRadiation")
+
+    # def plotResults(object):
 #     analysis = object.Analysis
 #
 #     scopeGeomEnts = em.Entities(object.Properties["Settings/Geometry"].Value)

@@ -1,6 +1,6 @@
 <extension version="1" name="acousticRadiation">
-    <script src="main.py"/>
     <script src="decorators.py"/>
+    <script src="main.py"/>
     <script src="ObjectController.py"/>
     <interface context="Mechanical">
         <images>images</images>
@@ -30,17 +30,17 @@
                 </entry>
             </entry>
              <entry name="Evaluated over Frequency Range" icon="icon_environment_acoustic_radiation_boundary_16x16">
-                <entry name="ERP" icon="icon_environment_acoustic_radiation_boundary_16x16">
+                <entry name="ERP for Frequency Range" icon="icon_environment_acoustic_radiation_boundary_16x16">
                     <callbacks>
                         <onclick>CreateERPRangeObj</onclick>
                     </callbacks>
                 </entry>
-                <entry name="ERP Level" icon="icon_environment_acoustic_radiation_boundary_16x16">
+                <entry name="ERP Level for Frequency Range" icon="icon_environment_acoustic_radiation_boundary_16x16">
                     <callbacks>
                         <onclick>CreateERPLevelRangeObj</onclick>
                     </callbacks>
                 </entry>
-                <entry name="Normal Velocity" icon="icon_environment_acoustic_radiation_boundary_16x16">
+                <entry name="Normal Velocity for Frequency Range" icon="icon_environment_acoustic_radiation_boundary_16x16">
                     <callbacks>
                         <onclick>CreateNormalVelRangeObj</onclick>
                     </callbacks>
