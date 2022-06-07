@@ -1,5 +1,6 @@
 <extension version="1" name="acousticRadiation">
     <script src="main.py"/>
+    <script src="decorators.py"/>
     <script src="ObjectController.py"/>
     <interface context="Mechanical">
         <images>images</images>

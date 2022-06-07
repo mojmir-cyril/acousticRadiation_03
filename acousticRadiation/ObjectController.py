@@ -1,5 +1,6 @@
 class ObjectController():
 
+    @callback
     def __init__(self, ExtAPI, object):
         msg("onInitCtrl")
 
@@ -18,16 +19,15 @@ class ObjectController():
 
         # if object.Properties["Results/specDataDict"].Value != None:
         #     msg("ifspecDataDict")
-        #     self.ahoj()
         #     self.updateProperties()
 
+    @callback
     def onready(self, *object):
         msg("onready")
 
 
-    def ahoj(self):
-        msg("ahoj")
 
+    @callback
     def updateProperties(self):
         msg("updateProperties")
         self.name = "ObjectController" + self.object.Name
@@ -57,12 +57,12 @@ class ObjectController():
                 msg("Error when updating properties (class ObjectController, method updateProperties)" + str(e))
             # tady vyplnit dane property z ulozenych dat v property objektu ve strome
 
+    @callback
     def isvalid(self, object, *args):
         msg("isvalid")
         try:
             if object.Properties["Results/specDataDict"].Value != None and not self.updated:
                 msg("ifspecDataDict")
-                self.ahoj()
                 self.updateProperties()
                 self.updated = True
 
@@ -70,6 +70,7 @@ class ObjectController():
             pass
         return True
 
+    @callback
     def onadd(self, object):
         """
         presets default settings of tree object properties
@@ -101,6 +102,7 @@ class ObjectController():
         self.isDefPropertiesSet      = True
         self.updateProperties()
 
+    @callback
     def onshow(self, object):
         """
         
@@ -142,9 +144,7 @@ class ObjectController():
             ExtAPI.Graphics.ViewOptions.ModelDisplay = ModelDisplay.Wireframe
             ExtAPI.Graphics.ViewOptions.ShowMesh = True
 
-
-
-
+    @callback
     def ongenerate(self, object, func):
         msg("onGenerate")
         func(0, "Start Generating Data")
@@ -177,12 +177,14 @@ class ObjectController():
         func(100, "Done Generating Data")
         return ExtAPI.Application.InvokeUIThread(UIThread, object)
 
+    @callback
     def onaftergenerate(self, object):
         msg("onAfterGenerate")
         length = Tree.ActiveObjects.Count
         if object.ObjectId == Tree.ActiveObjects[length-1].ObjectId:
             plotData(object)
 
+    @callback
     def onhide(self, object):
         msg("onHide")
         ExtAPI.Graphics.ViewOptions.ShowLegend = True

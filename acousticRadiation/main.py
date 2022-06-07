@@ -49,30 +49,41 @@ def createEmAndEmw():
         em = EM()
         em.Units("m", "rad", "kg")
         emw = EM_whole()
-
+@callback
 def onInit(*args):
     msg("onInit")
 
-
+@callback
 def OnReady(*args):
     msg("OnReady")
 
-
+@callback
 def Resume(*args):
     msg("Resume")
     createEmAndEmw()
-
+@callback
 def onLoad(*args):
     msg("onLoad")
     # global em, emw
     # em = EM()
     # em.Units("m", "rad", "kg")
     # emw = EM_whole()
-
+@callback
 def OnTerminate(context):
     msg("OnTerminate")
     # msg("co to je: " + context)
-    Graphics.Scene.Clear()
+    ExtAPI.Graphics.Scene.Clear()
+
+    ExtAPI.Graphics.ViewOptions.ShowLegend = True
+    ExtAPI.Graphics.Scene.Visible = False  # umi ukazat nebo schovat vykreslene
+    try:
+        ExtAPI.Graphics.ViewOptions.ModelDisplay = prevModelDisplay
+        ExtAPI.Graphics.ViewOptions.ResultPreference.DeformationScaleMultiplier = prevDeformationScaleMultiplier
+    except:
+        msg("prevModelDisplay and prevDeformationScaleMultiplier are not defined yet")
+    prevVisibleBodies.visible = True
+    (em.bodies - prevVisibleBodies).visible = False
+
     for extObj in DataModel.GetUserObjects(extName):
         try:
             extObj.Properties["Results/dictResults"].Value = None
@@ -373,7 +384,7 @@ def plotData(object):#elemFaces, dataDict, specDataDict, analysis, freq):
 
 def CreateERPObj(analysis):
     msg("CreateERPObj")
-    with Transaction():
+    with ExtAPI.DataModel.Tree.Suspend(): #Transaction():
         analysis.CreatePostObject("ERPPostObj", "acousticRadiation")
 
 def CreateERPLevelObj(analysis):
