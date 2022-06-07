@@ -9,7 +9,12 @@ working with SI units (em.Units("m", "rad", "kg")) -> all returned values are in
 
 extName = "acousticRadiation"
 global msg
+global wrn
+global err
+
 msg = ExtAPI.Log.WriteMessage
+wrn = ExtAPI.Log.WriteWarning
+err = ExtAPI.Log.WriteError
 
 ro = 1.2041 # air density [kg/m**3]
 c = 343.25 # speed of sound [m/s]
@@ -49,6 +54,7 @@ def createEmAndEmw():
         em = EM()
         em.Units("m", "rad", "kg")
         emw = EM_whole()
+
 @callback
 def onInit(*args):
     msg("onInit")
@@ -61,6 +67,7 @@ def OnReady(*args):
 def Resume(*args):
     msg("Resume")
     createEmAndEmw()
+
 @callback
 def onLoad(*args):
     msg("onLoad")
@@ -68,6 +75,7 @@ def onLoad(*args):
     # em = EM()
     # em.Units("m", "rad", "kg")
     # emw = EM_whole()
+
 @callback
 def OnTerminate(context):
     msg("OnTerminate")
@@ -91,12 +99,14 @@ def OnTerminate(context):
         except Exception as e:
             pass
 
+@callback
 def onValidate(*object):
     msg("onValidate")
     msg("object: " + str(object))
     # msg("arg2: " + str(arg2))
     return
 
+@callback
 def isValidFreq(object, prop):
     analysisId = object.Analysis.Id
     treeAnalysis = [i for i in Model.Analyses if i.Id == analysisId][0]
@@ -107,9 +117,6 @@ def isValidFreq(object, prop):
     if treeAnalysis.AnalysisSettings.RangeMinimum.Value > prop.Value or prop.Value > treeAnalysis.AnalysisSettings.RangeMaximum.Value:
         return False
     else: return True
-
-
-
 
 def GetDataDict(object):
     """
@@ -145,7 +152,6 @@ def GetDataDict(object):
     msg("3")
 
     return dataDict, specDataDict
-
 
 def recontructResults(object, specDataDict):
     """
@@ -201,18 +207,19 @@ def plotData(object):#elemFaces, dataDict, specDataDict, analysis, freq):
         object.Properties["Results/MaxVelocity"].Value      = round(max(dataDict.Values), decimalPlacePrecision)
     ExtAPI.Graphics.Scene.Visible = True  # umi ukazat nebo schovat vykreslene
 
-
-
+@callback
 def CreateERPObj(analysis):
     msg("CreateERPObj")
     with ExtAPI.DataModel.Tree.Suspend(): #Transaction():
         analysis.CreatePostObject("ERPPostObj", "acousticRadiation")
 
+@callback
 def CreateERPLevelObj(analysis):
     msg("CreateERPLevelObj")
     with ExtAPI.DataModel.Tree.Suspend():
         analysis.CreatePostObject("ERPLevelPostObj", "acousticRadiation")
 
+@callback
 def CreateNormalVelObj(analysis):
     msg("CreateERPObj")
     with ExtAPI.DataModel.Tree.Suspend():
