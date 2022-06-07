@@ -108,38 +108,162 @@ def isValidFreq(object, prop):
         return False
     else: return True
 
-def EvalResult(object):
-    msg("onEvaluate123" + "\nstepInfo.time: " + str(stepInfo.Time) + "\nres.caption: " + str(result.Caption))
-
-    globalStepInfo = stepInfo
-
-    # onShow(result)
-
-    # OBJ = result
-    # sel = OBJ.Properties["Geometry"].Value
-    # emSel = em.SelEnts(sel)
-    # freq = stepInfo.Time # [Hz]
-    # omega = 2 * pi * freq
-    #
-    # global elemFaces
-    # elemFaces = emSel.elemFaces
-    #
-    # nodes = elemFaces.nodes.corners
-    # analysis = OBJ.Analysis
-    # nodes.Sel()
 
 
 
+def GetDataDict(object):
+    """
+    gets serializable data
+    :param object:
+    :return:
+    """
+    controller      = object.Controller
+    analysis        = controller.analysis
+    scopeGeomEnts   = controller.scopeGeomEnts
+    freq            = controller.freq
+    msg("freq: " + str(freq))
+    bodies          = controller.bodies
+    elemFaces       = controller.elemFaces
+
+    msg("1")
+
+    if      object.Name == "ERPPostObj":
+        dataDict        = elemFaces.GetDictERP(freq, analysis)
+        specDataDict    = elemFaces.GetDictSpecERP(freq, analysis)
+    elif    object.Name == "ERPLevelPostObj":
+        dataDict        = elemFaces.GetDictERPLevel(freq, analysis)
+        specDataDict    = elemFaces.GetDictSpecERPLevel(freq, analysis)
+    elif    object.Name == "NormalVelPostObj":
+        dataDict        = elemFaces.GetDictNormalV(freq, analysis)
+        specDataDict    = dataDict
+
+    msg("2")
+
+    object.Properties["Results/dataDict"].Value     = dataDict
+    object.Properties["Results/specDataDict"].Value = specDataDict
+
+    msg("3")
+
+    return dataDict, specDataDict
+
+
+def recontructResults(object, specDataDict):
+    """
+    make results plotable -> from dictionary {(elemId, elemFaceId) : result} to dictionary {SElemFace : result}
+    :param object:
+    :return:
+    """
+    efsList         = []
+    controller      = object.Controller
+    # dictResults = System.Collections.Generic.Dictionary[System.Tuple[System.Int32, System.Int32], System.Double]()
+    dictResults     = System.Collections.Generic.Dictionary[emw.SElemFace, System.Double]()
+    for keyVal in specDataDict:
+        ef = emw.SElemFace(em, keyVal.Key.Item1, keyVal.Key.Item2)
+        dictResults[ef] = keyVal.Value
+    return dictResults
+
+def plotData(object):#elemFaces, dataDict, specDataDict, analysis, freq):
+    controller              = object.Controller
+    analysis                = controller.analysis
+    scopeGeomEnts           = controller.scopeGeomEnts
+    freq                    = controller.freq
+    msg("freq: " + str(freq))
+    bodies                  = controller.bodies
+    elemFaces               = controller.elemFaces
+    numberOfColors          = controller.numberOfColors
+    decimalPlacePrecision   = controller.decimalPlacePrecision
+    dictResults             = controller.dictResults
+    dataDict                = controller.dataDict
+
+    bodies.visible                  = True
+    (em.bodies - bodies).visible    = False
+
+    ExtAPI.Graphics.ViewOptions.ResultPreference.DeformationScaleMultiplier = 0.
+    ExtAPI.Graphics.ViewOptions.ShowLegend                                  = False
+    ExtAPI.Graphics.ViewOptions.ModelDisplay                                = ModelDisplay.Wireframe
+    ExtAPI.Graphics.ViewOptions.ShowMesh                                    = True
+
+    # elemFaces.DrawElemFacesResults(specDataDict, analysis, freq=freq, type="Result Type", unit="Unit")
+
+    # if dictResults
+
+    if      object.Name == "ERPPostObj":
+        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power", unit="W/m^2")
+        object.Properties["Results/OverallERP"].Value       = round(sum(dataDict.Values), decimalPlacePrecision)
+        object.Properties["Results/OverallERPlevel"].Value  = round(10 * log10(sum(dataDict.Values) / WRef), decimalPlacePrecision)
+    elif    object.Name == "ERPLevelPostObj":
+        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power Level", unit="dB")
+        object.Properties["Results/OverallERP"].Value       = round(sum(dataDict.Values), decimalPlacePrecision)
+        object.Properties["Results/OverallERPlevel"].Value  = round(10 * log10(sum(dataDict.Values) / WRef), decimalPlacePrecision)
+    elif    object.Name == "NormalVelPostObj":
+        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power", unit="m/s")
+        object.Properties["Results/MinVelocity"].Value      = round(min(dataDict.Values), decimalPlacePrecision)
+        object.Properties["Results/MaxVelocity"].Value      = round(max(dataDict.Values), decimalPlacePrecision)
+    ExtAPI.Graphics.Scene.Visible = True  # umi ukazat nebo schovat vykreslene
 
 
 
-    # try:
-    #     res = analysis.GetResultsData()
-    # except:
-    #     msg("Results could not be loaded.")
-    #     pass
+def CreateERPObj(analysis):
+    msg("CreateERPObj")
+    with ExtAPI.DataModel.Tree.Suspend(): #Transaction():
+        analysis.CreatePostObject("ERPPostObj", "acousticRadiation")
+
+def CreateERPLevelObj(analysis):
+    msg("CreateERPLevelObj")
+    with ExtAPI.DataModel.Tree.Suspend():
+        analysis.CreatePostObject("ERPLevelPostObj", "acousticRadiation")
+
+def CreateNormalVelObj(analysis):
+    msg("CreateERPObj")
+    with ExtAPI.DataModel.Tree.Suspend():
+        analysis.CreatePostObject("NormalVelPostObj", "acousticRadiation")
 
 
+# def plotResults(object):
+#     analysis = object.Analysis
+#
+#     scopeGeomEnts = em.Entities(object.Properties["Settings/Geometry"].Value)
+#     freq = float(object.Properties["Settings/Frequency"].Value)
+#     msg("freq: " + str(freq))
+#     bodies = scopeGeomEnts.bodies
+#     elemFaces = scopeGeomEnts.elemFaces.Update()
+#
+#     """
+#     C# element face ERP
+#     """
+#
+#
+#     # elemFaces.DrawElemFacesSpecERP(stepInfo, analysis)
+#     numberOfColors = int(object.Properties["Settings/numberOfColors"].Value)
+#     decimalPlacePrecision = 4
+#
+#     # if object.Name == "ERPPostObj":
+#     #     elemFaces.DrawElemFacesSpecERP(freq, analysis, numberOfColors)
+#     #     object.Properties["Results/OverallERP"].Value = round(elemFaces.ERP(freq, analysis),
+#     #                                                                                   decimalPlacePrecision)
+#     #     object.Properties["Results/OverallERPlevel"].Value = round(
+#     #         elemFaces.ERPLevel(freq, analysis), decimalPlacePrecision)
+#     # elif object.Name == "ERPLevelPostObj":
+#     #     elemFaces.DrawElemFacesSpecERPLevel(freq, analysis, numberOfColors)
+#     #     object.Properties["Results/OverallERP"].Value = round(elemFaces.ERP(freq, analysis),
+#     #                                                                                   decimalPlacePrecision)
+#     #     object.Properties["Results/OverallERPlevel"].Value = round(
+#     #         elemFaces.ERPLevel(freq, analysis), decimalPlacePrecision)
+#     # elif object.Name == "NormalVelPostObj":
+#     #     elemFaces.DrawElemFacesNormalV(freq, analysis, numberOfColors)
+#     #     object.Properties["Results/MinVelocity"].Value = round(
+#     #         elemFaces.Min(lambda elemFace: elemFace.GetElemFaceNormalV(freq, analysis, analysis.GetResultsData())).GetElemFaceNormalV(freq,
+#     #                                                                                                        analysis, analysis.GetResultsData()),
+#     #         decimalPlacePrecision)
+#     #     object.Properties["Results/MaxVelocity"].Value = round(
+#     #         elemFaces.Max(lambda elemFace: elemFace.GetElemFaceNormalV(freq, analysis, analysis.GetResultsData())).GetElemFaceNormalV(freq,
+#     #                                                                                                        analysis, analysis.GetResultsData()),
+#     #         decimalPlacePrecision)
+#
+#     ExtAPI.Graphics.Scene.Visible = True  # umi ukazat nebo schovat vykreslene
+#
+#     # else:
+#     #     msg.("Result must be evaluated first")
 
     """
     element face ERP results
@@ -241,171 +365,6 @@ def EvalResult(object):
 
     # U = res.GetResult("U")
     # UVals = U.GetNodeValues(elemFaces.nodes.info.Ids)
-
-
-
-def GetDataDict(object):
-    """
-    gets serializable data
-    :param object:
-    :return:
-    """
-    controller      = object.Controller
-    analysis        = controller.analysis
-    scopeGeomEnts   = controller.scopeGeomEnts
-    freq            = controller.freq
-    msg("freq: " + str(freq))
-    bodies          = controller.bodies
-    elemFaces       = controller.elemFaces
-
-    msg("1")
-
-    if      object.Name == "ERPPostObj":
-        dataDict        = elemFaces.GetDictERP(freq, analysis)
-        specDataDict    = elemFaces.GetDictSpecERP(freq, analysis)
-    elif    object.Name == "ERPLevelPostObj":
-        dataDict        = elemFaces.GetDictERPLevel(freq, analysis)
-        specDataDict    = elemFaces.GetDictSpecERPLevel(freq, analysis)
-    elif    object.Name == "NormalVelPostObj":
-        dataDict        = elemFaces.GetDictNormalV(freq, analysis)
-        specDataDict    = dataDict
-
-    msg("2")
-
-    object.Properties["Results/dataDict"].Value     = dataDict
-    object.Properties["Results/specDataDict"].Value = specDataDict
-
-    msg("3")
-
-    return dataDict, specDataDict
-
-
-def recontructResults(object, specDataDict):
-    """
-    make results plotable -> from dictionary {(elemId, elemFaceId) : result} to dictionary {SElemFace : result}
-    :param object:
-    :return:
-    """
-    efsList         = []
-    controller      = object.Controller
-    # dictResults = System.Collections.Generic.Dictionary[System.Tuple[System.Int32, System.Int32], System.Double]()
-    dictResults     = System.Collections.Generic.Dictionary[emw.SElemFace, System.Double]()
-    for keyVal in specDataDict:
-        ef = emw.SElemFace(em, keyVal.Key.Item1, keyVal.Key.Item2)
-        dictResults[ef] = keyVal.Value
-    return dictResults
-
-def plotData(object):#elemFaces, dataDict, specDataDict, analysis, freq):
-    controller              = object.Controller
-    analysis                = controller.analysis
-    scopeGeomEnts           = controller.scopeGeomEnts
-    freq                    = controller.freq
-    msg("freq: " + str(freq))
-    bodies                  = controller.bodies
-    elemFaces               = controller.elemFaces
-    numberOfColors          = controller.numberOfColors
-    decimalPlacePrecision   = controller.decimalPlacePrecision
-    dictResults             = controller.dictResults
-    dataDict                = controller.dataDict
-
-    bodies.visible                  = True
-    (em.bodies - bodies).visible    = False
-
-    ExtAPI.Graphics.ViewOptions.ResultPreference.DeformationScaleMultiplier = 0.
-    ExtAPI.Graphics.ViewOptions.ShowLegend                                  = False
-    ExtAPI.Graphics.ViewOptions.ModelDisplay                                = ModelDisplay.Wireframe
-    ExtAPI.Graphics.ViewOptions.ShowMesh                                    = True
-
-    # elemFaces.DrawElemFacesResults(specDataDict, analysis, freq=freq, type="Result Type", unit="Unit")
-
-    # if dictResults
-
-    if      object.Name == "ERPPostObj":
-        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power", unit="W/m^2")
-        object.Properties["Results/OverallERP"].Value       = round(sum(dataDict.Values), decimalPlacePrecision)
-        object.Properties["Results/OverallERPlevel"].Value  = round(10 * log10(sum(dataDict.Values) / WRef), decimalPlacePrecision)
-    elif    object.Name == "ERPLevelPostObj":
-        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power Level", unit="dB")
-        object.Properties["Results/OverallERP"].Value       = round(sum(dataDict.Values), decimalPlacePrecision)
-        object.Properties["Results/OverallERPlevel"].Value  = round(10 * log10(sum(dataDict.Values) / WRef), decimalPlacePrecision)
-    elif    object.Name == "NormalVelPostObj":
-        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power", unit="m/s")
-        object.Properties["Results/MinVelocity"].Value      = round(min(dataDict.Values), decimalPlacePrecision)
-        object.Properties["Results/MaxVelocity"].Value      = round(max(dataDict.Values), decimalPlacePrecision)
-    ExtAPI.Graphics.Scene.Visible = True  # umi ukazat nebo schovat vykreslene
-
-# def plotResults(object):
-#     analysis = object.Analysis
-#
-#     scopeGeomEnts = em.Entities(object.Properties["Settings/Geometry"].Value)
-#     freq = float(object.Properties["Settings/Frequency"].Value)
-#     msg("freq: " + str(freq))
-#     bodies = scopeGeomEnts.bodies
-#     elemFaces = scopeGeomEnts.elemFaces.Update()
-#
-#     """
-#     C# element face ERP
-#     """
-#
-#
-#     # elemFaces.DrawElemFacesSpecERP(stepInfo, analysis)
-#     numberOfColors = int(object.Properties["Settings/numberOfColors"].Value)
-#     decimalPlacePrecision = 4
-#
-#     # if object.Name == "ERPPostObj":
-#     #     elemFaces.DrawElemFacesSpecERP(freq, analysis, numberOfColors)
-#     #     object.Properties["Results/OverallERP"].Value = round(elemFaces.ERP(freq, analysis),
-#     #                                                                                   decimalPlacePrecision)
-#     #     object.Properties["Results/OverallERPlevel"].Value = round(
-#     #         elemFaces.ERPLevel(freq, analysis), decimalPlacePrecision)
-#     # elif object.Name == "ERPLevelPostObj":
-#     #     elemFaces.DrawElemFacesSpecERPLevel(freq, analysis, numberOfColors)
-#     #     object.Properties["Results/OverallERP"].Value = round(elemFaces.ERP(freq, analysis),
-#     #                                                                                   decimalPlacePrecision)
-#     #     object.Properties["Results/OverallERPlevel"].Value = round(
-#     #         elemFaces.ERPLevel(freq, analysis), decimalPlacePrecision)
-#     # elif object.Name == "NormalVelPostObj":
-#     #     elemFaces.DrawElemFacesNormalV(freq, analysis, numberOfColors)
-#     #     object.Properties["Results/MinVelocity"].Value = round(
-#     #         elemFaces.Min(lambda elemFace: elemFace.GetElemFaceNormalV(freq, analysis, analysis.GetResultsData())).GetElemFaceNormalV(freq,
-#     #                                                                                                        analysis, analysis.GetResultsData()),
-#     #         decimalPlacePrecision)
-#     #     object.Properties["Results/MaxVelocity"].Value = round(
-#     #         elemFaces.Max(lambda elemFace: elemFace.GetElemFaceNormalV(freq, analysis, analysis.GetResultsData())).GetElemFaceNormalV(freq,
-#     #                                                                                                        analysis, analysis.GetResultsData()),
-#     #         decimalPlacePrecision)
-#
-#     ExtAPI.Graphics.Scene.Visible = True  # umi ukazat nebo schovat vykreslene
-#
-#     # else:
-#     #     msg.("Result must be evaluated first")
-
-
-
-def CreateERPObj(analysis):
-    msg("CreateERPObj")
-    with ExtAPI.DataModel.Tree.Suspend(): #Transaction():
-        analysis.CreatePostObject("ERPPostObj", "acousticRadiation")
-
-def CreateERPLevelObj(analysis):
-    msg("CreateERPLevelObj")
-    with ExtAPI.DataModel.Tree.Suspend():
-        analysis.CreatePostObject("ERPLevelPostObj", "acousticRadiation")
-
-def CreateNormalVelObj(analysis):
-    msg("CreateERPObj")
-    with ExtAPI.DataModel.Tree.Suspend():
-        analysis.CreatePostObject("NormalVelPostObj", "acousticRadiation")
-
-
-
-def SelectElFaces(element_ids, element_face_indices):
-    ExtAPI.SelectionManager.ClearSelection()
-    mySel = ExtAPI.SelectionManager.CreateSelectionInfo(SelectionTypeEnum.MeshElementFaces)
-    mySel.Ids = element_ids
-    mySel.ElementFaceIndices = element_face_indices
-    ExtAPI.SelectionManager.NewSelection(mySel)
-
 
 """ 
 puvodni pythonovske reseni
