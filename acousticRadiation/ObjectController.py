@@ -1,0 +1,197 @@
+class ObjectController():
+
+    def __init__(self, ExtAPI, object):
+        msg("onInitCtrl")
+
+        createEmAndEmw()
+
+        global prevObj
+        prevObj = object
+        # updateProperties(ExtAPI, object)
+        self.name                   = "ObjectController" + object.Name
+        self.ExtAPI                 = ExtAPI
+        self.decimalPlacePrecision  = 4
+        self.object                 = object
+        self.updated                = False
+        if not "isDefPropertiesSet" in dir(self):
+            self.isDefPropertiesSet = False
+
+        # if object.Properties["Results/specDataDict"].Value != None:
+        #     msg("ifspecDataDict")
+        #     self.ahoj()
+        #     self.updateProperties()
+
+    def onready(self, *object):
+        msg("onready")
+
+
+    def ahoj(self):
+        msg("ahoj")
+
+    def updateProperties(self):
+        msg("updateProperties")
+        self.name = "ObjectController" + self.object.Name
+        # self.ExtAPI = ExtAPI
+        self.analysis               = self.object.Analysis
+        msg("before em scope: " + str(self.object.Properties["Settings/Geometry"].Value))
+
+        self.scopeGeomEnts          = em.Entities(self.object.Properties["Settings/Geometry"].Value)
+        msg("after em scope")
+
+        self.freq                   = float(self.object.Properties["Settings/Frequency"].Value)
+        self.bodies                 = self.scopeGeomEnts.bodies
+        self.elemFaces              = self.scopeGeomEnts.elemFaces.Update()
+        self.numberOfColors         = int(self.object.Properties["Settings/numberOfColors"].Value)
+        self.decimalPlacePrecision  = 4
+        msg("before if")
+        msg("bool 1:" + str(self.object.State))
+        msg("bool 2:" + str(self.object.Properties["Results/specDataDict"].Value != None))
+        if self.object.Properties["Results/specDataDict"].Value != None: # set(["dataDict", "specDataDict", "dictResults"]).issubset([i.UniqueName for i in self.object.AllProperties])):
+            try:
+                pass
+                self.dataDict       = self.object.Properties["Results/dataDict"].Value
+                self.specDataDict   = self.object.Properties["Results/specDataDict"].Value
+                self.dictResults    = recontructResults(self.object, self.specDataDict)
+                msg("data revived from treeObj properties")
+            except Exception as e:
+                msg("Error when updating properties (class ObjectController, method updateProperties)" + str(e))
+            # tady vyplnit dane property z ulozenych dat v property objektu ve strome
+
+    def isvalid(self, object, *args):
+        msg("isvalid")
+        try:
+            if object.Properties["Results/specDataDict"].Value != None and not self.updated:
+                msg("ifspecDataDict")
+                self.ahoj()
+                self.updateProperties()
+                self.updated = True
+
+        except Exception as e:
+            pass
+        return True
+
+    def onadd(self, object):
+        """
+        presets default settings of tree object properties
+        :param object: 
+        :return: 
+        """
+        msg("onAdd")
+
+        s = ExtAPI.SelectionManager.CreateSelectionInfo(0)
+        solidBody = Ansys.ACT.Interfaces.Geometry.GeoBodyTypeEnum.GeoBodySolid
+        sheetBody = Ansys.ACT.Interfaces.Geometry.GeoBodyTypeEnum.GeoBodySheet
+        if em.current == None:
+            allTreeBodies = Model.Geometry.GetChildren(DataModelObjectCategory.Body, True)
+            flexibleGeoBodies = [body.GetGeoBody() for body in allTreeBodies if
+                                 [property for property in body.Properties if property.Name == "StiffnessBehavior"][
+                                     0].StringValue == "Flexible"]
+            s.Ids = [body.Id for body in flexibleGeoBodies if
+                     body.BodyType == solidBody or body.BodyType == sheetBody]
+        else:
+            # s.Ids = em.current.ids
+            s.Ids = [body.id for body in em.current if body.bodyType == solidBody or body.bodyType == sheetBody]
+        object.Properties["Settings/Geometry"].Value = s
+
+        analysisId = object.Analysis.Id
+        treeAnalysis = [i for i in Model.Analyses if i.Id == analysisId][0]
+        object.Properties["Settings/Frequency"].Value = treeAnalysis.AnalysisSettings.RangeMaximum.Value
+
+        Tree.Refresh()
+        self.isDefPropertiesSet      = True
+        self.updateProperties()
+
+    def onshow(self, object):
+        """
+        
+        :param object: 
+        :return: 
+        """
+        msg("onShow")
+        msg("ObjCaption: " + object.Caption)
+
+        global prevObj
+        global prevModelDisplay
+        global prevVisibleBodies
+        global prevDeformationScaleMultiplier
+        prevObj = object
+        prevModelDisplay = ExtAPI.Graphics.ViewOptions.ModelDisplay
+        prevVisibleBodies = em.Entities([body.id for body in em.bodies if body.visible == True]).bodies
+        prevDeformationScaleMultiplier = Graphics.ViewOptions.ResultPreference.DeformationScaleMultiplier
+
+        length = Tree.ActiveObjects.Count
+
+        if self.dictResults != None and object.ObjectId == Tree.ActiveObjects[length-1].ObjectId:
+            # plotResults(object)
+            try:
+                plotData(object)
+            except Exception as e:
+                msg(str(e))
+
+            scopeGeomEnts = em.Entities(object.Properties["Settings/Geometry"].Value)
+            freq = float(object.Properties["Settings/Frequency"].Value)
+            msg("freq: " + str(freq))
+            bodies = scopeGeomEnts.bodies
+
+            # em.bodies.visible = False
+            bodies.visible = True
+            (em.bodies - bodies).visible = False
+
+            ExtAPI.Graphics.ViewOptions.ResultPreference.DeformationScaleMultiplier = 0.
+            ExtAPI.Graphics.ViewOptions.ShowLegend = False
+            ExtAPI.Graphics.ViewOptions.ModelDisplay = ModelDisplay.Wireframe
+            ExtAPI.Graphics.ViewOptions.ShowMesh = True
+
+
+
+
+    def ongenerate(self, object, func):
+        msg("onGenerate")
+        func(0, "Start Generating Data")
+
+        self.updateProperties()
+
+        # workDirPath = analysis.WorkingDir
+        # filename = "acoustRad_evalResultDict.pickle" # object.Name + "_id_" + str(object.Id)
+        # fullPath = os.path.join(workDirPath, filename)
+        # msg(fullPath)
+        def UIThread(object):
+            try:
+                self.analysis.GetResultsData()
+                # if Tree.
+                state = True
+            except:
+                msg("Results could not be loaded.")
+                state = False
+            dataDict, specDataDict          = GetDataDict(object)
+            dictResults                     = recontructResults(object, specDataDict)
+            return state, dataDict, specDataDict, dictResults
+        self.state, self.dataDict, self.specDataDict, self.dictResults = ExtAPI.Application.InvokeUIThread(UIThread, object)
+
+        object.Properties["Results/dataDict"].Value     = self.dataDict
+        object.Properties["Results/specDataDict"].Value = self.specDataDict
+        # object.Properties["Results/dictResults"].Value  = self.dictResults
+
+
+
+        func(100, "Done Generating Data")
+        return ExtAPI.Application.InvokeUIThread(UIThread, object)
+
+    def onaftergenerate(self, object):
+        msg("onAfterGenerate")
+        length = Tree.ActiveObjects.Count
+        if object.ObjectId == Tree.ActiveObjects[length-1].ObjectId:
+            plotData(object)
+
+    def onhide(self, object):
+        msg("onHide")
+        ExtAPI.Graphics.ViewOptions.ShowLegend = True
+        ExtAPI.Graphics.Scene.Visible = False  # umi ukazat nebo schovat vykreslene
+        try:
+            ExtAPI.Graphics.ViewOptions.ModelDisplay = prevModelDisplay
+            ExtAPI.Graphics.ViewOptions.ResultPreference.DeformationScaleMultiplier = prevDeformationScaleMultiplier
+        except:
+            msg("prevModelDisplay and prevDeformationScaleMultiplier are not defined yet")
+        prevVisibleBodies.visible = True
+        (em.bodies - prevVisibleBodies).visible = False
+

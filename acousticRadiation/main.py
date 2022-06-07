@@ -1,10 +1,27 @@
 import os
 import myUtils
 import units  # External library to help with unit conversion
+import cPickle as pickle
 
+"""
+working with SI units (em.Units("m", "rad", "kg")) -> all returned values are in SI units
+"""
+
+extName = "acousticRadiation"
+global msg
 msg = ExtAPI.Log.WriteMessage
 
-def EM(path = r"E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug"):     # change with current folder where SVSEntityManagerF472.dll is
+ro = 1.2041 # air density [kg/m**3]
+c = 343.25 # speed of sound [m/s]
+WRef = 1e-12
+
+extDir = os.path.dirname(ExtAPI.ExtensionManager.CurrentExtension.InstallDir) # directory one level up
+# absPathEM = r"E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug"
+pathEM = os.path.join(extDir, r"SVSEntityManager\C#\SVSEntityManagerF472\bin\Debug")
+msg("pathEM: " + pathEM)
+
+
+def EM(path = pathEM):     # change with current folder where SVSEntityManagerF472.dll is
     """
         return instance of SVS FEM Entity Manager
     """
@@ -15,21 +32,360 @@ def EM(path = r"E:\Mojmir\projekty\ACT projekty\acousticRadiation_03\SVSEntityMa
     sys.path += [path]
     return SVSEntityManagerF472.SEntityManager(ExtAPI)
 
+def EM_whole(path = pathEM):     # change with current folder where SVSEntityManagerF472.dll is
+    """
+        return instance of SVS FEM Entity Manager
+    """
+    import clr, os, sys
+    dll  = r"SVSEntityManagerF472.dll"
+    clr.AddReferenceToFileAndPath(os.path.join(path, dll))
+    import SVSEntityManagerF472
+    sys.path += [path]
+    return SVSEntityManagerF472
+
+def createEmAndEmw():
+    if "em" not in globals():
+        global em, emw
+        em = EM()
+        em.Units("m", "rad", "kg")
+        emw = EM_whole()
+
 def onInit(*args):
     msg("onInit")
 
+
+def OnReady(*args):
+    msg("OnReady")
+
+
+def Resume(*args):
+    msg("Resume")
+    createEmAndEmw()
+
 def onLoad(*args):
     msg("onLoad")
-    global em
-    em = EM()
+    # global em, emw
+    # em = EM()
+    # em.Units("m", "rad", "kg")
+    # emw = EM_whole()
 
-def CreateAcousticRadiationObj(analysis):
-    msg("CreateAcousticRadiationObj")
-    analysis.CreateResultObject("acousticRadiation", "acousticRadiation")
-    # analysis.Name
-    # model = ExtAPI.DataModel.Project.Model
-    # analysis = model.Analysis[0]
-    # print(analysis.Name)
+def OnTerminate(context):
+    msg("OnTerminate")
+    # msg("co to je: " + context)
+    Graphics.Scene.Clear()
+    for extObj in DataModel.GetUserObjects(extName):
+        try:
+            extObj.Properties["Results/dictResults"].Value = None
+            msg("dictResults deleted")
+        except Exception as e:
+            pass
+
+def onValidate(*object):
+    msg("onValidate")
+    msg("object: " + str(object))
+    # msg("arg2: " + str(arg2))
+    return
+
+def isValidFreq(object, prop):
+    analysisId = object.Analysis.Id
+    treeAnalysis = [i for i in Model.Analyses if i.Id == analysisId][0]
+
+    if prop.Value == 0:
+        prop.Value = treeAnalysis.AnalysisSettings.RangeMaximum.Value
+        return True
+    if treeAnalysis.AnalysisSettings.RangeMinimum.Value > prop.Value or prop.Value > treeAnalysis.AnalysisSettings.RangeMaximum.Value:
+        return False
+    else: return True
+
+def EvalResult(object):
+    msg("onEvaluate123" + "\nstepInfo.time: " + str(stepInfo.Time) + "\nres.caption: " + str(result.Caption))
+
+    globalStepInfo = stepInfo
+
+    # onShow(result)
+
+    # OBJ = result
+    # sel = OBJ.Properties["Geometry"].Value
+    # emSel = em.SelEnts(sel)
+    # freq = stepInfo.Time # [Hz]
+    # omega = 2 * pi * freq
+    #
+    # global elemFaces
+    # elemFaces = emSel.elemFaces
+    #
+    # nodes = elemFaces.nodes.corners
+    # analysis = OBJ.Analysis
+    # nodes.Sel()
+
+
+
+
+
+
+    # try:
+    #     res = analysis.GetResultsData()
+    # except:
+    #     msg("Results could not be loaded.")
+    #     pass
+
+
+
+    """
+    element face ERP results
+    """
+    # nodeAreas = {}
+    # nodeAreasNotDivided = {}
+    # nodeNums = {}
+    #
+    # elemFacesAreas = {}  # key = str(elemFace.id) + "," + str(elemFace.elemFaceId)
+    # elemFacesNormals = {}  # key = str(elemFace.id) + "," + str(elemFace.elemFaceId)
+    # elemFacesUNormal = {}  # key = str(elemFace.id) + "," + str(elemFace.elemFaceId)
+    # elemFacesVNormal = {}  # key = str(elemFace.id) + "," + str(elemFace.elemFaceId)
+    # elemFacesSpecERP = {}  # key = str(elemFace.id) + "," + str(elemFace.elemFaceId)
+    # elemFacesERP = {}  # key = str(elemFace.id) + "," + str(elemFace.elemFaceId)
+    # URes = res.GetResult("U")
+    # # UVals = URes.GetNodeValues(elemFaces.nodes.info.Ids)
+    #
+    # ERPElemFaceSum = 0
+    # for elemFace in elemFaces:
+    #     # elemFacesAreas[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = elemFace.elemFaceArea
+    #     # elemFacesNormals[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = elemFace.normal
+    #     elemFaceArea = elemFace.elemFaceArea
+    #     elemFaceNormal = elemFace.normal
+    #     UElemFaceNormalSum = 0
+    #     for elemFaceNode in elemFace.nodes:
+    #         UVal = URes.GetNodeValues(elemFaceNode.id)
+    #
+    #         Ux = URes.GetNodeValues(elemFaceNode.id)[0]
+    #         Uy = URes.GetNodeValues(elemFaceNode.id)[1]
+    #         Uz = URes.GetNodeValues(elemFaceNode.id)[2]
+    #         UNormal = elemFaceNormal.x * Ux + elemFaceNormal.y * Uy + elemFaceNormal.z * Uz
+    #         UElemFaceNormalSum += UNormal
+    #     UElemFaceNormal = UElemFaceNormalSum / elemFace.nodes.count
+    #     VElemFaceNormal = UElemFaceNormal * omega
+    #     specERPElemFace = 1.0 / 2.0 * ro * c * VElemFaceNormal ** 2
+    #     ERPElemFace = 1.0 / 2.0 * ro * c * VElemFaceNormal ** 2 * elemFaceArea
+    #
+    #     ERPElemFaceSum += ERPElemFace
+    #
+    #     elemFacesAreas[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = elemFaceArea
+    #     elemFacesNormals[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = elemFaceNormal
+    #     elemFacesUNormal[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = UElemFaceNormal
+    #     elemFacesVNormal[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = VElemFaceNormal
+    #     elemFacesSpecERP[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = specERPElemFace
+    #     elemFacesERP[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = ERPElemFace
+    #
+    # # msg("elemFacesAreas: " + str(elemFacesAreas))
+    # # msg("elemFacesNormals: " + str(elemFacesNormals))
+    # # msg("elemFacesUNormal: " + str(elemFacesUNormal))
+    # # msg("elemFacesVNormal: " + str(elemFacesVNormal))
+    # # msg("elemFacesSpecERP: " + str(elemFacesSpecERP))
+    # # msg("elemFacesERP: " + str(elemFacesERP))
+    #
+    # msg("ERPElemFaceSum [W]: " + str(ERPElemFaceSum))
+    # try:
+    #     ERPLevElemFaceSum = 10.0 * log10(ERPElemFaceSum / WRef)
+    #     msg("ERPLevElemFaceSum [dB]: " + str(ERPLevElemFaceSum))
+    # except Exception as e:
+    #     msg(str(e) + ": Probably problem with zero argument of logarithm, which is not defined (or can be alternatively interpreted as negative infinity)")
+    # msg("freq [Hz]: " + str(freq))
+
+
+    """
+    nodal ERP results
+    """
+    # for n in nodes:
+    #     outNeighborElemFaces = n.elemFaces * elemFaces # vnejsi sousedni elemFaces k danemu uzlu, vyfiltrovane pomoci elemFaces
+    #     # outNeighborElemFaces.Sel()
+    #     # msg("elemFaces length: " + str(len(outNeighborElemFaces)))
+    #     nodeArea = 0
+    #     nodeNum = 0
+    #     nodeAreaNotDivided = 0
+    #     for outNeighborElemFace in outNeighborElemFaces:
+    #         # msg("outNeighborElemFace: " + str(outNeighborElemFace))
+    #         nodeArea += outNeighborElemFace.elemFaceArea / len(outNeighborElemFace.nodes.corners)
+    #         nodeNum += len(outNeighborElemFace.nodes.corners)
+    #         nodeAreaNotDivided += outNeighborElemFace.elemFaceArea
+    #         # nodeNormal = outNeighborElemFace.
+    #         # msg("done ")
+    #
+    #     nodeAreas[n.id] = nodeArea
+    #     nodeAreasNotDivided[n.id] = nodeAreaNotDivided
+    #     nodeNums[n.id] = nodeNum
+    # sumArea = 0
+    # sumAreasNotDivided = 0
+    # sumNodeNums = 0
+
+    # for valNodeAreas, valNodeAreasNotDivided, valNodeNums in zip(nodeAreas.values(), nodeAreasNotDivided.values(), nodeNums.values()):
+    #     sumArea += valNodeAreas
+    #     sumAreasNotDivided += valNodeAreasNotDivided
+    #     sumNodeNums += valNodeNums
+    # msg("nodeAreas: "+ str(nodeAreas))
+    # msg("nodeAreasNotDivided: "+ str(nodeAreasNotDivided))
+    # msg("nodeNums: "+ str(nodeNums))
+    #
+    # msg("sumArea: "+ str(sumArea))
+    # msg("sumAreasNotDivided: "+ str(sumAreasNotDivided))
+    # msg("sumNodeNums: "+ str(sumNodeNums))
+
+    # U = res.GetResult("U")
+    # UVals = U.GetNodeValues(elemFaces.nodes.info.Ids)
+
+
+
+def GetDataDict(object):
+    """
+    gets serializable data
+    :param object:
+    :return:
+    """
+    controller      = object.Controller
+    analysis        = controller.analysis
+    scopeGeomEnts   = controller.scopeGeomEnts
+    freq            = controller.freq
+    msg("freq: " + str(freq))
+    bodies          = controller.bodies
+    elemFaces       = controller.elemFaces
+
+    msg("1")
+
+    if      object.Name == "ERPPostObj":
+        dataDict        = elemFaces.GetDictERP(freq, analysis)
+        specDataDict    = elemFaces.GetDictSpecERP(freq, analysis)
+    elif    object.Name == "ERPLevelPostObj":
+        dataDict        = elemFaces.GetDictERPLevel(freq, analysis)
+        specDataDict    = elemFaces.GetDictSpecERPLevel(freq, analysis)
+    elif    object.Name == "NormalVelPostObj":
+        dataDict        = elemFaces.GetDictNormalV(freq, analysis)
+        specDataDict    = dataDict
+
+    msg("2")
+
+    object.Properties["Results/dataDict"].Value     = dataDict
+    object.Properties["Results/specDataDict"].Value = specDataDict
+
+    msg("3")
+
+    return dataDict, specDataDict
+
+
+def recontructResults(object, specDataDict):
+    """
+    make results plotable -> from dictionary {(elemId, elemFaceId) : result} to dictionary {SElemFace : result}
+    :param object:
+    :return:
+    """
+    efsList         = []
+    controller      = object.Controller
+    # dictResults = System.Collections.Generic.Dictionary[System.Tuple[System.Int32, System.Int32], System.Double]()
+    dictResults     = System.Collections.Generic.Dictionary[emw.SElemFace, System.Double]()
+    for keyVal in specDataDict:
+        ef = emw.SElemFace(em, keyVal.Key.Item1, keyVal.Key.Item2)
+        dictResults[ef] = keyVal.Value
+    return dictResults
+
+def plotData(object):#elemFaces, dataDict, specDataDict, analysis, freq):
+    controller              = object.Controller
+    analysis                = controller.analysis
+    scopeGeomEnts           = controller.scopeGeomEnts
+    freq                    = controller.freq
+    msg("freq: " + str(freq))
+    bodies                  = controller.bodies
+    elemFaces               = controller.elemFaces
+    numberOfColors          = controller.numberOfColors
+    decimalPlacePrecision   = controller.decimalPlacePrecision
+    dictResults             = controller.dictResults
+    dataDict                = controller.dataDict
+
+    bodies.visible                  = True
+    (em.bodies - bodies).visible    = False
+
+    ExtAPI.Graphics.ViewOptions.ResultPreference.DeformationScaleMultiplier = 0.
+    ExtAPI.Graphics.ViewOptions.ShowLegend                                  = False
+    ExtAPI.Graphics.ViewOptions.ModelDisplay                                = ModelDisplay.Wireframe
+    ExtAPI.Graphics.ViewOptions.ShowMesh                                    = True
+
+    # elemFaces.DrawElemFacesResults(specDataDict, analysis, freq=freq, type="Result Type", unit="Unit")
+
+    # if dictResults
+
+    if      object.Name == "ERPPostObj":
+        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power", unit="W/m^2")
+        object.Properties["Results/OverallERP"].Value       = round(sum(dataDict.Values), decimalPlacePrecision)
+        object.Properties["Results/OverallERPlevel"].Value  = round(10 * log10(sum(dataDict.Values) / WRef), decimalPlacePrecision)
+    elif    object.Name == "ERPLevelPostObj":
+        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power Level", unit="dB")
+        object.Properties["Results/OverallERP"].Value       = round(sum(dataDict.Values), decimalPlacePrecision)
+        object.Properties["Results/OverallERPlevel"].Value  = round(10 * log10(sum(dataDict.Values) / WRef), decimalPlacePrecision)
+    elif    object.Name == "NormalVelPostObj":
+        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power", unit="m/s")
+        object.Properties["Results/MinVelocity"].Value      = round(min(dataDict.Values), decimalPlacePrecision)
+        object.Properties["Results/MaxVelocity"].Value      = round(max(dataDict.Values), decimalPlacePrecision)
+    ExtAPI.Graphics.Scene.Visible = True  # umi ukazat nebo schovat vykreslene
+
+# def plotResults(object):
+#     analysis = object.Analysis
+#
+#     scopeGeomEnts = em.Entities(object.Properties["Settings/Geometry"].Value)
+#     freq = float(object.Properties["Settings/Frequency"].Value)
+#     msg("freq: " + str(freq))
+#     bodies = scopeGeomEnts.bodies
+#     elemFaces = scopeGeomEnts.elemFaces.Update()
+#
+#     """
+#     C# element face ERP
+#     """
+#
+#
+#     # elemFaces.DrawElemFacesSpecERP(stepInfo, analysis)
+#     numberOfColors = int(object.Properties["Settings/numberOfColors"].Value)
+#     decimalPlacePrecision = 4
+#
+#     # if object.Name == "ERPPostObj":
+#     #     elemFaces.DrawElemFacesSpecERP(freq, analysis, numberOfColors)
+#     #     object.Properties["Results/OverallERP"].Value = round(elemFaces.ERP(freq, analysis),
+#     #                                                                                   decimalPlacePrecision)
+#     #     object.Properties["Results/OverallERPlevel"].Value = round(
+#     #         elemFaces.ERPLevel(freq, analysis), decimalPlacePrecision)
+#     # elif object.Name == "ERPLevelPostObj":
+#     #     elemFaces.DrawElemFacesSpecERPLevel(freq, analysis, numberOfColors)
+#     #     object.Properties["Results/OverallERP"].Value = round(elemFaces.ERP(freq, analysis),
+#     #                                                                                   decimalPlacePrecision)
+#     #     object.Properties["Results/OverallERPlevel"].Value = round(
+#     #         elemFaces.ERPLevel(freq, analysis), decimalPlacePrecision)
+#     # elif object.Name == "NormalVelPostObj":
+#     #     elemFaces.DrawElemFacesNormalV(freq, analysis, numberOfColors)
+#     #     object.Properties["Results/MinVelocity"].Value = round(
+#     #         elemFaces.Min(lambda elemFace: elemFace.GetElemFaceNormalV(freq, analysis, analysis.GetResultsData())).GetElemFaceNormalV(freq,
+#     #                                                                                                        analysis, analysis.GetResultsData()),
+#     #         decimalPlacePrecision)
+#     #     object.Properties["Results/MaxVelocity"].Value = round(
+#     #         elemFaces.Max(lambda elemFace: elemFace.GetElemFaceNormalV(freq, analysis, analysis.GetResultsData())).GetElemFaceNormalV(freq,
+#     #                                                                                                        analysis, analysis.GetResultsData()),
+#     #         decimalPlacePrecision)
+#
+#     ExtAPI.Graphics.Scene.Visible = True  # umi ukazat nebo schovat vykreslene
+#
+#     # else:
+#     #     msg.("Result must be evaluated first")
+
+
+
+def CreateERPObj(analysis):
+    msg("CreateERPObj")
+    with Transaction():
+        analysis.CreatePostObject("ERPPostObj", "acousticRadiation")
+
+def CreateERPLevelObj(analysis):
+    msg("CreateERPLevelObj")
+    with ExtAPI.DataModel.Tree.Suspend():
+        analysis.CreatePostObject("ERPLevelPostObj", "acousticRadiation")
+
+def CreateNormalVelObj(analysis):
+    msg("CreateERPObj")
+    with ExtAPI.DataModel.Tree.Suspend():
+        analysis.CreatePostObject("NormalVelPostObj", "acousticRadiation")
+
 
 
 def SelectElFaces(element_ids, element_face_indices):
@@ -39,232 +395,130 @@ def SelectElFaces(element_ids, element_face_indices):
     mySel.ElementFaceIndices = element_face_indices
     ExtAPI.SelectionManager.NewSelection(mySel)
 
-def onShow(object):
-    msg("onShow")
-    global OBJ
-    OBJ = object
-    sel = OBJ.Properties["Geometry"].Value
-    emSel = em.SelEnts(sel)
-    elFaces = emSel.elemFaces
-    analysis = Model.Analyses[0]
-    res = analysis.GetResultsData()
-    Freqs = res.ListTimeFreq
 
-    U = res.GetResult("U")
-    UVals = U.GetNodeValues(elFaces.nodes.info.Ids)
-    VVals =
-
-
-def EvalResult(result, stepInfo, collector):
-    global RES
-    RES = result
-
-    msg("EvalRes")
-    analysis = result.Analysis
-    Ids = collector.Ids
-    # Indices = collector.Indices
-    # properties = result.Properties
-
-    values = [Id * 1.0 for Id in Ids]
-    # msg("values: " + str(values))
-    msg("Ids: " + str(collector.Ids))
-    # collector.SetAllValues(values, Ids)
-
-    geom = result.Properties["Geometry"]
-    sel = geom.Value
-    # sel.
-
-    #
-    # # mySel = SelectElFaces(Ids, element_face_indices)
-    #
-    # meshData = analysis.MeshData
-    # msg("meshData: "+ str(meshData.GetType()) + str(dir(meshData)))
-    # # elemFaces = meshData.GetElementFaces()
-    # # msg("elemFaces: "+ str(elemFaces.GetType()) + str(dir(elemFaces)) + str(elemFaces))
-    #
-    # # mesh = ExtAPI.DataModel.MeshDataByName("Global")
-    # # element = mesh.ElementById(element_id)
-
-    msg("pocetIds: " + str(len(Ids)))
-    # msg("pocetIndices: " + str(len(Indices)))
-    #
-    # # msg("analysis: "+ str(analysis.GetType()) + str(dir(analysis)))
-    msg("result: " + str(dir(result)))
-    msg("resultLocation: " + str(dir(result.ResultLocation)) + str(result.ResultLocation))
-    msg("resultLocationElem: " + str(dir(result.ResultLocation.Element)) + str(result.ResultLocation.Element))
-
-    # resLocVals = result.ResultLocation.GetValues()
-    # msg("resLocVals: " + str(dir(resLocVals)) + str(resLocVals))
-
-    allProps = result.AllProperties
-    msg("resultAllProps: " + str(dir(allProps)) + str(allProps))
-
-
-    # msg("stepInfo: " + str(dir(stepInfo)))
-    msg("collector: " + str(dir(collector)))
-    pass
-
-    # # ExtAPI.Log.WriteMessage("result: " + str(help(result)) + ", stepInfo: " + str(help(stepInfo)) + ", collector: " + str(help(collector)))
-    # step = stepInfo.Set
-    # nodeIds = collector.Ids
-    # analysis = result.Analysis
-    # reader = analysis.GetResultsData()
-    # reader.CurrentResultSet = step
-    # freqs = reader.ListTimeFreq
-    # deformation = reader.GetResult("U")
-    # fromUnit = deformation.GetComponentInfo("X").Unit  # Unit of Length when solution was solved
-    # toUnits = "m"  # Always generate the result to display is SI unit
-    #
-    #
-    # unitConvFact = units.ConvertUnit(1, fromUnit, toUnits, "Length")
-    #
-    # model = ExtAPI.DataModel.Project.Model
-    # a = model.Analyses[0]
-    # mesh = a.MeshData
-    # nodeIds = mesh.NodeIds
-    # ExtAPI.Log.WriteMessage(str(nodeIds))
-    #
-    # omega = 1
-    #
-    # for id in nodeIds:
-    #     node = mesh.NodeById(id)
-    # x, y, z = node.X, node.Y, node.Z
-    # sum = (y ** 2 + z ** 2) ** (1 / 2)
-    # y_norm, z_norm = y / sum, z / sum
-    # a_r = omega * sum ** 2
-    #
-    # fx = 0.0
-    # fy = a_r * y_norm
-    # fz = a_r * z_norm
-    # # Set the vector for each node to display
-    # collector.SetValues(id, [2, 2, 2])
-    #
-    # # ExtAPI.Log.WriteMessage(str(reader.CurrentResultSet))
-    #
-    # # ExtAPI.Log.WriteMessage(str(result))
-    #
-    # return
-
-
-
-
-# def EvalNodalForcesFromResFile(result, stepInfo, collector)
-
-
-# step = stepInfo.Set
-# nodeIds = collector.Ids
-# analysis = result.Analysis
-# reader = analysis.GetResultsData()
-# reader.CurrentResultSet = step
-# freqs = reader.ListTimeFreq
-# deformation = reader.GetResult("F")
-# fromUnit = deformation.GetComponentInfo("X").Unit  # Unit of Length when solution was solved
-# toUnits = "m"  # Always generate the result to display is SI unit
-
-# ExtAPI.Log.WriteMessage("ahoj")
-
-# unitConvFact = units.ConvertUnit(1, fromUnit, toUnits, "Length")
-
-# model = ExtAPI.DataModel.Project.Model
-# a = model.Analyses[0]
-# mesh = a.MeshData
-# nodeIds = mesh.NodeIds
-# omega = 1
-
-
-# # Reuse the APDL commands for applying the load
-# SourceDir = ExtAPI.ExtensionManager.CurrentExtension.InstallDir
-# macFile = "APDL_script_for_sila_na_uzly.inp"
-#
-#
-#
-# # Read the macro and copy the commands to ds.dat
-# fs = open(os.path.join(SourceDir, macFile), "r")
-# allLines = fs.readlines()
-# fs.close()
-# stream.Write("".join(allLines))
-
-# Alternatively, you can call the input file directly .... by /input command
-# inpComm = """/inp,'%s' \n"""%os.path.join(SourceDir, macFile)
-# stream.Write(inpComm)
-
-"""
-def write_sila_na_uzly(load, stream):
-    ExtAPI.Log.WriteMessage("Write sila_na_uzly...")
-    stream.Write("/com,\n")
-    stream.Write("/com,*********** sila_na_uzly " + load.Caption + " ***********\n")
-    stream.Write("/com,\n")
-
-    # Collect the user inputs
-    propGeo = load.Properties["Geometry"]
-    geoType = propGeo.Properties['DefineBy'].Value
-    if geoType == 'Named Selection':
-        refName = propGeo.Value.Name
-    else:
-        refIds = propGeo.Value.Ids
-
-    omega = load.Properties["Magnitude"].Value
-    sila = omega
-
-    # Convert the user inputs to APDL commands
-
-    stream.Write("sila=" + sila.ToString() + "\n")
-
-    stream.Write("\n/prep7 !podlaha \n")
-
-    mesh = load.Analysis.MeshData
-    geo = load.Analysis.GeoData
-
-    if geoType != 'Named Selection':
-        # Create the element component if user has selected Geometry
-        myUtils.createElementComponent(refIds, "sila_na_uzly" + load.Id.ToString(), mesh, stream)
-        stream.Write("CMSEL, S, sila_na_uzly" + load.Id.ToString() + "\n")
-    else:
-        stream.Write("CMSEL,S," + refName + "\n")
-
-    stream.Write("/solu !objevi se to tu? \n ")
-
-    model = ExtAPI.DataModel.Project.Model
-    a = model.Analyses[0]
-    mesh = a.MeshData
-    nodeIds = mesh.NodeIds
-
-    for id in nodeIds:
-        node = mesh.NodeById(id)
-        # x, y, z = {}, {}, {}
-        # x.update = {id: node.X}
-        # y.update = {id: node.Y}
-        # z.update = {id: node.Z}
-        # rotace okolo x
-        x, y, z = node.X, node.Y, node.Z
-        sum = (y ** 2 + z ** 2) ** (1 / 2)
-        y_norm, z_norm = y / sum, z / sum
-        a_r = omega * sum ** 2
-        string_FY = "F, %d, FY, %f  \n" % (id, a_r * y_norm)  # FY
-        string_FZ = "F, %d, FZ, %f  \n" % (id, a_r * z_norm)  # FZ
-        stream.Write(string_FY)  # FY
-        stream.Write(string_FZ)  # FZ
+""" 
+puvodni pythonovske reseni
 """
 
+    # global OBJ
+    # OBJ = object
+    # sel = OBJ.Properties["Geometry"].Value
+    # emSel = em.SelEnts(sel)
+    #
+    # global elemFaces
+    # elemFaces = emSel.elemFaces
+    #
+    # nodes = elemFaces.nodes.corners
+    # analysis = OBJ.Analysis
+    # nodes.Sel()
+    #
+    # try:
+    #     res = analysis.GetResultsData()
+    # except:
+    #     msg("Results could not be loaded.")
+    #     pass
+    #
+    # Freqs = res.ListTimeFreq
+    # freq = res.CurrentTimeFreq
+    #
+    # # for el in elemFaces:
+    # #     area = el.elemFaceArea
+    # #     msg("area: " + str(area))
+    #
+    #
+    #
+    # """
+    # element face ERP results
+    # """
+    # nodeAreas = {}
+    # nodeAreasNotDivided = {}
+    # nodeNums = {}
+    #
+    #
+    # elemFacesAreas    = {} # key = str(elemFace.id) + "," + str(elemFace.elemFaceId) element id, elemface id
+    # elemFacesNormals  = {} # key = str(elemFace.id) + "," + str(elemFace.elemFaceId)
+    # elemFacesUNormal  = {} # key = str(elemFace.id) + "," + str(elemFace.elemFaceId)
+    # elemFacesVNormal  = {} # key = str(elemFace.id) + "," + str(elemFace.elemFaceId)
+    # elemFacesSpecERP  = {} # key = str(elemFace.id) + "," + str(elemFace.elemFaceId)
+    # elemFacesERP      = {} # key = str(elemFace.id) + "," + str(elemFace.elemFaceId)
 
-# def NodeValues(load, nodeIds):
-#     values = []
-#     mesh = load.Analysis.MeshData
-#     for id, i in nodeIds, enumerate(nodeIds):
-#         node = mesh.NodeById(id)
-#         # x, y, z = [], [], []
-#         # x.append(node.X)
-#         # y.append(node.Y)
-#         # z.append(node.Z)
-#         # nebo pomoci dictionary?
-#
-#         x, y, z = {}, {}, {}
-#         x.update = {id: node.X}
-#         y.update = {id: node.Y}
-#         z.update = {id: node.Z}
-#     return x, y, z
+    # elemFacesERP      = {} # key =  str(elemFace.id) + "," + str(elemFace.elemFaceId)
 
-
-# prislusnemu id v nodeIds priradit pomoci vypoctu vzdalenosti od pocatku (osy) a uhlove frekvence a vektoru smerujiciho od osy (treba x) jednotlive slozky sily (zrychleni) - pote priradit v APDL skriptu - jak?
-
-
+    # URes = res.GetResult("U")
+    # # UVals = URes.GetNodeValues(elemFaces.nodes.info.Ids)
+    #
+    #
+    # for elemFace in elemFaces:
+    #     # elemFacesAreas[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = elemFace.elemFaceArea
+    #     # elemFacesNormals[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = elemFace.normal
+    #     elemFaceArea = elemFace.elemFaceArea
+    #     elemFaceNormal = elemFace.normal
+    #     UElemFaceNormalSum = 0
+    #     for elemFaceNode in elemFace.nodes:
+    #         UVal = URes.GetNodeValues(elemFaceNode.id)
+    #
+    #         Ux = URes.GetNodeValues(elemFaceNode.id)[0]
+    #         Uy = URes.GetNodeValues(elemFaceNode.id)[1]
+    #         Uz = URes.GetNodeValues(elemFaceNode.id)[2]
+    #         UNormal = elemFaceNormal.x * Ux + elemFaceNormal.y * Uy + elemFaceNormal.z * Uz
+    #         UElemFaceNormalSum += UNormal
+    #     UElemFaceNormal = UElemFaceNormalSum / elemFace.nodes.count
+    #     VElemFaceNormal = UElemFaceNormal * freq
+    #     specERPElemFace = 1.0/2.0 * ro * c * VElemFaceNormal**2
+    #     ERPElemFace = 1.0/2.0 * ro * c * VElemFaceNormal**2 * elemFaceArea
+    #
+    #     elemFacesAreas[str(elemFace.id)   + "," + str(elemFace.elemFaceId)] = elemFaceArea
+    #     elemFacesNormals[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = elemFaceNormal
+    #     elemFacesUNormal[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = UElemFaceNormal
+    #     elemFacesVNormal[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = VElemFaceNormal
+    #     elemFacesSpecERP[str(elemFace.id) + "," + str(elemFace.elemFaceId)] = specERPElemFace
+    #     elemFacesERP[str(elemFace.id)     + "," + str(elemFace.elemFaceId)] = ERPElemFace
+    #
+    # msg("elemFacesAreas: "+ str(elemFacesAreas))
+    # msg("elemFacesNormals: "+ str(elemFacesNormals))
+    # msg("elemFacesUNormal: "+ str(elemFacesUNormal))
+    # msg("elemFacesVNormal: "+ str(elemFacesVNormal))
+    # msg("elemFacesSpecERP: "+ str(elemFacesSpecERP))
+    # msg("elemFacesERP: "+ str(elemFacesERP))
+    #
+    # """
+    # nodal ERP results
+    # """
+    # # for n in nodes:
+    # #     outNeighborElemFaces = n.elemFaces * elemFaces # vnejsi sousedni elemFaces k danemu uzlu, vyfiltrovane pomoci elemFaces
+    # #     # outNeighborElemFaces.Sel()
+    # #     # msg("elemFaces length: " + str(len(outNeighborElemFaces)))
+    # #     nodeArea = 0
+    # #     nodeNum = 0
+    # #     nodeAreaNotDivided = 0
+    # #     for outNeighborElemFace in outNeighborElemFaces:
+    # #         # msg("outNeighborElemFace: " + str(outNeighborElemFace))
+    # #         nodeArea += outNeighborElemFace.elemFaceArea / len(outNeighborElemFace.nodes.corners)
+    # #         nodeNum += len(outNeighborElemFace.nodes.corners)
+    # #         nodeAreaNotDivided += outNeighborElemFace.elemFaceArea
+    # #         # nodeNormal = outNeighborElemFace.
+    # #         # msg("done ")
+    # #
+    # #     nodeAreas[n.id] = nodeArea
+    # #     nodeAreasNotDivided[n.id] = nodeAreaNotDivided
+    # #     nodeNums[n.id] = nodeNum
+    # # sumArea = 0
+    # # sumAreasNotDivided = 0
+    # # sumNodeNums = 0
+    #
+    # # for valNodeAreas, valNodeAreasNotDivided, valNodeNums in zip(nodeAreas.values(), nodeAreasNotDivided.values(), nodeNums.values()):
+    # #     sumArea += valNodeAreas
+    # #     sumAreasNotDivided += valNodeAreasNotDivided
+    # #     sumNodeNums += valNodeNums
+    # # msg("nodeAreas: "+ str(nodeAreas))
+    # # msg("nodeAreasNotDivided: "+ str(nodeAreasNotDivided))
+    # # msg("nodeNums: "+ str(nodeNums))
+    # #
+    # # msg("sumArea: "+ str(sumArea))
+    # # msg("sumAreasNotDivided: "+ str(sumAreasNotDivided))
+    # # msg("sumNodeNums: "+ str(sumNodeNums))
+    #
+    #
+    #
+    # # U = res.GetResult("U")
+    # # UVals = U.GetNodeValues(elemFaces.nodes.info.Ids)
