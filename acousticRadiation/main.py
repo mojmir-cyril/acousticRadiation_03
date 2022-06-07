@@ -212,6 +212,7 @@ def plotData(object):#elemFaces, dataDict, specDataDict, analysis, freq):
 @callback
 def CreateERPObj(analysis):
     msg("CreateERPObj")
+    # analysis.CreatePostObject("ERPPostObj", "acousticRadiation")
     try:
         with Transaction():
             analysis.CreatePostObject("ERPPostObj", "acousticRadiation")

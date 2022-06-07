@@ -29,7 +29,7 @@
                     </callbacks>
                 </entry>
             </entry>
-             <entry name="Evaluated over Frequency Range" icon="icon_environment_acoustic_radiation_boundary_16x16">
+            <entry name="Evaluated over Frequency Range" icon="icon_environment_acoustic_radiation_boundary_16x16">
                 <entry name="ERP for Frequency Range" icon="icon_environment_acoustic_radiation_boundary_16x16">
                     <callbacks>
                         <onclick>CreateERPRangeObj</onclick>
@@ -120,7 +120,7 @@
 
 
 
-        <object name="ERPRangePostObj" version="1" caption="ERP"
+        <object name="ERPRangePostObj" version="1" caption="ERP - Freq. Range"
                 icon="icon_environment_acoustic_radiation_boundary_16x16" color="transparent">
             <target type="analysis" location="post"/>
 
@@ -143,17 +143,29 @@
             <propertygroup name="Results">
                 <property name="OverallERP" caption="Overall ERP" control="float" readonly="true" unit="heat rate" default="0 [W]" isparameter="true"></property>
                 <property name="OverallERPlevel" caption="Overall ERP level" control="float" readonly="true" unit="sound pressure level" default="0 [dB]" isparameter="true"></property>
+                <property name="dataDict" caption="dataDict" control="float" readonly="true" visible="false"></property>
+                <property name="specDataDict" caption="specDataDict" control="float" readonly="true" visible="false"></property>
+                <property name="dictResults" caption="dictResults" control="float" readonly="true" visible="false"></property>
+
             </propertygroup>
+
         </object>
 
-        <object name="ERPLevelRangePostObj" version="1" caption="ERP Level"
+        <object name="ERPLevelRangePostObj" version="1" caption="ERP Level - Freq. Range"
                 icon="icon_environment_acoustic_radiation_boundary_16x16" color="transparent">
             <target type="analysis" location="post"/>
 
-            <propertygroup name="Settings">
+                        <propertygroup name="Settings">
                 <property name="NonVisibleGeometry" caption="Geometry" control="scoping" visible="false"></property>
                 <property name="Geometry" caption="Geometry" control="scoping"></property>
-                <property name="Frequency" caption="Frequency [Hz]" control="float">
+                <property name="FrequencyRange" caption="Frequency Range" control="select" default="Full Range">
+                    <attributes options="Full Range, User Defined"/>
+                </property>
+                <property name="MinFrequency" caption="Min Frequency [Hz]" control="float" >
+                    <callbacks><onvalidate>onValidate</onvalidate></callbacks>
+                    <callbacks><isvalid>isValidFreq</isvalid></callbacks>
+                </property>
+                <property name="MaxFrequency" caption="Max Frequency [Hz]" control="float">
                     <callbacks><onvalidate>onValidate</onvalidate></callbacks>
                     <callbacks><isvalid>isValidFreq</isvalid></callbacks>
                 </property>
@@ -162,27 +174,43 @@
             <propertygroup name="Results">
                 <property name="OverallERP" caption="Overall ERP" control="float" readonly="true" unit="heat rate" default="0 [W]" isparameter="true"></property>
                 <property name="OverallERPlevel" caption="Overall ERP level" control="float" readonly="true" unit="sound pressure level" default="0 [dB]" isparameter="true"></property>
+                <property name="dataDict" caption="dataDict" control="float" readonly="true" visible="false"></property>
+                <property name="specDataDict" caption="specDataDict" control="float" readonly="true" visible="false"></property>
+                <property name="dictResults" caption="dictResults" control="float" readonly="true" visible="false"></property>
+
             </propertygroup>
         </object>
 
-        <object name="NormalVelRangePostObj" version="1" caption="Normal Velocity"
+        <object name="NormalVelRangePostObj" version="1" caption="Normal Velocity - Freq. Range"
                 icon="icon_environment_acoustic_radiation_boundary_16x16" color="transparent">
             <target type="analysis" location="post"/>
+
 
             <propertygroup name="Settings">
                 <property name="NonVisibleGeometry" caption="Geometry" control="scoping" visible="false"></property>
                 <property name="Geometry" caption="Geometry" control="scoping"></property>
-                <property name="Frequency" caption="Frequency [Hz]" control="float">
+                <property name="FrequencyRange" caption="Frequency Range" control="select" default="Full Range">
+                    <attributes options="Full Range, User Defined"/>
+                </property>
+                <property name="MinFrequency" caption="Min Frequency [Hz]" control="float" >
+                    <callbacks><onvalidate>onValidate</onvalidate></callbacks>
+                    <callbacks><isvalid>isValidFreq</isvalid></callbacks>
+                </property>
+                <property name="MaxFrequency" caption="Max Frequency [Hz]" control="float">
                     <callbacks><onvalidate>onValidate</onvalidate></callbacks>
                     <callbacks><isvalid>isValidFreq</isvalid></callbacks>
                 </property>
                 <property name="numberOfColors" caption="Number of color bands" control="integer" default="9"></property>
-
             </propertygroup>
             <propertygroup name="Results">
                 <property name="MinVelocity" caption="Min Velocity" control="float" readonly="true" unit="velocity" default="0 [m s^-1]" isparameter="true"></property>
                 <property name="MaxVelocity" caption="Max Velocity" control="float" readonly="true" unit="velocity" default="0 [m s^-1]" isparameter="true"></property>
+                <property name="dataDict" caption="dataDict" control="float" readonly="true" visible="false"></property>
+                <property name="specDataDict" caption="specDataDict" control="float" readonly="true" visible="false"></property>
+                <property name="dictResults" caption="dictResults" control="float" readonly="true" visible="false"></property>
+
             </propertygroup>
+
         </object>
 
 
