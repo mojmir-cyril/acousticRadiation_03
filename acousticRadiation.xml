@@ -2,6 +2,7 @@
     <script src="decorators.py"/>
     <script src="main.py"/>
     <script src="ObjectController.py"/>
+    <script src="units.py"/>
     <interface context="Mechanical">
         <images>images</images>
         <callbacks>
@@ -9,6 +10,8 @@
             <onload>onLoad</onload>
             <onReady>OnReady</onReady>
             <resume>Resume</resume>
+            <OnUnitsChanged>OnUnitsChanged</OnUnitsChanged>
+
 
         </callbacks>
         <toolbar name="acousticRadiation" caption="acousticRadiation">

@@ -429,7 +429,14 @@ namespace SVSEntityManagerF472
                                     
         }
 
-
+        /// <summary>
+        /// gets averaged results for element face in solver unit system unit, each component (eg. Ux, Uy, Uz)
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="ResultName"></param>
+        /// <param name="analysis"></param>
+        /// <param name="resData"></param>
+        /// <returns></returns>
         public List<double> GetElemFaceResult(double freq, string ResultName, Ansys.ACT.Automation.Mechanical.Analysis analysis, Ansys.ACT.Interfaces.Post.IResultReader resData)
         {
             //DateTime time1 = DateTime.Now;
@@ -470,24 +477,46 @@ namespace SVSEntityManagerF472
             //em.logger.Msg($"timeDiff76   : {(time7 - time6).TotalMilliseconds  } ms");
             return elemFaceresValComps;
         }
-
+        /// <summary>
+        /// gets value of element face normal displacement U in meters [m]
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="analysis"></param>
+        /// <param name="resData"></param>
+        /// <returns></returns>
         public double GetElemFaceNormalU(double freq, Ansys.ACT.Automation.Mechanical.Analysis analysis, Ansys.ACT.Interfaces.Post.IResultReader resData)
         {
             List<double> efU = GetElemFaceResult(freq, "U", analysis, resData);
-            
-           
+
             Vector<double> normalVect = Vector<double>.Build.DenseOfArray(globalNormal.xyz);
             Vector<double> efUVect = Vector<double>.Build.DenseOfArray(efU.ToArray());
-            
-            return normalVect * efUVect;
-        }
+            double efNormalU = normalVect * efUVect;
+            string solverUnit = analysis.CurrentConsistentUnitFromQuantityName("Length");
+            double efNormalUinMeters = Ansys.Core.Units.UnitsManager.ConvertUnit(efNormalU, solverUnit, "m", "Length");
 
+
+            return efNormalUinMeters;
+        }
+        /// <summary>
+        /// gets value of element face normal velocity V in meters per second [m/s]
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="analysis"></param>
+        /// <param name="resData"></param>
+        /// <returns></returns>
         public double GetElemFaceNormalV(double freq, Ansys.ACT.Automation.Mechanical.Analysis analysis, Ansys.ACT.Interfaces.Post.IResultReader resData)
         {
             double          omega   = 2 * Math.PI * freq;
 
             return GetElemFaceNormalU(freq, analysis, resData) * omega;
         }
+        /// <summary>
+        /// gets value of element face specific ERP (euquivalent radiated power) in watts per meters squared [W/m**2]
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="analysis"></param>
+        /// <param name="resData"></param>
+        /// <returns></returns>
         public double GetElemFaceSpecERP(double freq, Ansys.ACT.Automation.Mechanical.Analysis analysis, Ansys.ACT.Interfaces.Post.IResultReader resData)
         {
             double ro = 1.2041; // air density [kg/m**3]
@@ -495,12 +524,26 @@ namespace SVSEntityManagerF472
             
             return ro * c / 2.0 * Math.Pow(GetElemFaceNormalV(freq, analysis, resData), 2);
         }
+        /// <summary>
+        /// gets value of element face ERP (euquivalent radiated power) in watts [W]
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="analysis"></param>
+        /// <param name="resData"></param>
+        /// <returns></returns>
         public double GetElemFaceERP(double freq, Ansys.ACT.Automation.Mechanical.Analysis analysis, Ansys.ACT.Interfaces.Post.IResultReader resData)
         {
             double specERP = GetElemFaceSpecERP(freq, analysis, resData);
 
             return specERP * elemFaceArea;
         }
+        /// <summary>
+        /// gets value of element face specific ERP Level (euquivalent radiated power level) in decibells [dB]
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="analysis"></param>
+        /// <param name="resData"></param>
+        /// <returns></returns>
         public double GetElemFaceSpecERPLevel(double freq, Ansys.ACT.Automation.Mechanical.Analysis analysis, Ansys.ACT.Interfaces.Post.IResultReader resData)
         {
             double speERP = GetElemFaceSpecERP(freq, analysis, resData);
@@ -508,6 +551,13 @@ namespace SVSEntityManagerF472
             if (speERP <= WRef) { return 0; }
             else { return 10 * Math.Log10(speERP / WRef); }
         }
+        /// <summary>
+        /// gets value of element face ERP Level (euquivalent radiated power level) in decibells [dB]
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="analysis"></param>
+        /// <param name="resData"></param>
+        /// <returns></returns>
         public double GetElemFaceERPLevel(double freq, Ansys.ACT.Automation.Mechanical.Analysis analysis, Ansys.ACT.Interfaces.Post.IResultReader resData)
         {
             double ERP = GetElemFaceERP(freq, analysis, resData);

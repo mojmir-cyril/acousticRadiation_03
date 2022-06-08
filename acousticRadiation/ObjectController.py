@@ -2,6 +2,14 @@ wrn("ObjectController")
 
 class ObjectController():
 
+    unitDict = {"ERPPostObj"            :"Power",
+                "ERPLevelPostObj"       :"Sound Pressure Level",
+                "NormalVelPostObj"      :"Velocity",
+                "ERPRangePostObj"       :"Power",
+                "ERPLevelRangePostObj"  :"Sound Pressure Level",
+                "NormalVelRangePostObj" :"Velocity"}
+
+
     @callback
     def __init__(self, ExtAPI, object):
         msg("onInitCtrl")
@@ -16,6 +24,9 @@ class ObjectController():
         self.decimalPlacePrecision  = 4
         self.object                 = object
         self.updated                = False
+        self.lengthUnitWhenGenerated= None
+        self.currentLengthUnit      = GetCurrentCompactUnitString("Length")
+
         if not "isDefPropertiesSet" in dir(self):
             self.isDefPropertiesSet = False
 
@@ -43,6 +54,10 @@ class ObjectController():
         self.elemFaces              = self.scopeGeomEnts.elemFaces.Update()
         self.numberOfColors         = int(self.object.Properties["Settings/numberOfColors"].Value)
         self.decimalPlacePrecision  = 4
+        self.quantityName           = self.unitDict[self.object.Name]
+        self.currentUnit            = GetCurrentCompactUnitString(self.quantityName)
+        self.currentLengthUnit      = GetCurrentCompactUnitString("Length")
+
         msg("before if")
         msg("bool 1:" + str(self.object.State))
         msg("bool 2:" + str(self.object.Properties["Results/specDataDict"].Value != None))
@@ -112,6 +127,8 @@ class ObjectController():
         msg("onShow")
         msg("ObjCaption: " + object.Caption)
 
+        self.updateProperties()
+
         global prevObj
         global prevModelDisplay
         global prevVisibleBodies
@@ -173,8 +190,7 @@ class ObjectController():
         object.Properties["Results/specDataDict"].Value = self.specDataDict
         # object.Properties["Results/dictResults"].Value  = self.dictResults
 
-
-
+        self.lengthUnitWhenGenerated = GetCurrentCompactUnitString("Length")
         func(100, "Done Generating Data")
         return ExtAPI.Application.InvokeUIThread(UIThread, object)
 

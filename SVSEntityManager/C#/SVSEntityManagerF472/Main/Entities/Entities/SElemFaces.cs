@@ -315,6 +315,8 @@ namespace SVSEntityManagerF472
             }
         }
 
+
+
         private void DrawLegend(double freq, Ansys.ACT.Automation.Mechanical.Analysis analysis, SColors colorsObj, string type, string unit)
         {
             SAnnoLegend legend = new SAnnoLegend(em, y1: 20);
@@ -322,7 +324,12 @@ namespace SVSEntityManagerF472
 
             legend.DrawAnnoLegend(colors: colorsObj.bands, head1: head1);
         }
-
+        /// <summary>
+        /// unit in [m/s]
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="analysis"></param>
+        /// <returns></returns>
         public Dictionary<Tuple<int, int>, double> GetDictNormalV(double freq, Ansys.ACT.Automation.Mechanical.Analysis analysis)
         {
             Ansys.ACT.Interfaces.Post.IResultReader resData = analysis.GetResultsData();
@@ -336,7 +343,12 @@ namespace SVSEntityManagerF472
 
             return dictNormalV;
         }
-
+        /// <summary>
+        /// unit in [W/m**2]
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="analysis"></param>
+        /// <returns></returns>
         public Dictionary<Tuple<int, int>, double> GetDictSpecERP(double freq, Ansys.ACT.Automation.Mechanical.Analysis analysis)
         {
             Ansys.ACT.Interfaces.Post.IResultReader resData = analysis.GetResultsData();
@@ -351,6 +363,12 @@ namespace SVSEntityManagerF472
 
             return dictSpecERP;
         }        
+        /// <summary>
+        /// unit in [W]
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="analysis"></param>
+        /// <returns></returns>
         public Dictionary<Tuple<int, int>, double> GetDictERP(double freq, Ansys.ACT.Automation.Mechanical.Analysis analysis)
         {
             Ansys.ACT.Interfaces.Post.IResultReader resData = analysis.GetResultsData();
@@ -365,7 +383,12 @@ namespace SVSEntityManagerF472
 
             return dictERP;
         }
-
+        /// <summary>
+        /// unit in [dB]
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="analysis"></param>
+        /// <returns></returns>
         public Dictionary<Tuple<int, int>, double> GetDictSpecERPLevel(double freq, Ansys.ACT.Automation.Mechanical.Analysis analysis)
         {
             Ansys.ACT.Interfaces.Post.IResultReader resData = analysis.GetResultsData();
@@ -379,6 +402,12 @@ namespace SVSEntityManagerF472
 
             return dictSpecERPLevel;
         }
+        /// <summary>
+        /// unit in [dB]
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="analysis"></param>
+        /// <returns></returns>
         public Dictionary<Tuple<int, int>, double> GetDictERPLevel(double freq, Ansys.ACT.Automation.Mechanical.Analysis analysis)
         {
             Ansys.ACT.Interfaces.Post.IResultReader resData = analysis.GetResultsData();

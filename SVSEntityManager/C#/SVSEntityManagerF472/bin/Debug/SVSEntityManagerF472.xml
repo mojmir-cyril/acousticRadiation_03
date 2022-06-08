@@ -471,6 +471,46 @@
             <param name="func">SElemFace, SElemFace, bool</param>
             <returns>new SElemFaces</returns>
         </member>
+        <member name="M:SVSEntityManagerF472.SElemFaces.GetDictNormalV(System.Double,Ansys.ACT.Automation.Mechanical.Analysis)">
+            <summary>
+            unit in [m/s]
+            </summary>
+            <param name="freq"></param>
+            <param name="analysis"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SVSEntityManagerF472.SElemFaces.GetDictSpecERP(System.Double,Ansys.ACT.Automation.Mechanical.Analysis)">
+            <summary>
+            unit in [W/m**2]
+            </summary>
+            <param name="freq"></param>
+            <param name="analysis"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SVSEntityManagerF472.SElemFaces.GetDictERP(System.Double,Ansys.ACT.Automation.Mechanical.Analysis)">
+            <summary>
+            unit in [W]
+            </summary>
+            <param name="freq"></param>
+            <param name="analysis"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SVSEntityManagerF472.SElemFaces.GetDictSpecERPLevel(System.Double,Ansys.ACT.Automation.Mechanical.Analysis)">
+            <summary>
+            unit in [dB]
+            </summary>
+            <param name="freq"></param>
+            <param name="analysis"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SVSEntityManagerF472.SElemFaces.GetDictERPLevel(System.Double,Ansys.ACT.Automation.Mechanical.Analysis)">
+            <summary>
+            unit in [dB]
+            </summary>
+            <param name="freq"></param>
+            <param name="analysis"></param>
+            <returns></returns>
+        </member>
         <member name="T:SVSEntityManagerF472.SNodes">
             <summary>
             Class/instance of SNodes is collection of SNode objects. 
@@ -1120,6 +1160,70 @@
             <summary>
             updates (re-creates) element faces (e.g. coords after morphing)
             </summary>
+        </member>
+        <member name="M:SVSEntityManagerF472.SElemFace.GetElemFaceResult(System.Double,System.String,Ansys.ACT.Automation.Mechanical.Analysis,Ansys.ACT.Interfaces.Post.IResultReader)">
+            <summary>
+            gets averaged results for element face in solver unit system unit, each component (eg. Ux, Uy, Uz)
+            </summary>
+            <param name="freq"></param>
+            <param name="ResultName"></param>
+            <param name="analysis"></param>
+            <param name="resData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SVSEntityManagerF472.SElemFace.GetElemFaceNormalU(System.Double,Ansys.ACT.Automation.Mechanical.Analysis,Ansys.ACT.Interfaces.Post.IResultReader)">
+            <summary>
+            gets value of element face normal displacement U in meters [m]
+            </summary>
+            <param name="freq"></param>
+            <param name="analysis"></param>
+            <param name="resData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SVSEntityManagerF472.SElemFace.GetElemFaceNormalV(System.Double,Ansys.ACT.Automation.Mechanical.Analysis,Ansys.ACT.Interfaces.Post.IResultReader)">
+            <summary>
+            gets value of element face normal velocity V in meters per second [m/s]
+            </summary>
+            <param name="freq"></param>
+            <param name="analysis"></param>
+            <param name="resData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SVSEntityManagerF472.SElemFace.GetElemFaceSpecERP(System.Double,Ansys.ACT.Automation.Mechanical.Analysis,Ansys.ACT.Interfaces.Post.IResultReader)">
+            <summary>
+            gets value of element face specific ERP (euquivalent radiated power) in watts per meters squared [W/m**2]
+            </summary>
+            <param name="freq"></param>
+            <param name="analysis"></param>
+            <param name="resData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SVSEntityManagerF472.SElemFace.GetElemFaceERP(System.Double,Ansys.ACT.Automation.Mechanical.Analysis,Ansys.ACT.Interfaces.Post.IResultReader)">
+            <summary>
+            gets value of element face ERP (euquivalent radiated power) in watts [W]
+            </summary>
+            <param name="freq"></param>
+            <param name="analysis"></param>
+            <param name="resData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SVSEntityManagerF472.SElemFace.GetElemFaceSpecERPLevel(System.Double,Ansys.ACT.Automation.Mechanical.Analysis,Ansys.ACT.Interfaces.Post.IResultReader)">
+            <summary>
+            gets value of element face specific ERP Level (euquivalent radiated power level) in decibells [dB]
+            </summary>
+            <param name="freq"></param>
+            <param name="analysis"></param>
+            <param name="resData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SVSEntityManagerF472.SElemFace.GetElemFaceERPLevel(System.Double,Ansys.ACT.Automation.Mechanical.Analysis,Ansys.ACT.Interfaces.Post.IResultReader)">
+            <summary>
+            gets value of element face ERP Level (euquivalent radiated power level) in decibells [dB]
+            </summary>
+            <param name="freq"></param>
+            <param name="analysis"></param>
+            <param name="resData"></param>
+            <returns></returns>
         </member>
         <member name="T:SVSEntityManagerF472.SElem">
             <summary>

@@ -54,7 +54,7 @@ def createEmAndEmw():
     if "em" not in globals():
         global em, emw
         em = EM()
-        em.Units("m", "rad", "kg")
+        em.Units("m", "rad", "kg") # units
         emw = EM_whole()
 
 @callback
@@ -119,6 +119,15 @@ def isValidFreq(object, prop):
     if treeAnalysis.AnalysisSettings.RangeMinimum.Value > prop.Value or prop.Value > treeAnalysis.AnalysisSettings.RangeMaximum.Value:
         return False
     else: return True
+
+def OnUnitsChanged(*args):
+    msg("OnUnitsChanged")
+    # for extObj in DataModel.GetUserObjects(extName):
+    #     try:
+    #         extObj.Controller.unit= None
+    #         msg("dictResults deleted")
+    #     except Exception as e:
+    #         pass
 
 def GetDataDict(object):
     """
@@ -195,16 +204,19 @@ def plotData(object):#elemFaces, dataDict, specDataDict, analysis, freq):
 
     # if dictResults
 
+    if
+
+
     if      object.Name == "ERPPostObj":
-        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power", unit="W/m^2")
+        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power", unit=GetCurrentCompactUnitString("Heat Flux"))
         object.Properties["Results/OverallERP"].Value       = round(sum(dataDict.Values), decimalPlacePrecision)
         object.Properties["Results/OverallERPlevel"].Value  = round(10 * log10(sum(dataDict.Values) / WRef), decimalPlacePrecision)
     elif    object.Name == "ERPLevelPostObj":
-        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power Level", unit="dB")
+        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power Level", unit=GetCurrentCompactUnitString("Sound Pressure Level"))
         object.Properties["Results/OverallERP"].Value       = round(sum(dataDict.Values), decimalPlacePrecision)
         object.Properties["Results/OverallERPlevel"].Value  = round(10 * log10(sum(dataDict.Values) / WRef), decimalPlacePrecision)
     elif    object.Name == "NormalVelPostObj":
-        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power", unit="m/s")
+        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power", unit=GetCurrentCompactUnitString("Velocity"))
         object.Properties["Results/MinVelocity"].Value      = round(min(dataDict.Values), decimalPlacePrecision)
         object.Properties["Results/MaxVelocity"].Value      = round(max(dataDict.Values), decimalPlacePrecision)
     ExtAPI.Graphics.Scene.Visible = True  # umi ukazat nebo schovat vykreslene
