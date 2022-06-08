@@ -99,7 +99,7 @@ def OnTerminate(context):
             extObj.Properties["Results/dictResults"].Value = None
             msg("dictResults deleted")
         except Exception as e:
-            pass
+            err(str(e))
 
 @callback
 def onValidate(*object):
@@ -147,16 +147,20 @@ def GetDataDict(object):
     elemFaces       = controller.elemFaces
 
     msg("1")
-
+    """
+    dataDict - used for values that include area multiplication like ERP (ERP = specific ERP * area)
+    specDataDict - used for specific values (area is not used for its calculation)
+    
+    """
     if      object.Name == "ERPPostObj":
         dataDict        = elemFaces.GetDictERP(freq, analysis)
         specDataDict    = elemFaces.GetDictSpecERP(freq, analysis)
     elif    object.Name == "ERPLevelPostObj":
-        dataDict        = elemFaces.GetDictERPLevel(freq, analysis)
+        dataDict        = elemFaces.GetDictERP(freq, analysis)
         specDataDict    = elemFaces.GetDictSpecERPLevel(freq, analysis)
     elif    object.Name == "NormalVelPostObj":
         dataDict        = elemFaces.GetDictNormalV(freq, analysis)
-        specDataDict    = dataDict
+        specDataDict    = dataDict # exception from rule... specDataDict for normal velocities contains the same data as dataDict, no area of elem faces is accounted in dataDict
 
     msg("2")
 
@@ -171,10 +175,10 @@ def recontructResults(object, specDataDict):
     """
     make results plotable -> from dictionary {(elemId, elemFaceId) : result} to dictionary {SElemFace : result}
     :param object:
-    :return:
+    :return: dictResults - data, that are used for ploting
     """
-    efsList         = []
-    controller      = object.Controller
+    # efsList         = []
+    # controller      = object.Controller
     # dictResults = System.Collections.Generic.Dictionary[System.Tuple[System.Int32, System.Int32], System.Double]()
     dictResults     = System.Collections.Generic.Dictionary[emw.SElemFace, System.Double]()
     for keyVal in specDataDict:
@@ -184,11 +188,13 @@ def recontructResults(object, specDataDict):
 
 def convertDictUnits(dict, fromUnit, toUnit):
     msg("convertDictUnits")
-    convertedDict = dict.GetType()()
-    for keyVal in dict:
-        convertedDict[keyVal.Key] = ConvertUnit(keyVal.Value, fromUnit, toUnit, quantityName=None)
-    return convertedDict
-
+    try:
+        convertedDict = dict.GetType()()
+        for keyVal in dict:
+            convertedDict[keyVal.Key] = ConvertUnit(keyVal.Value, fromUnit, toUnit, quantityName=None)
+        return convertedDict
+    except Exception as e:
+        err(str(e))
 
 def plotData(object):#elemFaces, dataDict, specDataDict, analysis, freq):
     controller              = object.Controller

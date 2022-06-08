@@ -11,6 +11,8 @@
             <onReady>OnReady</onReady>
             <resume>Resume</resume>
             <OnUnitsChanged>OnUnitsChanged</OnUnitsChanged>
+            <onterminate>OnTerminate</onterminate>
+
 
 
         </callbacks>

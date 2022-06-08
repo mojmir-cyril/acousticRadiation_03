@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 wrn("ObjectController")
 import units
 wrn("units imported")
@@ -10,10 +11,24 @@ class ObjectController():
                 "ERPLevelRangePostObj"  :"Sound Pressure Level",
                 "NormalVelRangePostObj" :"Velocity"}
 
-    mksUnitDict = {"ERPPostObj"            :"W",
+    specQuantityDict = {"ERPPostObj"    :"Heat Flux",
+                "ERPLevelPostObj"       :"Sound Pressure Level",
+                "NormalVelPostObj"      :"Velocity",
+                "ERPRangePostObj"       :"Heat Flux",
+                "ERPLevelRangePostObj"  :"Sound Pressure Level",
+                "NormalVelRangePostObj" :"Velocity"}
+
+    mksUnitDict = {"ERPPostObj"          :"W",
                 "ERPLevelPostObj"       :"dB",
                 "NormalVelPostObj"      :"m/s",
                 "ERPRangePostObj"       :"W",
+                "ERPLevelRangePostObj"  :"dB",
+                "NormalVelRangePostObj" :"m/s"}
+
+    mksSpecUnitDict = {"ERPPostObj"     :"W/m^2",
+                "ERPLevelPostObj"       :"dB",
+                "NormalVelPostObj"      :"m/s",
+                "ERPRangePostObj"       :"W/m^2",
                 "ERPLevelRangePostObj"  :"dB",
                 "NormalVelRangePostObj" :"m/s"}
 
@@ -35,10 +50,15 @@ class ObjectController():
         self.updated                = False
         msg("2")
         self.quantityName           = self.quantityDict[self.object.Name]
-        self.currentUnit            = units.GetCurrentCompactUnitString(self.quantityName)
+        self.currentUnit            = units.GetCurrentCompactUnitString(self.quantityName).replace("²", "^2")
+        self.specQuantityName       = self.specQuantityDict[self.object.Name]
+        wrn("before specUnit")
+        self.currentSpecUnit        = units.GetCurrentCompactUnitString(self.specQuantityName).replace("²", "^2")
+        wrn("after specUnit")
         msg("3")
 
-        self.mksUnit                = self.mksUnitDict[self.object.Name]
+        self.mksUnit                = self.mksUnitDict[self.object.Name].replace("²", "^2")
+        self.mksSpecUnit            = self.mksSpecUnitDict[self.object.Name].replace("²", "^2")
         self.unitWhenShowed         = self.mksUnit
         msg("4")
 
@@ -70,17 +90,30 @@ class ObjectController():
         self.numberOfColors         = int(self.object.Properties["Settings/numberOfColors"].Value)
         self.decimalPlacePrecision  = 4
         self.quantityName           = self.quantityDict[self.object.Name]
-        self.currentUnit            = units.GetCurrentCompactUnitString(self.quantityName)
+        self.currentUnit            = units.GetCurrentCompactUnitString(self.quantityName).replace("²", "^2")
+        self.specQuantityName       = self.specQuantityDict[self.object.Name]
+        wrn("before specUnit")
+        self.currentSpecUnit        = units.GetCurrentCompactUnitString(self.specQuantityName).replace("²", "^2")
+        wrn("after specUnit")
 
         msg("before if")
         msg("bool 1:" + str(self.object.State))
         msg("bool 2:" + str(self.object.Properties["Results/specDataDict"].Value != None))
         if self.object.Properties["Results/specDataDict"].Value != None: # set(["dataDict", "specDataDict", "dictResults"]).issubset([i.UniqueName for i in self.object.AllProperties])):
             try:
-                pass
+                ##################################
                 self.dataDict       = self.object.Properties["Results/dataDict"].Value
                 self.specDataDict   = self.object.Properties["Results/specDataDict"].Value
                 self.dictResults    = recontructResults(self.object, self.specDataDict)
+
+                self.dataDict       = convertDictUnits(self.dataDict, self.mksUnit, self.currentUnit)
+                wrn(self.mksSpecUnit)
+                wrn(self.currentSpecUnit)
+                self.specDataDict   = convertDictUnits(self.specDataDict, self.mksSpecUnit, self.currentSpecUnit)
+
+                self.dictResults    = convertDictUnits(self.dictResults, self.mksSpecUnit, self.currentSpecUnit)
+
+                ##################################
                 msg("data revived from treeObj properties")
             except Exception as e:
                 msg("Error when updating properties (class ObjectController, method updateProperties)" + str(e))
@@ -96,7 +129,7 @@ class ObjectController():
                 self.updated = True
 
         except Exception as e:
-            pass
+            err(str(e))
         return True
 
     @callback
@@ -134,9 +167,9 @@ class ObjectController():
     @callback
     def onshow(self, object):
         """
-        
-        :param object: 
-        :return: 
+
+        :param object:
+        :return:
         """
         msg("onShow")
         msg("ObjCaption: " + object.Caption)
@@ -158,11 +191,9 @@ class ObjectController():
             if self.dictResults != None and object.ObjectId == Tree.ActiveObjects[length-1].ObjectId:
                 # plotResults(object)
                 msg("a1")
-                if self.unitWhenShowed != self.currentUnit:
-                    msg("a2")
-                    self.dataDict = convertDictUnits(self.dataDict, self.mksUnit, self.currentUnit)
-                    self.specDataDict = convertDictUnits(self.specDataDict, self.mksUnit, self.currentUnit)
-                    self.dictResults = convertDictUnits(self.dictResults, self.mksUnit, self.currentUnit)
+                # if self.unitWhenShowed != self.currentUnit:
+                msg("a2")
+
 
                 self.unitWhenShowed = units.GetCurrentCompactUnitString(self.quantityName)
                 msg("a3")
@@ -212,9 +243,9 @@ class ObjectController():
             return state, dataDict, specDataDict, dictResults
         self.state, self.dataDict, self.specDataDict, self.dictResults = ExtAPI.Application.InvokeUIThread(UIThread, object)
 
-        object.Properties["Results/dataDict"].Value     = self.dataDict
-        object.Properties["Results/specDataDict"].Value = self.specDataDict
-        # object.Properties["Results/dictResults"].Value  = self.dictResults
+        object.Properties["Results/dataDict"].Value     = self.dataDict     # saved without conversion -> in mks
+        object.Properties["Results/specDataDict"].Value = self.specDataDict # saved without conversion -> in mks
+        # object.Properties["Results/dictResults"].Value  = self.dictResults  # saved without conversion -> in mks
 
         func(100, "Done Generating Data")
         return ExtAPI.Application.InvokeUIThread(UIThread, object)
@@ -224,7 +255,7 @@ class ObjectController():
         msg("onAfterGenerate")
         length = Tree.ActiveObjects.Count
         if object.ObjectId == Tree.ActiveObjects[length-1].ObjectId:
-            onshow(self, object)
+            self.onshow(object)
 
     @callback
     def onhide(self, object):
