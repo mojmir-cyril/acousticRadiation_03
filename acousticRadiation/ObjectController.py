@@ -1,13 +1,21 @@
 wrn("ObjectController")
-
+import units
+wrn("units imported")
 class ObjectController():
 
-    unitDict = {"ERPPostObj"            :"Power",
+    quantityDict = {"ERPPostObj"        :"Power",
                 "ERPLevelPostObj"       :"Sound Pressure Level",
                 "NormalVelPostObj"      :"Velocity",
                 "ERPRangePostObj"       :"Power",
                 "ERPLevelRangePostObj"  :"Sound Pressure Level",
                 "NormalVelRangePostObj" :"Velocity"}
+
+    mksUnitDict = {"ERPPostObj"            :"W",
+                "ERPLevelPostObj"       :"dB",
+                "NormalVelPostObj"      :"m/s",
+                "ERPRangePostObj"       :"W",
+                "ERPLevelRangePostObj"  :"dB",
+                "NormalVelRangePostObj" :"m/s"}
 
 
     @callback
@@ -15,6 +23,7 @@ class ObjectController():
         msg("onInitCtrl")
 
         createEmAndEmw()
+        msg("1")
 
         global prevObj
         prevObj = object
@@ -24,8 +33,14 @@ class ObjectController():
         self.decimalPlacePrecision  = 4
         self.object                 = object
         self.updated                = False
-        self.lengthUnitWhenGenerated= None
-        self.currentLengthUnit      = GetCurrentCompactUnitString("Length")
+        msg("2")
+        self.quantityName           = self.quantityDict[self.object.Name]
+        self.currentUnit            = units.GetCurrentCompactUnitString(self.quantityName)
+        msg("3")
+
+        self.mksUnit                = self.mksUnitDict[self.object.Name]
+        self.unitWhenShowed         = self.mksUnit
+        msg("4")
 
         if not "isDefPropertiesSet" in dir(self):
             self.isDefPropertiesSet = False
@@ -54,9 +69,8 @@ class ObjectController():
         self.elemFaces              = self.scopeGeomEnts.elemFaces.Update()
         self.numberOfColors         = int(self.object.Properties["Settings/numberOfColors"].Value)
         self.decimalPlacePrecision  = 4
-        self.quantityName           = self.unitDict[self.object.Name]
-        self.currentUnit            = GetCurrentCompactUnitString(self.quantityName)
-        self.currentLengthUnit      = GetCurrentCompactUnitString("Length")
+        self.quantityName           = self.quantityDict[self.object.Name]
+        self.currentUnit            = units.GetCurrentCompactUnitString(self.quantityName)
 
         msg("before if")
         msg("bool 1:" + str(self.object.State))
@@ -117,7 +131,7 @@ class ObjectController():
         self.isDefPropertiesSet      = True
         self.updateProperties()
 
-    @forwardError
+    @callback
     def onshow(self, object):
         """
         
@@ -139,9 +153,20 @@ class ObjectController():
         prevDeformationScaleMultiplier = Graphics.ViewOptions.ResultPreference.DeformationScaleMultiplier
 
         length = Tree.ActiveObjects.Count
+        msg("a0")
         try:
             if self.dictResults != None and object.ObjectId == Tree.ActiveObjects[length-1].ObjectId:
                 # plotResults(object)
+                msg("a1")
+                if self.unitWhenShowed != self.currentUnit:
+                    msg("a2")
+                    self.dataDict = convertDictUnits(self.dataDict, self.mksUnit, self.currentUnit)
+                    self.specDataDict = convertDictUnits(self.specDataDict, self.mksUnit, self.currentUnit)
+                    self.dictResults = convertDictUnits(self.dictResults, self.mksUnit, self.currentUnit)
+
+                self.unitWhenShowed = units.GetCurrentCompactUnitString(self.quantityName)
+                msg("a3")
+
                 try:
                     plotData(object)
                 except Exception as e:
@@ -160,7 +185,8 @@ class ObjectController():
                 ExtAPI.Graphics.ViewOptions.ShowLegend = False
                 ExtAPI.Graphics.ViewOptions.ModelDisplay = ModelDisplay.Wireframe
                 ExtAPI.Graphics.ViewOptions.ShowMesh = True
-        except: pass
+        except Exception as e:
+            err(str(e))
 
     @callback
     def ongenerate(self, object, func):
@@ -190,7 +216,6 @@ class ObjectController():
         object.Properties["Results/specDataDict"].Value = self.specDataDict
         # object.Properties["Results/dictResults"].Value  = self.dictResults
 
-        self.lengthUnitWhenGenerated = GetCurrentCompactUnitString("Length")
         func(100, "Done Generating Data")
         return ExtAPI.Application.InvokeUIThread(UIThread, object)
 
@@ -199,7 +224,7 @@ class ObjectController():
         msg("onAfterGenerate")
         length = Tree.ActiveObjects.Count
         if object.ObjectId == Tree.ActiveObjects[length-1].ObjectId:
-            plotData(object)
+            onshow(self, object)
 
     @callback
     def onhide(self, object):

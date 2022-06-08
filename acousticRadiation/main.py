@@ -122,12 +122,15 @@ def isValidFreq(object, prop):
 
 def OnUnitsChanged(*args):
     msg("OnUnitsChanged")
-    # for extObj in DataModel.GetUserObjects(extName):
-    #     try:
-    #         extObj.Controller.unit= None
-    #         msg("dictResults deleted")
-    #     except Exception as e:
-    #         pass
+    length = Tree.ActiveObjects.Count
+
+    for extObj in DataModel.GetUserObjects(extName):
+        if extObj.ObjectId == Tree.ActiveObjects[length - 1].ObjectId:
+            try:
+                msg("plot on unit change")
+                extObj.Controller.onshow(extObj)
+            except Exception as e:
+                err(str(e))
 
 def GetDataDict(object):
     """
@@ -179,6 +182,14 @@ def recontructResults(object, specDataDict):
         dictResults[ef] = keyVal.Value
     return dictResults
 
+def convertDictUnits(dict, fromUnit, toUnit):
+    msg("convertDictUnits")
+    convertedDict = dict.GetType()()
+    for keyVal in dict:
+        convertedDict[keyVal.Key] = ConvertUnit(keyVal.Value, fromUnit, toUnit, quantityName=None)
+    return convertedDict
+
+
 def plotData(object):#elemFaces, dataDict, specDataDict, analysis, freq):
     controller              = object.Controller
     analysis                = controller.analysis
@@ -204,9 +215,6 @@ def plotData(object):#elemFaces, dataDict, specDataDict, analysis, freq):
 
     # if dictResults
 
-    if
-
-
     if      object.Name == "ERPPostObj":
         elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power", unit=GetCurrentCompactUnitString("Heat Flux"))
         object.Properties["Results/OverallERP"].Value       = round(sum(dataDict.Values), decimalPlacePrecision)
@@ -216,7 +224,7 @@ def plotData(object):#elemFaces, dataDict, specDataDict, analysis, freq):
         object.Properties["Results/OverallERP"].Value       = round(sum(dataDict.Values), decimalPlacePrecision)
         object.Properties["Results/OverallERPlevel"].Value  = round(10 * log10(sum(dataDict.Values) / WRef), decimalPlacePrecision)
     elif    object.Name == "NormalVelPostObj":
-        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Specific Equivalent Radiated Power", unit=GetCurrentCompactUnitString("Velocity"))
+        elemFaces.DrawElemFacesResults(dictResults, analysis, freq=freq, numberOfColors=numberOfColors, type="Normal Velocity", unit=GetCurrentCompactUnitString("Velocity"))
         object.Properties["Results/MinVelocity"].Value      = round(min(dataDict.Values), decimalPlacePrecision)
         object.Properties["Results/MaxVelocity"].Value      = round(max(dataDict.Values), decimalPlacePrecision)
     ExtAPI.Graphics.Scene.Visible = True  # umi ukazat nebo schovat vykreslene
