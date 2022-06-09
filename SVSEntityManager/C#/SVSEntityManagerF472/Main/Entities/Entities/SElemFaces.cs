@@ -303,6 +303,8 @@ namespace SVSEntityManagerF472
         {
             using (em.api.Graphics.Suspend())
             {
+                em.logger.Blue("suspend");
+
                 em.api.Graphics.Scene.Clear();
 
                 colorsObj.CreateBands(numberOfColors, dictResults.Min(x => x.Value), dictResults.Max(x => x.Value));

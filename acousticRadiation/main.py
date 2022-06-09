@@ -132,7 +132,7 @@ def OnUnitsChanged(*args):
             except Exception as e:
                 err(str(e))
 
-def GetDataDict(object):
+def GetDataDict(object, freq):
     """
     gets serializable data
     :param object:
@@ -141,7 +141,7 @@ def GetDataDict(object):
     controller      = object.Controller
     analysis        = controller.analysis
     scopeGeomEnts   = controller.scopeGeomEnts
-    freq            = controller.freq
+    # freq            = controller.freq
     msg("freq: " + str(freq))
     bodies          = controller.bodies
     elemFaces       = controller.elemFaces
@@ -170,6 +170,54 @@ def GetDataDict(object):
     msg("3")
 
     return dataDict, specDataDict
+
+def GetFreqList(object):
+    try:
+        res = object.Analysis.GetResultsData()
+        return [freq for i, freq in enumerate(res.ListTimeFreq) if i % 2 == 0]
+    except Exception as e:
+        err(str(e))
+        return None
+
+def GetDataDictsForFreqs(object, freqList):
+    dataDictForFreqs       = {}
+    specDataDictForFreqs    = {}
+    for freq in freqList:
+        dataDictForFreqs[freq], specDataDictForFreqs[freq] = GetDataDict(object, freq)
+    return dataDictForFreqs, specDataDictForFreqs
+
+def ConvertToElemFaceDataDictForFreqs(dataDictForFreqs):
+    """
+    converts dictionary {freq:dataDict} to dictionary {elemFacesIds:[values for frequencies]}
+    :param dataDictForFreqs:
+    :return:
+    """
+    try:
+        elemFaceDataDictForFreqs = {}
+        firstFreqKey = dataDictForFreqs.keys()[0]
+        firstDataDict = dataDictForFreqs[firstFreqKey]
+        elemFacesIds = firstDataDict.Keys
+
+        for elemFaceIds in elemFacesIds:
+            elemFaceDataDictForFreqs[elemFaceIds] = []
+
+        for freq, dataDict in dataDictForFreqs.items(): #python dictionary containing C# dictionaries
+            for elemFaceIds, value in zip(dataDict.Keys, dataDict.Values):
+                elemFaceDataDictForFreqs[elemFaceIds].append(value)
+        return elemFaceDataDictForFreqs
+    except Exception as e:
+        err(str(e))
+        return None
+
+def SumElemFaceResOverFreqs(elemFaceDataDictForFreqs):
+    try:
+        summedElemFaceDataDictForFreqs = {}
+        for elemFaceIds, listForFreqs in elemFaceDataDictForFreqs.items():
+            summedElemFaceDataDictForFreqs[elemFaceIds] = sum(listForFreqs)
+        return summedElemFaceDataDictForFreqs
+    except Exception as e:
+        err(str(e))
+        return None
 
 def recontructResults(object, specDataDict):
     """
