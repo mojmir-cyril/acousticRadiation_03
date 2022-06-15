@@ -52,3 +52,4 @@ def forwardError(func):
     return __wrapper
 
 print("ahoj")
+print("ahoj")
