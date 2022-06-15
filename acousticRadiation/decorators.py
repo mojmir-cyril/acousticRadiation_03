@@ -50,3 +50,5 @@ def forwardError(func):
             wrn("... elapsed time is {}.{} seconds.".format(duration.seconds, str(duration.microseconds)[0:2]))
         return retVal
     return __wrapper
+
+print("ahoj")
